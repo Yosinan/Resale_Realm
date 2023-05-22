@@ -14,5 +14,5 @@ npm run start
 [Authors](https://github.com/Yosinan/Resale_Realm/blob/main/AUTHORS)
 - Yoseph -> [Github](https://github.com/Yosinan)
 - Lidiya -> [Github](https://github.com/Lindagez)
-- Esrael -> [Github](htps://github.com/esru13)
+- Esrael -> [Github](https://github.com/esru13)
 
