@@ -26,6 +26,7 @@ describe("Test /api/users", () => {
       ).body;
     });
 
+    
     test("gets a user id", () =>
       request(app)
         .get(`/api/users/${user.id}`)

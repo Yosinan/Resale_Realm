@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 
+
 describe("Test the status of the server", () => {
   test("it should return OK", () =>
     request(app)
