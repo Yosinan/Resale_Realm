@@ -1,4 +1,4 @@
-# Inventory Management System
+# Resale Realm 
 
 Its an app that enables users to keep track of products.
 
@@ -11,4 +11,4 @@ npm i  # install node modules
 npm run test   # test your app if it passes
 npm run start
 ```
-[Authors](https://github.com/Yosinan/Inventory_Management_System/blob/main/AUTHORS)
+[Authors](https://github.com/Yosinan/Resale_Realm/blob/main/AUTHORS)
