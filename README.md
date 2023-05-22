@@ -1,6 +1,6 @@
 # Resale Realm 
 
-Its an app that enables users to keep track of products.
+Its an app that enables users to sale and buy secondhand prodcuts for reasonable prices.
 
 ## Getting Started
 
