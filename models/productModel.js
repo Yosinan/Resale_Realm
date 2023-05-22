@@ -1,17 +1,42 @@
 const mongoose = require("mongoose");
-// const User = require("./userModel");
 
 // Create a Mongoose schema for products
 const productSchema = new mongoose.Schema({
-    name: String,
-    unitPrice: Number,
-    stock: Number,
-    description: String,
+    name: {
+      type: String, 
+      required: true 
+    },
+    unitPrice: {
+      type: Number,
+      required: true,
+    },
+    stock: {
+      type: Number,
+      required: true,
+    },
+    description:{
+      type: String,
+      required: true,
+    },
     images: [String],
     category: String,
-    addedBy: String,
+    addedBy: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref:'User', 
+      required: true },
+
 });
   
+productSchema.set("toJSON",
+{
+  transform: (_, obj) => {
+    obj.id = obj._id;
+    delete obj._id;
+    delete obj.__v;
+
+  },
+})
+
   // Create a Mongoose model for products
   const Product = mongoose.model('Product', productSchema);
 
