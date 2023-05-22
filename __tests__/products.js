@@ -18,6 +18,7 @@ describe("Test /api/products", () => {
   test("create a new product", () =>
     request(app).post("/api/products").send(product).expect(201));
 
+    
   test("get all products", async () => {
     await request(app).post("/api/products").send(product);
     await request(app)
