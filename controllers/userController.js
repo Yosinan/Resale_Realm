@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const genToken = require("../authenticate/genToken");
 const User = require("../models/userModel");
 
+
 // Define all APIs 
 
 // Create/Register a new User
