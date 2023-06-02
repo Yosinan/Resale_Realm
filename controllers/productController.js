@@ -17,7 +17,7 @@ const addItem = (req, res) => {
 };
 
 // GET all products
-const getItems = async (req, res) => {
+const getItems = async (req, res, next) => {
     try {
     const products = await Product.find();
      res.send(products);
