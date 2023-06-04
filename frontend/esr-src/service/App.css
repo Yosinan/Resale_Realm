@@ -1,0 +1,177 @@
+*{
+  border: 0;
+  margin: 0;
+  box-sizing: border-box;
+ 
+}
+.App {
+  text-align: center;
+}
+.section-white{
+  background: #fff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+}
+.team-item{
+  background: #c0f0f8;
+  color: #000000;
+  text-align: center;
+  margin: 10px 10px;
+  padding: 10px 20px 20px 30px;
+  border-radius: 8px 8px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+.team-item:hover  {
+  background-color: black;
+  color: #d8d8d8;
+}
+.team-info{
+  display: block;
+  margin-bottom: 0;
+
+}
+.team-info::after{
+  display: inline-block;
+  vertical-align: middle;
+  content: '';
+  width: 50px;
+  height: 3px;
+  margin-top: -20px;
+}
+
+.team-item h3{
+  margin: 20px 0 1px 0 !important;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+
+}
+
+.team-item img{
+  max-width:120px; 
+  padding:5px 5px; 
+  border-radius: 50%;
+}
+
+.team-info p,h3{
+  text-align: center;
+}
+ul.team-icon {
+  margin-top: 25px;
+}
+
+ul.team-icon li{
+  display: inline-block;
+  margin: 2px;
+  padding: 0 2px;
+
+} 
+/* navbar */
+.nav-buttons{
+  margin-left: 60%;
+  
+}
+#home{
+  background-image: url(https://unbounce.com/photos/Gradient-Background.png);
+  width: 100%;
+  height: 130vh;
+  /*background-position-x: ;
+  background-position-y: ;*/
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+#home span{
+  color: aliceblue;
+}
+button{
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  padding: 5px 10px;
+  background-color: rgb(51, 153, 179);
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+}
+button:hover{
+  background-color: rgb(199, 195, 195);
+  color: rgb(12, 12, 12);
+}
+h1{
+  color: #f1f5f7;
+}
+#container p{
+  color: #121d1c;
+}
+.navbar{
+  top: 0;
+  left: 0;
+  font-size: 15px;
+  padding-top: 2rem !important;
+  padding-bottom: 1rem !important;
+  box-shadow: 0 10px 5px rgba(0, 0, 0 ,0.1)
+}
+.navbar-brand{
+  color: #000000;
+}
+.navbar-light .navbar-nav .nav-link{ 
+  padding: 0 14px;
+  transition: 0.1s ease;
+  color: rgb(0, 0, 0);
+}
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar i:hover,
+.navbar-light .navbar-nav .nav-link.active
+.navbar i:hover
+{
+
+  color: rgb(18, 103, 182);
+}
+.navbar i{
+  cursor: pointer;
+  padding: 0 6px;
+  transition: 0.1s ease;
+ 
+}
+@media only screen and (max-width:900px) {
+  .nav-buttons{
+      margin: 55px;
+  }
+  .nav-buttons ul{
+      margin: 1rem;
+      justify-content: flex-start;
+      align-items: flex-start;
+      text-align: left;
+  }
+  .nav-buttons ul .fas{
+      margin: 20px 5px 10px 20px;
+  }
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+footer{
+  background-color: #000;
+ }
+footer {
+  color: #d8d8d8;
+}
+body{
+  font-family: Poppins , sans-serif;
+}
+.icon1{
+  
+}
