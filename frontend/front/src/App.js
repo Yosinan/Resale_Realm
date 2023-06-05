@@ -1,7 +1,9 @@
 import React, { useState } from"react";
 import './App.css';
+import './Services/App.css';
 import { Login } from './Login';
 import { Registration } from './Registration';
+import { Service } from './Services/Service';
 
 
 function App() {
@@ -9,14 +11,14 @@ function App() {
 
   const toggleForm = (formName) => {
     setCurrentForm(formName)
-    
+
 
   }
 
   return (
     <div className="App">
       {
-        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Registration onFormSwitch={toggleForm} />
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Service onFormSwitch={toggleForm} />
          
   
       }

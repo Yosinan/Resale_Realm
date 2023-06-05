@@ -1,6 +1,6 @@
 import React from "react";
  
-function Service(){
+export function Service(){
     let message ="RESALE REALM"
     return(
       
@@ -139,4 +139,3 @@ function Service(){
         
     )
 }
-export default Service;
