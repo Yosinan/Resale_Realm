@@ -9,6 +9,7 @@ function App() {
 
   const toggleForm = (formName) => {
     setCurrentForm(formName)
+    
 
   }
 
