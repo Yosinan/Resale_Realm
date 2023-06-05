@@ -6,8 +6,7 @@ export const Login = (props) =>{
     const handleSubmit = async(e)=>{
         e.preventDefault();
         console.log(email);
-        let result = await fetch(""),
-        method: "POST"
+        
     }
      /*const handlelogin = async (){
         
