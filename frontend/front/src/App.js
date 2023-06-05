@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Router, Route, Switch } from "react-router";
 import "./App.css";
-import "./Services/App.css";
+import "./LandingPage/App.css";
 import { Login } from "./Login";
 import { Registration } from "./Registration";
 // import { Service } from './Services/Service';
