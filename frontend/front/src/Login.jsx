@@ -1,21 +1,32 @@
 import React, { useState } from "react"
 export const Login = (props) =>{
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPass] = useState('');
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(email);
+        try{
+            const response = await fetch('http://localhost:5000/api/users/login',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email, password}),
+            });
+            if(response.ok){
+                const data = await response.json();
+                console.log(data);
+                props.onLogin(data);
+            }else{
+                const error = await response.json();
+                console.log(error);
+            }
+        }catch(error){
+            console.log(error);
+        }
         
     }
-     /*const handlelogin = async (){
-        
-        
-        body: JSON.stringify({email,password}),
-        header:{
-            'Content Type ':application/json'
-        }*/
-
+    
     return(
         <div className="form-container">
         <form className="login-form" onSubmit={handleSubmit}>
@@ -24,7 +35,7 @@ export const Login = (props) =>{
             <label htmlFor="email">Email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email"/>
             <label htmlFor="password">Password</label>
-            <input  value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="*********" id="password" name="password"/>
+            <input  value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="*********" id="password" name="password"/>
             <button className="" type="submit">Login</button>
         </form>
             <button className="btn" onClick={() => props.onFormSwitch ('register')}>Don't have an account? Register</button>

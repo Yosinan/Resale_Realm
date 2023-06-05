@@ -31,10 +31,10 @@
 
 
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
-export const Registration = () => {
-  const history = useHistory();
+export const Registration = (props) => {
+  // const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,7 +56,7 @@ export const Registration = () => {
         // Sign up successful, handle the response here
         const data = await response.json();
         setResponseMessage(data.message); // Update the response message
-        history.push('/login');
+        // history.push('/login');
         console.log(data); // Example: display the response data
 
       } else {
@@ -103,7 +103,7 @@ export const Registration = () => {
       <button type="submit">Sign Up</button>
     </form>
     {responseMessage && <p>{responseMessage}</p>}
-    {/* <button className="btn" onClick={() => props.onFormSwitch ('login')} >Already have an account.Login</button> */}
+    <button className="btn" onClick={() => props.onFormSwitch ('login')} >Already have an account.Login</button>
     </div>
   );
 };
