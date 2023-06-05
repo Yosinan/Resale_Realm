@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middlewares/auth");
-const {  getUser, getUserById, registerUser, loginUser, logoutUser, stat} = require("../../controllers/userController");
+const auth = require("../middlewares/auth");
+const {  getUser, getUserById, registerUser, loginUser, logoutUser, stat} = require("../controllers/userController");
 
 // using the APIs
 router.post("/api/users/logout", logoutUser);

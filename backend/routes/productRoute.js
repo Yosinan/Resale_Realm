@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const router = express.Router();
 const app = express();
-const auth = require("../../middlewares/auth");
-const {  getItems, getItemById, addItem, editItem, deleteItem } = require("../../controllers/productController");
+const auth = require("../middlewares/auth");
+const {  getItems, getItemById, addItem, editItem, deleteItem } = require("../controllers/productController");
 app.use(cors());
 // using the APIs
 router.post("/api/products/add", auth, addItem);
