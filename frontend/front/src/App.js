@@ -1,29 +1,35 @@
-import React, { useState } from"react";
-import './App.css';
-import './Services/App.css';
-import { Login } from './Login';
-import { Registration } from './Registration';
-import { Service } from './Services/Service';
+import React, { useState } from "react";
+import { Router, Route, Switch } from "react-router";
+import "./App.css";
+import "./Services/App.css";
+import { Login } from "./Login";
+import { Registration } from "./Registration";
+// import { Service } from './Services/Service';
 
+const App = () => {
+  // const [currentForm, setCurrentForm] = useState('login');
 
-function App() {
-  const [currentForm, setCurrentForm] = useState('login');
+  // const toggleForm = (formName) => {
+  //   setCurrentForm(formName)
 
-  const toggleForm = (formName) => {
-    setCurrentForm(formName)
-
-
-  }
+  // }
 
   return (
     <div className="App">
-      {
-        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Service onFormSwitch={toggleForm} />
+      {/* {
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Registration onFormSwitch={toggleForm} />
          
   
-      }
-      </div>
+      } */}
+      <Router>
+        <Switch>
+          <Route exact path="/signup" component={Registration} />
+          <Route exact path="/login" component={Login} />
+          {/* Other routes */}
+        </Switch>
+      </Router>
+    </div>
   );
-}
+};
 
 export default App;

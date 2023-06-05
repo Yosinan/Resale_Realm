@@ -31,17 +31,20 @@
 
 
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export const Registration = () => {
+  const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5001/api/users/register', {
+      const response = await fetch('http://localhost:5000/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,10 +55,14 @@ export const Registration = () => {
       if (response.ok) {
         // Sign up successful, handle the response here
         const data = await response.json();
+        setResponseMessage(data.message); // Update the response message
+        history.push('/login');
         console.log(data); // Example: display the response data
+
       } else {
         // Sign up failed, handle the error response here
         const error = await response.json();
+        setResponseMessage(error.error); // Update the error message
         console.log(error); // Example: display the error message
       }
     } catch (error) {
@@ -95,6 +102,7 @@ export const Registration = () => {
       <br />
       <button type="submit">Sign Up</button>
     </form>
+    {responseMessage && <p>{responseMessage}</p>}
     {/* <button className="btn" onClick={() => props.onFormSwitch ('login')} >Already have an account.Login</button> */}
     </div>
   );
