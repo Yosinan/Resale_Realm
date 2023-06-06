@@ -1,4 +1,4 @@
-# Resale Realm 
+# Resale Realm  2
 
 Its an app that enables users to sale and buy secondhand prodcuts for reasonable prices.
 
