@@ -1,4 +1,4 @@
-<!-- # Resale Realm  
+# Resale Realm  
 
 Its an app that enables users to sale and buy secondhand prodcuts for reasonable prices.
 
@@ -16,8 +16,8 @@ npm run start
 - Lidiya -> [Github](https://github.com/Lindagez)
 - Esrael -> [Github](https://github.com/esru13)
 
- -->
- <!DOCTYPE html>
+
+<!--  <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
@@ -153,7 +153,7 @@ npm run start
 
     </style>
     <!-- <link rel="stylesheet" href="App.css"> -->
-</head>
+<!-- </head>
 <body>
 <div class="main">
 <div class="home1">
@@ -206,8 +206,8 @@ npm run start
                         </div>
                     </figure>
             </td>
-        
-            <td class="tdata" id="tdata3">
+         -->
+<!--             <td class="tdata" id="tdata3">
                 <figure class="fig">
                     <img id = "imgs"  src="https://avatars.githubusercontent.com/u/111453895?v=4" width="258cm" height="277cm">
                     <figcaption class="caption"> 
@@ -226,7 +226,7 @@ npm run start
                         </div>
                     </figure>
             </td>
-        
+         
             </tr>
             </table>
             <br>
@@ -237,4 +237,4 @@ npm run start
 </footer>
 </section>
 </body>
-</html>
+</html> -->
