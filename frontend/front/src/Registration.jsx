@@ -33,7 +33,7 @@
 import React, { useState } from 'react';
 // import { useHistory } from 'react-router-dom';
 
-export const Registration = (props) => {
+export const Registration = ({ togglePage }) => {
   // const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -103,7 +103,7 @@ export const Registration = (props) => {
       <button type="submit">Sign Up</button>
     </form>
     {responseMessage && <p>{responseMessage}</p>}
-    <button className="btn" onClick={() => props.onFormSwitch ('login')} >Already have an account.Login</button>
+    <button onClick={togglePage}>Switch to Login</button>
     </div>
   );
 };

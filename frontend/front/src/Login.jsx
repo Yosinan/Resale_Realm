@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-export const Login = (props) =>{
+export const Login = ({ onLogin, togglePage }) =>{
     const [email, setEmail] = useState('');
     const [password, setPass] = useState('');
 
@@ -16,7 +16,7 @@ export const Login = (props) =>{
             if(response.ok){
                 const data = await response.json();
                 console.log(data);
-                props.onLogin(data);
+                onLogin(data);
             }else{
                 const error = await response.json();
                 console.log(error);
@@ -38,7 +38,8 @@ export const Login = (props) =>{
             <input  value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="*********" id="password" name="password"/>
             <button className="" type="submit">Login</button>
         </form>
-            <button className="btn" onClick={() => props.onFormSwitch ('register')}>Don't have an account? Register</button>
-        </div>
+            
+        <button onClick={togglePage}>Switch to Sign Up</button>
+	    </div>
     )
 } 

@@ -4,24 +4,32 @@ import "./App.css";
 import "./LandingPage/App.css";
 import { Login } from "./Login";
 import { Registration } from "./Registration";
+import { Dashboard } from "./Dashboard";
 // import { Service } from './Services/Service';
 
 const App = () => {
-  const [currentForm, setCurrentForm] = useState('login');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginPage, setIsLoginPage] = useState(true);
 
-  const toggleForm = (formName) => {
-    setCurrentForm(formName)
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
 
+  function toggleLoginPage() {
+    setIsLoginPage(!isLoginPage);
   }
 
   return (
     <div className="App">
-      {
-        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Registration onFormSwitch={toggleForm} />
-         
-  
-      }
+      {isLoggedIn ? (
+        <Dashboard />
+      ) : isLoginPage ? (
+        <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
+      ) : (
+        <registration togglePage={toggleLoginPage} />
+      )}
     </div>
+	 
      
      
     
