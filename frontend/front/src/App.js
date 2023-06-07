@@ -26,13 +26,10 @@ const App = () => {
       ) : isLoginPage ? (
         <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
       ) : (
-        <registration togglePage={toggleLoginPage} />
+        <Registration togglePage={toggleLoginPage} />
       )}
     </div>
 	 
-     
-     
-    
   );
 };
 
