@@ -37,29 +37,70 @@ const  getItemById = async (req, res, next) => {
 };
   
 // DELETE a product by ID (logged in users only)
+// const deleteItem = async (req, res, next) => {
+//   try{
+//       const product = await Product.findByIdAndDelete(req.params.id);
+//       if (product) { res.send("Product Deleted"); 
+//       res.status(404).send("Product not found");
+//     }
+//   } catch (err) {
+//        next(err);
+//   }
+// };
+
+// DELETE a product by ID (logged in users and owners of the product only)
 const deleteItem = async (req, res, next) => {
-  try{
-      const product = await Product.findByIdAndDelete(req.params.id);
-      if (product) { res.send("Product Deleted"); 
-      res.status(404).send("Product not found");
+  try {
+    const productId = req.params.id;
+    const userId = req.user._id;
+
+    const product = await Product.findOne({ _id: productId, addedBy: userId });
+
+    if (!product) {
+      return res.status(404).send("Product not found or unauthorized to delete.");
     }
+
+    await Product.deleteOne({ _id: productId });
+    res.send("Product Deleted");
   } catch (err) {
-       next(err);
+    next(err);
   }
 };
 
+
 // EDIT a product by ID (logged in users only)
+// const editItem = async (req, res, next) => {
+//     try {
+//      const product = await Product.findByIdAndUpdate(req.params.id, req.body);
+//       res.send(product);
+//     } catch (err) {
+//       if (err) {
+//          next(err);
+//         } else if (!product) {
+//           res.status(404).send('Product not found');
+//         } 
+//       }
+// };
+
+// Edit a product by ID (logged in users and owners of the product only)
 const editItem = async (req, res, next) => {
-    try {
-     const product = await Product.findByIdAndUpdate(req.params.id, req.body);
-      res.send(product);
-    } catch (err) {
-      if (err) {
-         next(err);
-        } else if (!product) {
-          res.status(404).send('Product not found');
-        } 
-      }
+  try {
+    const productId = req.params.id;
+    const userId = req.user._id;
+
+    const product = await Product.findOne({ _id: productId, addedBy: userId });
+
+    if (!product) {
+      return res.status(404).send("Product not found or unauthorized to edit.");
+    }
+
+    product.set(req.body);
+    const updatedProduct = await product.save();
+
+    res.send(updatedProduct);
+  } catch (err) {
+    next(err);
+  }
 };
 
 

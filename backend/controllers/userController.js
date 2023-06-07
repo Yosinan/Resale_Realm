@@ -50,6 +50,7 @@ const registerUser = async (req, res, next ) => {
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
     // Check if the user exists in the database
+    try {
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(404).json({ message: "User Not Found." });
@@ -62,7 +63,12 @@ const loginUser = async (req, res) => {
         return res.status(401).json({ message: "Incorrect password" });
     }
 
+
      return res.status(201).json({ message: "Logged in successfully !!!"});
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+    next(err);
+  }
     
 };
 

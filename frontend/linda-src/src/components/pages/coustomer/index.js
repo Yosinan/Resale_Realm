@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import aa from "../../../images/R.jpeg"
+import axios from "../../../api";
+// import aa from "../../../images/R.jpeg"
 
 function UpdateProductForm() {
   const [selectedFile, setSelectedFile] = useState();
@@ -134,7 +134,7 @@ function UpdateProductForm() {
                     <h5><a  href="#" onClick={() => deleteImage(name.id)} style={{textDecoration:"none",marginLeft:"162px"}}>
                       <span aria-hidden="true" className="text-danger">&times;</span>
                     </a></h5>
-                    <img class="card-img-top hover-shadow" src={{aa} + name.img_path} alt="Card image cap" style={{height:"110px"}}/>
+                    <img class="card-img-top hover-shadow" src={ name.img_path} alt="Card image cap" style={{height:"110px"}}/>
                    
                     <div class="card-body">
                     <h6>{name.name}</h6>
