@@ -5,7 +5,7 @@ import './land.css';
 
 export const Landing = () => {
   return (
-    <>
+    <div>
       <header>
         <nav className="nav">
           <ul>
