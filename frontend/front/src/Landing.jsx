@@ -5,7 +5,7 @@ import './land.css';
 
 export const Landing = () => {
   return (
-    <>
+    <div>
       <header>
         <nav className="nav">
           <ul>
@@ -221,5 +221,6 @@ export const Landing = () => {
         <p>© 2023 ELY. All Rights Reserved.</p>
       </footer>
    </div>
+  
   );
 }
