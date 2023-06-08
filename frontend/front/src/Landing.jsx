@@ -221,5 +221,6 @@ export const Landing = () => {
         <p>© 2023 ELY. All Rights Reserved.</p>
       </footer>
    </div>
+  
   );
 }

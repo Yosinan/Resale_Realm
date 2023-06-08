@@ -10,35 +10,39 @@ import { Landing } from "./Landing";
 // import { Service } from './Services/Service';
 
 const App = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [isLoginPage, setIsLoginPage] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginPage, setIsLoginPage] = useState(true);
 
-  // function handleLogin() {
-  //   setIsLoggedIn(true);
-  // }
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
 
-  // function toggleLoginPage() {
-  //   setIsLoginPage(!isLoginPage);
-  // }
+  function toggleLoginPage() {
+    setIsLoginPage(!isLoginPage);
+  }
 
   return (
-    // <div className="App">
-    //   {isLoggedIn ? (
-    //     <Dashboard />
-    //   ) : isLoginPage ? (
-    //     <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
-    //   ) : (
-    //     <Registration togglePage={toggleLoginPage} />
-    //   )}
-    // </div>
+    <div className="App">
+      {isLoggedIn ? (
+        <Dashboard />
+      ) : isLoginPage ? (
+        <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
+      ) : (
+        <Registration togglePage={toggleLoginPage} />
+      )}
+    </div>
 
-<BrowserRouter>
+/*{ <BrowserRouter>
 <Routes>
   <Route exact path="/" component={Landing} />
   <Route path="/signup" component={Registration} />
   <Route path="/signin" component={Login} />
 </Routes>
+
 </BrowserRouter>
+=======
+</BrowserRouter> }*/
+
 
 /*
 <Switch>
