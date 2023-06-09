@@ -33,6 +33,8 @@ export const Registration = ({ togglePage }) => {
   return (
     <div className="form-container" style={styles.container}>
       <form className="reg-form" style={styles.form} onSubmit={handleSubmit}>
+        <h2> ELY </h2>
+        <h2>Sign Up</h2>
         <label>
           Name:
           <input

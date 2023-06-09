@@ -32,7 +32,7 @@ export const Login = ({ onLogin, togglePage }) => {
   return (
     <div className="form-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h1>Inventory System</h1>
+        <h2> ELY </h2>
         <h2>Login</h2>
         <label htmlFor="email">Email</label>
         <input

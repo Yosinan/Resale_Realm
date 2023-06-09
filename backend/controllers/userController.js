@@ -5,7 +5,22 @@
 const bcrypt = require("bcrypt");
 const genToken = require("../authenticate/genToken");
 const User = require("../models/userModel");
+const passwordValidator = require('password-validator');
 
+// Define a password schema using the password-validator module
+const schema = new passwordValidator();
+
+schema
+  .is().min(8)
+  .is().max(100)
+  .has().uppercase()
+  .has().lowercase()
+  .has().digits()
+  .has().not().spaces()
+  .is().not().oneOf(['Password123', 'qwerty']);
+
+// Define a regular expression pattern for email validation
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Define all APIs 
 
@@ -18,7 +33,18 @@ const registerUser = async (req, res, next ) => {
     });
   
       try{
-        const { email } = req.body;
+        const { email,password } = req.body;
+
+        if (!emailPattern.test(email)) {
+          return res.status(400).json({ error: 'Invalid email format' });
+        }
+
+    // Validate password strength
+    const isPasswordValid = schema.validate(password);
+    if (!isPasswordValid) {
+        return res.status(400).json({ error: 'Weak password. Please provide a stronger password.' });
+    }
+
         // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -51,6 +77,9 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     // Check if the user exists in the database
     try {
+      if (!emailPattern.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format' });
+      }
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(404).json({ message: "User Not Found." });
