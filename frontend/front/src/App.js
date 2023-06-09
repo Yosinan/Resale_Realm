@@ -38,7 +38,11 @@ const App = () => {
   <Route path="/signup" component={Registration} />
   <Route path="/signin" component={Login} />
 </Routes>
+
+</BrowserRouter>
+=======
 </BrowserRouter> }*/
+
 
 /*
 <Switch>
@@ -57,5 +61,6 @@ const App = () => {
 	 
   );
 };
+
 
 export default App;
