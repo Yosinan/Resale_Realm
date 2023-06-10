@@ -51,6 +51,7 @@ export const Registration = ({ togglePage }) => {
             type="text"
             value={name}
             placeholder='Name'
+            required={true}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
@@ -59,6 +60,7 @@ export const Registration = ({ togglePage }) => {
           <input
             type="email"
             value={email}
+            required={true}
             placeholder='youremail@example.com'
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -69,6 +71,7 @@ export const Registration = ({ togglePage }) => {
             type="password"
             placeholder='*********'
             value={password}
+            required={true}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
@@ -78,6 +81,7 @@ export const Registration = ({ togglePage }) => {
             type="password"
             placeholder='*********'
             value={confirmPassword}
+            required={true}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </label>

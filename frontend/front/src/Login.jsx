@@ -45,6 +45,7 @@ export const Login = ({ onLogin, togglePage }) => {
             placeholder="youremail@gmail.com"
             id="email"
             name="email"
+            required={true}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -54,6 +55,7 @@ export const Login = ({ onLogin, togglePage }) => {
             placeholder="*********"
             id="password"
             name="password"
+            required={true}
           />
           <button className="login" type="submit">
             Login
