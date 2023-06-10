@@ -11692,30 +11692,30 @@ const Lm = () =>
         }),
       }),
     }),
-  // Rm = () =>
-  //   M("header", {
-  //     className: "has-background-white",
-  //     children: ne("nav", {
-  //       className: "container level is-mobile p-4",
-  //       children: [
-  //         M("div", {
-  //           className: "level-left",
-  //           children: M("a", {
-  //             href: "/",
-  //             className: "level-item is-size-3",
-  //             children: "Items",
-  //           }),
-  //         }),
-  //         M("div", {
-  //           className: "level-right",
-  //           children: M("button", {
-  //             className: "button",
-  //             children: "Create Account",
-  //           }),
-  //         }),
-  //       ],
-  //     }),
-  //   }),
+  Rm = () =>
+    M("header", {
+      className: "has-background-white",
+      children: ne("nav", {
+        className: "container level is-mobile p-4",
+        children: [
+          M("div", {
+            className: "level-left",
+            children: M("a", {
+              href: "/",
+              className: "level-item is-size-3",
+              children: "Items",
+            }),
+          }),
+          M("div", {
+            className: "level-right",
+            children: M("button", {
+              className: "button",
+              children: "Add",
+            }),
+          }),
+        ],
+      }),
+    }),
   Tm = ({ children: e }) =>
     ne("div", {
       style: { display: "flex", flexDirection: "column", minHeight: "100vh" },
