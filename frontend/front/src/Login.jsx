@@ -26,6 +26,7 @@ export const Login = ({ onLogin, togglePage }) => {
       }
     } catch (error) {
       console.log(error);
+      setResponseMessage(error.message);
     }
   };
 
