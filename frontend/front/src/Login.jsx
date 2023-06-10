@@ -52,7 +52,7 @@ export const Login = ({ onLogin, togglePage }) => {
           id="password"
           name="password"
         />
-        <button className="" type="submit">
+        <button className="login" type="submit">
           Login
         </button>
       </form>
