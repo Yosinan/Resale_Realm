@@ -34,6 +34,7 @@ export const Registration = ({ togglePage }) => {
       }
     } catch (error) {
       console.error('Error:', error);
+      setResponseMessage(error.message);
     }
   };
 
