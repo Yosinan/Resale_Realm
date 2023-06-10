@@ -29,6 +29,7 @@ const PasswordStrengthIndicator = ({ password }) => {
         style={{
           width: '80px',
           height: '10px',
+          fontSize: '8px',
           backgroundColor: getColor(),
           marginTop: '5px',
         }}
