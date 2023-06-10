@@ -38,10 +38,13 @@ export const Registration = ({ togglePage }) => {
   };
 
   return (
-    <div className="form-container" >
-      <form className="reg-form"  onSubmit={handleSubmit}>
-        <h2> ELY </h2>
-        <h2>Sign Up</h2>
+    <div className="form-container">
+      <h2>Registration</h2>
+      {responseMessage && (
+        <p>{responseMessage}</p>
+      )}
+      <form className="reg-form" onSubmit={handleSubmit}>
+        <h2>ELY</h2>
         <label>
           Name:&nbsp;
           <input
@@ -70,24 +73,23 @@ export const Registration = ({ togglePage }) => {
           />
         </label>
         <label>
-        Confirm Password:&nbsp;
-        <input
-        type="password"
-        placeholder='*********'
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}/>
+          Confirm Password:&nbsp;
+          <input
+            type="password"
+            placeholder='*********'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
         </label>
         <br />
         <button className="reg" type="submit">Sign Up</button>
       </form>
-      {responseMessage && (
-        <p>{responseMessage}</p>
-      )}
       <button className="tog" onClick={togglePage}>
         Switch to Login
       </button>
     </div>
   );
+  
 };
 
 // const styles = {
