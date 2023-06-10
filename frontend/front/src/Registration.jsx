@@ -38,12 +38,12 @@ export const Registration = ({ togglePage }) => {
   };
 
   return (
-    <div className="form-container" style={styles.container}>
-      <form className="reg-form" style={styles.form} onSubmit={handleSubmit}>
+    <div className="form-container" >
+      <form className="reg-form"  onSubmit={handleSubmit}>
         <h2> ELY </h2>
         <h2>Sign Up</h2>
         <label>
-          Name:
+          Name:&nbsp;
           <input
             type="text"
             value={name}
@@ -52,7 +52,7 @@ export const Registration = ({ togglePage }) => {
           />
         </label>
         <label>
-          Email:
+          Email:&nbsp;
           <input
             type="email"
             value={email}
@@ -61,7 +61,7 @@ export const Registration = ({ togglePage }) => {
           />
         </label>
         <label>
-          Password:
+          Password:&nbsp;
           <input
             type="password"
             placeholder='*********'
@@ -70,7 +70,7 @@ export const Registration = ({ togglePage }) => {
           />
         </label>
         <label>
-        Confirm Password:
+        Confirm Password:&nbsp;
         <input
         type="password"
         placeholder='*********'
@@ -81,7 +81,7 @@ export const Registration = ({ togglePage }) => {
         <button className="reg" type="submit">Sign Up</button>
       </form>
       {responseMessage && (
-        <p style={styles.responseMessage}>{responseMessage}</p>
+        <p>{responseMessage}</p>
       )}
       <button className="tog" onClick={togglePage}>
         Switch to Login
@@ -90,28 +90,28 @@ export const Registration = ({ togglePage }) => {
   );
 };
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '20px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  button: {
-    padding: '10px 20px',
-    marginTop: '10px',
-    backgroundColor: '#4285f4',
-    color: 'white',
-    border: 'none',
-    cursor: 'pointer',
-  },
-  responseMessage: {
-    marginTop: '10px',
-    color: 'brown',
-  },
-};
+// const styles = {
+//   container: {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+//     marginTop: '20px',
+//   },
+//   form: {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+//   },
+//   button: {
+//     padding: '10px 20px',
+//     marginTop: '10px',
+//     backgroundColor: '#4285f4',
+//     color: 'white',
+//     border: 'none',
+//     cursor: 'pointer',
+//   },
+//   responseMessage: {
+//     marginTop: '10px',
+//     color: 'brown',
+//   },
+// };
