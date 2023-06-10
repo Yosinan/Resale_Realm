@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 export const Registration = ({ togglePage }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -7,6 +8,7 @@ export const Registration = ({ togglePage }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
 
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,6 +30,7 @@ export const Registration = ({ togglePage }) => {
       if (response.ok) {
         const data = await response.json();
         setResponseMessage(data.message);
+        togglePage();
       } else {
         const error = await response.json();
         setResponseMessage(error.error);

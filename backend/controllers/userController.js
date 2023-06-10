@@ -1,11 +1,22 @@
 // const express = require("express");
 // const jwt = require("jsonwebtoken");
 // const asyncHandler = require("express-async-handler");
-// const { ACCESS_TOKEN } = require("../config");
+const { EMAIL, EMAIL_PASSWORD } = require("../config");
 const bcrypt = require("bcrypt");
 const genToken = require("../authenticate/genToken");
 const User = require("../models/userModel");
 const passwordValidator = require('password-validator');
+const nodemailer = require('nodemailer');
+
+// Set up the transporter for sending emails
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'yoszewdu@gmail.com',
+    pass: EMAIL_PASSWORD
+  },
+  secure: true
+});
 
 // Define a password schema using the password-validator module
 const schema = new passwordValidator();
@@ -50,21 +61,25 @@ const registerUser = async (req, res, next ) => {
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
-    /*
-    // generate the token and sign that new user
-    const token = genToken(user._id); 
 
-    user.token = token;
-
-    //send the token to the frontend using cookies
-    res.cookie("Token", token, {
-      path: "/",
-      httpOnly: true,
-      sameSite: true,
-      secure: true
-    });*/
       // Save the new user to the MongoDB collection
       await user.save();
+
+      // Send confirmation email
+    const mailOptions = {
+      from: 'yoszewdu@gmail.com',
+      to: email,
+      subject: 'Registration Confirmation',
+      text: 'Thank you for registering!'
+    };
+
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.error('Error sending email:', error);
+    //   } else {
+    //     console.log('Email sent:', info.response);
+    //   }
+    // });
 
      res.status(200).json({message: "User registered successfully !!!"});
       }catch (err) {
