@@ -86,7 +86,7 @@ export const Registration = ({ togglePage }) => {
       {responseMessage && (
         <p style={styles.responseMessage}>{responseMessage}</p>
       )}
-      <button style={styles.button} onClick={togglePage}>
+      <button onClick={togglePage}>
         Switch to Login
       </button>
     </div>
