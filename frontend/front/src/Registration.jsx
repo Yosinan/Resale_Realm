@@ -1,5 +1,42 @@
 import React, { useState } from 'react';
 
+const PasswordStrengthIndicator = ({ password }) => {
+  const getColor = () => {
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialCharacter = /[!@#$%^&*()_+\-=[\]{};':"|,.<>/?]/.test(password);
+    if (password.length === 0) {
+      return 'gray'; // Default color
+    }
+    if (password.length <= 6 ) {
+      return 'red'; // Weak password
+    }
+    if (password.length <= 10 && hasUppercase && hasLowercase && hasNumber) {
+      return 'orange'; // Medium password
+    }
+    if ( password.length > 10 && hasUppercase && hasLowercase && hasNumber && hasSpecialCharacter) {
+    return 'green'; // Strong password
+    }
+    else {
+      return 'gray';
+    }
+  };
+
+  return (
+    <div>
+      <label>Password Strength:</label>
+      <div
+        style={{
+          width: '100px',
+          height: '10px',
+          backgroundColor: getColor(),
+          marginTop: '5px',
+        }}
+      ></div>
+    </div>
+  );
+};
 
 export const Registration = ({ togglePage }) => {
   const [name, setName] = useState('');
@@ -78,6 +115,7 @@ export const Registration = ({ togglePage }) => {
             required={true}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <PasswordStrengthIndicator password={password} />
         </label>
         <label>
           Confirm Password:&nbsp;
