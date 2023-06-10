@@ -81,7 +81,7 @@ export const Registration = ({ togglePage }) => {
         onChange={(e) => setConfirmPassword(e.target.value)}/>
         </label>
         <br />
-        <button type="submit">Sign Up</button>
+        <button className="reg" type="submit">Sign Up</button>
       </form>
       {responseMessage && (
         <p style={styles.responseMessage}>{responseMessage}</p>
@@ -115,6 +115,6 @@ const styles = {
   },
   responseMessage: {
     marginTop: '10px',
-    color: 'red',
+    color: 'brown',
   },
 };
