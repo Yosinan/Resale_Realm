@@ -51,7 +51,6 @@ export const Registration = ({ togglePage }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <br />
         <label>
           Email:
           <input
@@ -61,7 +60,6 @@ export const Registration = ({ togglePage }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <br />
         <label>
           Password:
           <input
@@ -71,7 +69,6 @@ export const Registration = ({ togglePage }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <br />
         <label>
         Confirm Password:
         <input
@@ -86,7 +83,7 @@ export const Registration = ({ togglePage }) => {
       {responseMessage && (
         <p style={styles.responseMessage}>{responseMessage}</p>
       )}
-      <button onClick={togglePage}>
+      <button className="tog" onClick={togglePage}>
         Switch to Login
       </button>
     </div>

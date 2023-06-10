@@ -55,3 +55,12 @@ button:hover{
   text-decoration: underline;
   
 }
+
+.tog {
+  background-color: rgb(94, 38, 38);
+  color: rgb(2, 200, 48);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}

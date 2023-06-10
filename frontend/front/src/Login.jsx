@@ -60,7 +60,7 @@ export const Login = ({ onLogin, togglePage }) => {
       <p>{responseMessage}</p>
 
 
-      <button onClick={togglePage}>Switch to Sign Up</button>
+      <button className="tog" onClick={togglePage}>Switch to Sign Up</button>
     </div>
   );
 };
