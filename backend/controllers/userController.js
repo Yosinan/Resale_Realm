@@ -66,7 +66,7 @@ const registerUser = async (req, res, next ) => {
       // Save the new user to the MongoDB collection
       await user.save();
 
-     res.status(200).json({message: "User registered successfully !!!" , token: token});
+     res.status(200).json({message: "User registered successfully !!!"});
       }catch (err) {
         // res.status(404).json({ message: err.message });
         next(err);
@@ -93,8 +93,21 @@ const loginUser = async (req, res) => {
         return res.status(401).json({ message: "Incorrect email or password" });
     }
 
+ // generate the token and sign that new user
+ const token = genToken(user._id); 
 
-     return res.status(201).json({ message: "Logged in successfully !!!"});
+ user.token = token;
+
+ //send the token to the frontend using cookies
+ res.cookie("Token", token, {
+   path: "/",
+   httpOnly: true,
+   sameSite: true,
+   secure: true
+ });
+
+ await user.save();
+     return res.status(201).json({ message: "Logged in successfully !!!", token: token});
   } catch (err) {
     res.status(500).json({ message: err.message });
     next(err);
