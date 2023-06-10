@@ -50,6 +50,7 @@ const registerUser = async (req, res, next ) => {
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
+    /*
     // generate the token and sign that new user
     const token = genToken(user._id); 
 
@@ -61,7 +62,7 @@ const registerUser = async (req, res, next ) => {
       httpOnly: true,
       sameSite: true,
       secure: true
-    });
+    });*/
       // Save the new user to the MongoDB collection
       await user.save();
 
@@ -89,7 +90,7 @@ const loginUser = async (req, res) => {
 
     // Check if the user's password matches the one in the database
     if (!isMatch) {
-        return res.status(401).json({ message: "Incorrect password" });
+        return res.status(401).json({ message: "Incorrect email or password" });
     }
 
 

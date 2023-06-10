@@ -17,7 +17,7 @@ export const Login = ({ onLogin, togglePage }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         onLogin(data);
       } else {
         const error = await response.json();
@@ -58,6 +58,7 @@ export const Login = ({ onLogin, togglePage }) => {
       </form>
 
       <p>{responseMessage}</p>
+
 
       <button onClick={togglePage}>Switch to Sign Up</button>
     </div>
