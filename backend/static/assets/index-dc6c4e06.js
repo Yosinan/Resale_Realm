@@ -11679,22 +11679,15 @@ const Lm = () =>
         className: "content has-text-centered",
         children: ne("p", {
           children: [
-            M("strong", { children: "Inventory" }),
+            M("strong", { children: "Resale Realm" }),
             " by",
             " ",
             M("a", {
               href: "#",
               title:
-                "Google Developers Student Club Addis Ababa Science and Technology University",
-              children: "GDSC AASTU",
+                "Resale Realm is a platform for buying and selling secondhand items.",
+              children: "ELY",
             }),
-            ". The website content is licensed",
-            " ",
-            M("a", {
-              href: "http://creativecommons.org/licenses/by-nc-sa/4.0/",
-              children: "CC BY NC SA 4.0",
-            }),
-            ".",
           ],
         }),
       }),
@@ -11710,7 +11703,7 @@ const Lm = () =>
             children: M("a", {
               href: "/",
               className: "level-item is-size-3",
-              children: "Inventory",
+              children: "Items",
             }),
           }),
           M("div", {

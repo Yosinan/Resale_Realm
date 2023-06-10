@@ -4,10 +4,17 @@ export const Registration = ({ togglePage }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setResponseMessage('Passwords do not match');
+      return;
+    }
+    
 
     try {
       const response = await fetch('http://localhost:5000/api/users/register', {
@@ -40,6 +47,7 @@ export const Registration = ({ togglePage }) => {
           <input
             type="text"
             value={name}
+            placeholder='Name'
             onChange={(e) => setName(e.target.value)}
           />
         </label>
@@ -49,6 +57,7 @@ export const Registration = ({ togglePage }) => {
           <input
             type="email"
             value={email}
+            placeholder='youremail@example.com'
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
@@ -57,9 +66,19 @@ export const Registration = ({ togglePage }) => {
           Password:
           <input
             type="password"
+            placeholder='*********'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+        </label>
+        <br />
+        <label>
+        Confirm Password:
+        <input
+        type="password"
+        placeholder='*********'
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}/>
         </label>
         <br />
         <button type="submit">Sign Up</button>
