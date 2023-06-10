@@ -12,23 +12,22 @@ const PasswordStrengthIndicator = ({ password }) => {
     if (password.length <= 6 ) {
       return 'red'; // Weak password
     }
-    if (password.length <= 10) {
+    if (password.length <= 8 ) {
       return 'orange'; // Medium password
     }
-    if ( password.length > 10 && hasUppercase && hasLowercase && hasNumber && hasSpecialCharacter) {
+    if ( password.length > 8 && hasUppercase && hasLowercase && hasNumber && hasSpecialCharacter) {
     return 'green'; // Strong password
     }
     else {
       return 'gray';
-    }
   };
-
+  };
   return (
     <div>
-      <label>Password Strength:</label>
+      <label>Strength:</label>
       <div
         style={{
-          width: '100px',
+          width: '80px',
           height: '10px',
           backgroundColor: getColor(),
           marginTop: '5px',
