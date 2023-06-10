@@ -12,7 +12,7 @@ const PasswordStrengthIndicator = ({ password }) => {
     if (password.length <= 6 ) {
       return 'red'; // Weak password
     }
-    if (password.length <= 10 && hasUppercase && hasLowercase && hasNumber) {
+    if (password.length <= 10) {
       return 'orange'; // Medium password
     }
     if ( password.length > 10 && hasUppercase && hasLowercase && hasNumber && hasSpecialCharacter) {
