@@ -30,37 +30,38 @@ export const Login = ({ onLogin, togglePage }) => {
   };
 
   return (
-    <div className="form-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2> ELY </h2>
+      <div className="form-container">
         <h2>Login</h2>
-        <label htmlFor="email">Email</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="youremail@gmail.com"
-          id="email"
-          name="email"
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPass(e.target.value)}
-          type="password"
-          placeholder="*********"
-          id="password"
-          name="password"
-        />
-        <button className="login" type="submit">
-          Login
-        </button>
-      </form>
-
-      <p>{responseMessage}</p>
-
-
-      <button className="tog" onClick={togglePage}>Switch to Sign Up</button>
-    </div>
-  );
+        {responseMessage && (
+          <p>{responseMessage}</p>
+        )}
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h2>ELY</h2>
+          <label htmlFor="email">Email</label>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="youremail@gmail.com"
+            id="email"
+            name="email"
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            value={password}
+            onChange={(e) => setPass(e.target.value)}
+            type="password"
+            placeholder="*********"
+            id="password"
+            name="password"
+          />
+          <button className="login" type="submit">
+            Login
+          </button>
+        </form>
+    
+        <button className="tog" onClick={togglePage}>Switch to Sign Up</button>
+      </div>
+    );
+    
 };
