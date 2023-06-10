@@ -39,11 +39,11 @@ export const Registration = ({ togglePage }) => {
 
   return (
     <div className="form-container">
-      <h2>Registration</h2>
       {responseMessage && (
         <p>{responseMessage}</p>
       )}
       <form className="reg-form" onSubmit={handleSubmit}>
+        <br />
         <h2>ELY</h2>
         <label>
           Name:&nbsp;

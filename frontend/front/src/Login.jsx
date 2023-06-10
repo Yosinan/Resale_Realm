@@ -31,11 +31,11 @@ export const Login = ({ onLogin, togglePage }) => {
 
   return (
       <div className="form-container">
-        <h2>Login</h2>
         {responseMessage && (
           <p>{responseMessage}</p>
         )}
         <form className="login-form" onSubmit={handleSubmit}>
+          <br />
           <h2>ELY</h2>
           <label htmlFor="email">Email</label>
           <input

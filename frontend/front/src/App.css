@@ -39,14 +39,15 @@ button{
   border: none;
   border-radius: 10px;
   padding: 10px;
-  background-color: rgb(15, 15, 15);
+  /* background-color: rgb(15, 15, 15); */
+ background-color:rgb(245, 118, 118);
   cursor: pointer;
   color: aliceblue;
 
 }
 
 button:hover{
-  background-color: rgb(46, 4, 213);
+  background-color: rgba(37, 19, 110, 0.699);
 }
 
 .btn{
