@@ -97,7 +97,7 @@ We welcome contributions from the community to enhance ELY - Resale Realm. To co
 
 Check out these related projects that may be of interest:
 
-- [ELY - Resale Realm API](https://github.com/Yosinan/Resale_Realm/backend) - Backend API for ELY - Resale Realm web app.
+- [ELY - Resale Realm API](https://github.com/Yosinan/Resale_Realm/tree/main/backend) - Backend API for ELY - Resale Realm web app.
 
 
 ## Licensing
