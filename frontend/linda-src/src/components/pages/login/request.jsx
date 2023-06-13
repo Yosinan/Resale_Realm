@@ -9,7 +9,7 @@ export default async function loginRequest (loginData) {
         Accept: "application/json",
     }
     try {
-        const response = await axios.post(``, loginData, {header});
+        const response = await axios.post('http://localhost:5000/api/users/login', loginData, {header});
         return await response.json();
     } catch (error) {
         return error;
