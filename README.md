@@ -26,9 +26,10 @@ ELY - Resale Realm is a web application that allows users to buy and sell second
 
 ## Links
 
-- [Deployed Site](https://github.com/Yosinan/Resale_Realm)
+- [Deployed Site](https://yosinan.github.io/landing/)
 - [Final Project Blog Article](https://www.example.com)
-- Author's LinkedIn
+
+## Author's LinkedIn
 - [Yoseph Zewdu](https://www.linkedin.com/in/yoseph-zewdu-708048251/)
 - [Lidiya Gezahegn](https://www.linkedin.com/in/lidiya-gezahegn-9491a9211/)
 - [Esrael Birhanu](https://www.linkedin.com/in/esrael-berhanu-360ba6248/)
