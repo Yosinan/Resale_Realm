@@ -1,5 +1,7 @@
-<!-- # Ely-Resale Realm 
+# ELY-Resale Realm 
 
+
+ELY - Resale Realm is a web application that allows users to buy and sell secondhand items. The platform aims to promote sustainability by encouraging the reuse of goods and reducing waste. With ELY, users can create accounts, list their products for sale, browse through available items, and make purchases securely.
 Its an app that enables users to sale and buy secondhand prodcuts for reasonable prices.
 
 ## Getting Started
@@ -16,4 +18,4 @@ npm run start
 - Lidiya -> [Github](https://github.com/Lindagez)
 - Esrael -> [Github](https://github.com/esru13)
 
- -->
+ 
