@@ -47,7 +47,7 @@ To run the ELY - Resale Realm application locally, follow these steps:
 2. Navigate to the project directory:
 
    ```
-   cd Resale_Realm
+
    ```
 
 3. Install the dependencies:
