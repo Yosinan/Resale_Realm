@@ -1,4 +1,4 @@
-<!-- # Resale Realm 
+<!-- # Ely-Resale Realm 
 
 Its an app that enables users to sale and buy secondhand prodcuts for reasonable prices.
 
