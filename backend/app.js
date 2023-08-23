@@ -13,6 +13,7 @@ const app = express();
 // start database connection
 start();
 
+
 app.use(express.static("static"));
 app.use(cors());
 app.use(express.json());
