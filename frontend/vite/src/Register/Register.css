@@ -1,0 +1,62 @@
+.form-container,
+.reg-form {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and(min-width: 600px) {
+}
+.reg-form h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  color: rgb(57, 48, 48);
+}
+
+.form-container {
+  padding: 5.75rem;
+  border: 1px solid white;
+  border-radius: 9px;
+  background-color: whitesmoke;
+  margin: 0.5px;
+}
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+input {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 7px;
+}
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgb(245, 118, 118);
+  cursor: pointer;
+  color: aliceblue;
+}
+
+button:hover {
+  background-color: rgba(37, 19, 110, 0.699);
+}
+
+.btn {
+  background: none;
+  color: rgb(245, 118, 118);
+  text-decoration: underline;
+}
+
+button:disabled {
+  background-color: rgb(122, 115, 115);
+  cursor: not-allowed;
+}
+
+.tog {
+  background-color: aliceblue;
+  color: rgb(15, 15, 15);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}

@@ -1,19 +1,34 @@
 import { useState } from 'react'
 import './App.css'
+import Login from './Login/Login'
+import Register from './Register/Register'
+import Dashboard from './Dashboard/Dashboard'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginPage, setIsLoginPage] = useState(true);
+
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  function toggleLoginPage() {
+    setIsLoginPage(!isLoginPage);
+  }
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <div className="App">
+        {isLoggedIn ? (
+          <Dashboard />
+        ) : isLoginPage ? (
+          <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
+        ) : (
+          <Register togglePage={toggleLoginPage} />
+        )}
       </div>
     </>
   )
 }
 
-export default App
+export default App;
