@@ -2,7 +2,24 @@ import React, {useState, useEffect} from 'react'
 import './Login.css'
 import PropTypes from 'prop-types'
 
-function Login({ onLogin, togglePage }) {
+function Login({ onLogin, togglePage, showLogin }) {
+
+  const loginStyles = {
+    position: 'fixed',
+    bottom: '262px',
+    right: '65px',
+    width: showLogin ? '300px' : '0',
+    height: 'auto',
+    background: '#ffffff',
+    border: '1px solid #ccc',
+    transition: 'width 0.3s',
+    overflow: 'hidden',
+    padding: '20px',
+    borderRadius: '5px',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+    display: showLogin ? 'block' : 'none'
+  };
+
     const [email, setEmail] = useState('');
     const [password, setPass] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
@@ -31,9 +48,11 @@ function Login({ onLogin, togglePage }) {
           // console.log(data);
           onLogin(data);
         } else {
+          setPass(''); // Clear the password field
           const error = await response.json();
           console.log(error);
           setResponseMessage(error.message); // Update the error message
+          
         }
       } catch (error) {
         console.log(error);
@@ -42,7 +61,7 @@ function Login({ onLogin, togglePage }) {
     };
   
     return (
-        <div className="form-container">
+        <div className="form-container" style={loginStyles}>
           {responseMessage && (
             <p>{responseMessage}</p>
           )}
@@ -72,7 +91,6 @@ function Login({ onLogin, togglePage }) {
               Login
             </button>
           </form>
-      
           <button className="tog" onClick={togglePage}>Switch to Sign Up</button>
         </div>
       );

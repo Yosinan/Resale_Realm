@@ -35,7 +35,24 @@ const PasswordStrengthIndicator = ({ password }) => {
     );
     };
 
-function Register  ({ togglePage }) {
+function Register  ({ togglePage, showLogin }) {
+
+  const regStyles = {
+    position: 'fixed',
+    bottom: '72px',
+    right: '65px',
+    width: showLogin ? '300px' : '0',
+    height: 'auto',
+    background: '#ffffff',
+    border: '1px solid #ccc',
+    transition: 'width 0.3s',
+    overflow: 'hidden',
+    padding: '20px',
+    borderRadius: '5px',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+    display: showLogin ? 'block' : 'none'
+  };
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -85,7 +102,7 @@ function Register  ({ togglePage }) {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container" style={regStyles}>
       {responseMessage && (
         <p>{responseMessage}</p>
       )}
