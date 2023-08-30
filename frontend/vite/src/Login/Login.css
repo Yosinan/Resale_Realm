@@ -53,10 +53,15 @@ button:disabled {
 }
 
 .tog {
-  background-color: aliceblue;
-  color: rgb(15, 15, 15);
+  background-color: rgb(81 86 255);
+  color: #fff);
   border: none;
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
+}
+
+.tog:hover {
+  background-color: #c5c5c5;
+  color: rgb(81 86 255);
 }

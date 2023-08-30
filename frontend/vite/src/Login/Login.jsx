@@ -91,7 +91,8 @@ function Login({ onLogin, togglePage, showLogin }) {
               Login
             </button>
           </form>
-          <button className="tog" onClick={togglePage}>Switch to Sign Up</button>
+          {/* <button className="tog" onClick={togglePage}>Switch to Sign Up</button> */}
+          <p >Don't have an account ? <span className='tog' onClick={togglePage}> Sign Up</span></p>
         </div>
       );
       

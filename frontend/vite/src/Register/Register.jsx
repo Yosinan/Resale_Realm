@@ -35,7 +35,17 @@ const PasswordStrengthIndicator = ({ password }) => {
     );
     };
 
+  
 function Register  ({ togglePage, showLogin }) {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+  const [enable, setEnable] = useState(true);
+  const [bot, setBottom] = useState('72px');
+
 
   const regStyles = {
     position: 'fixed',
@@ -53,13 +63,8 @@ function Register  ({ togglePage, showLogin }) {
     display: showLogin ? 'block' : 'none'
   };
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [responseMessage, setResponseMessage] = useState('');
-  const [enable, setEnable] = useState(true);
-
+  
+  
  
     useEffect(() => {
         if (password.length < 6 || name.length < 3 || email.length < 6 || confirmPassword.length < 6) {
@@ -92,6 +97,7 @@ function Register  ({ togglePage, showLogin }) {
         setResponseMessage(data.message);
         togglePage();
       } else {
+        setBottom('-1px');
         const error = await response.json();
         setResponseMessage(error.error);
       }
@@ -153,9 +159,10 @@ function Register  ({ togglePage, showLogin }) {
         <br />
         <button className="reg" disabled={!enable} type="submit">Sign Up</button>
       </form>
-      <button className="tog"  onClick={togglePage}>
+      {/* <button className="tog"  onClick={togglePage}>
         Switch to Login
-      </button>
+      </button> */}
+      <p >Already have an account ? <span className='tog' onClick={togglePage}> Sign In</span></p>
     </div>
   );
   
