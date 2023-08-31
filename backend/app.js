@@ -8,6 +8,8 @@ const statusRouter = require("./routes/status");
 const errorHandler = require('./middlewares/errorHandler').default;
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 const app = express();
 
 // start database connection
@@ -18,6 +20,12 @@ app.use(express.static("static"));
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
+//Data sanitization against NOSQL query injection
+app.use(mongoSanitize());
+
+//Data Sanitization against site scripting
+app.use(xss());
 
 // Routes
 app.use('/', userRouter);
