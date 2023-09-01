@@ -21,11 +21,6 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-//Data sanitization against NOSQL query injection
-app.use(mongoSanitize());
-
-//Data Sanitization against site scripting
-app.use(xss());
 
 // Routes
 app.use('/', userRouter);

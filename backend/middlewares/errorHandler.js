@@ -17,7 +17,7 @@ const errorHandler = (err, _req, res, next) => {
       res.status(400).send({ Error : "Invalid JsonWebToken"});
       break;
     case 'MongoServerError':
-      res.status(400).send({ Error : " Authentication Failed" });
+      res.status(400).send({ Error : "Authentication Failed" });
     case 'SyntaxError':
       res.send({ Error : "Invalid Syntax"});
 
