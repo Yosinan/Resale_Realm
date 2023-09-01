@@ -21,6 +21,10 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+// Sanitize user-supplied data against NoSQL injection attacks
+app.use(xss());
+// Clean user-supplied data to prevent cross-site scripting (XSS) attacks
+app.use(mongoSanitize());
 
 // Routes
 app.use('/', userRouter);
