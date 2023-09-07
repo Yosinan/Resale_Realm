@@ -1,16 +1,22 @@
 import React, {useState, useEffect} from 'react'
 import './Login.css'
+import image from '../../assets/images/icon.jpeg'
 import PropTypes from 'prop-types'
 
 function Login({ onLogin, togglePage, showLogin }) {
 
   const loginStyles = {
     position: 'fixed',
-    bottom: '262px',
+    bottom: '410px',
     right: '65px',
     width: showLogin ? '300px' : '0',
     height: 'auto',
-    background: '#ffffff',
+    // background: '#fff',
+    // backgroundImage: `url(${image})`,
+    // backgroundSize: 'cover',
+    // backgroundPosition: 'center',
+    stroke: '',
+    background: '#235',
     border: '1px solid #ccc',
     transition: 'width 0.3s',
     overflow: 'hidden',
@@ -61,18 +67,19 @@ function Login({ onLogin, togglePage, showLogin }) {
     };
   
     return (
-        <div className="form-container" style={loginStyles}>
+      <div className='contain'>
+        <div className='login-form' style={loginStyles}>
           {responseMessage && (
             <p>{responseMessage}</p>
           )}
-          <form className="login-form" onSubmit={handleSubmit}>
+          <form className='login-form' onSubmit={handleSubmit}>
             <h2>Login</h2>
             <label htmlFor="email">Email</label>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              placeholder="youremail@gmail.com"
+              placeholder="example@gmail.com"
               id="email"
               name="email"
               required={true}
@@ -87,12 +94,13 @@ function Login({ onLogin, togglePage, showLogin }) {
               name="password"
               required={true}
             />
-            <button className="login" type="submit" disabled={!enable}>
+            <button className='login' type="submit" disabled={!enable}>
               Login
             </button>
           </form>
           {/* <button className="tog" onClick={togglePage}>Switch to Sign Up</button> */}
           <p >Don't have an account ? <span className='tog' onClick={togglePage}> Sign Up</span></p>
+        </div>
         </div>
       );
       

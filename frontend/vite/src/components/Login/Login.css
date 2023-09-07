@@ -3,23 +3,35 @@
   display: flex;
   flex-direction: column;
 }
-@media screen and(min-width: 600px) {
+
+.cont{
+  min-width: 100vh;
+  width: 100%;
 }
+
 .login-form h2 {
   font-family: "Times New Roman", Times, serif;
   font-style: italic;
-  color: rgb(57, 48, 48);
+  color: rgb(255, 255, 255);
 }
 
-.form-container {
-  padding: 5.75rem;
-  border: 1px solid white;
-  border-radius: 9px;
-  background-color: whitesmoke;
-  margin: 0.5px;
+
+.contain {
+  background-color: rgb(195, 15, 15);;
+  height: auto;
+
 }
+
+.login-form {
+fill: rgba(255, 255, 255, 0.20);
+stroke-width: 1px;
+stroke: #E0E0E0;
+filter: drop-shadow(0px 82px 40px rgba(100, 100, 100, 0.08));
+}
+
 label {
   text-align: left;
+  color: rgb(255, 255, 255);
   padding: 0.25rem 0;
 }
 input {
@@ -54,7 +66,7 @@ button:disabled {
 
 .tog {
   background-color: rgb(81 86 255);
-  color: #fff);
+  color: #fff;
   border: none;
   border-radius: 10px;
   padding: 10px;

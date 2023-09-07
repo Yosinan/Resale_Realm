@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Register.css';
+import image from '../../assets/images/icon.jpeg';
 
 const PasswordStrengthIndicator = ({ password }) => {
     const hasUppercase = /[A-Z]/.test(password);
@@ -48,24 +49,36 @@ function Register  ({ togglePage, showLogin }) {
 
 
   const regStyles = {
-    position: 'fixed',
-    bottom: '72px',
+    // position: 'fixed',
+    bottom: '190px',
     right: '65px',
-    width: showLogin ? '300px' : '0',
+    width: showLogin ? '400px' : '0',
     height: 'auto',
     background: '#ffffff',
+    backgroundImage: `url(${image})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
     border: '1px solid #ccc',
     transition: 'width 0.3s',
     overflow: 'hidden',
     padding: '20px',
     borderRadius: '5px',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-    display: showLogin ? 'block' : 'none'
-  };
+    display: showLogin ? 'block' : 'none',
+    
+  }
+  
+  const outter ={
+  display: 'flex',
+  backgroundColor: 'rgba(242, 242, 242, 0.28)',
+  padding: '10px',
+  margin: '30px',
+  borderRadius: '15px',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '300px',
+  }
 
-  
-  
- 
     useEffect(() => {
         if (password.length < 6 || name.length < 3 || email.length < 6 || confirmPassword.length < 6) {
             setEnable(false);
@@ -109,6 +122,7 @@ function Register  ({ togglePage, showLogin }) {
 
   return (
     <div className="form-container" style={regStyles}>
+    <div className='outter' style={outter}>
       {responseMessage && (
         <p>{responseMessage}</p>
       )}
@@ -163,6 +177,7 @@ function Register  ({ togglePage, showLogin }) {
         Switch to Login
       </button> */}
       <p >Already have an account ? <span className='tog' onClick={togglePage}> Sign In</span></p>
+      </div>
     </div>
   );
   

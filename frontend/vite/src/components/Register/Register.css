@@ -3,12 +3,11 @@
   display: flex;
   flex-direction: column;
 }
-@media screen and(min-width: 600px) {
-}
+
 .reg-form h2 {
   font-family: "Times New Roman", Times, serif;
   font-style: italic;
-  color: rgb(57, 48, 48);
+  color: rgb(255, 255, 255);
 }
 
 .form-container {
@@ -18,15 +17,18 @@
   background-color: whitesmoke;
   margin: 0.5px;
 }
+
 label {
   text-align: left;
   padding: 0.25rem 0;
 }
+
 input {
   margin: 0.5rem 0;
   padding: 0.75rem;
   border: none;
   border-radius: 7px;
+  background-color: rgb(243, 243, 243);
 }
 button {
   border: none;
@@ -41,6 +43,16 @@ button:hover {
   background-color: rgba(37, 19, 110, 0.699);
 }
 
+
+.outter {
+
+
+}
+
+p {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
 .btn {
   background: none;
   color: rgb(245, 118, 118);
@@ -64,4 +76,13 @@ button:disabled {
 .tog:hover {
   background-color: #c5c5c5;
   color: rgb(81 86 255);
+
+  .cont{
+    min-width: 100vh;
+    width: 100%;
+  }
+
+@media (max-width: 1024px) {
+  bottom: 230px;
+};
 }
