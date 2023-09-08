@@ -75,7 +75,7 @@ function Register  ({ togglePage, showLogin }) {
   margin: '30px',
   borderRadius: '15px',
   flexDirection: 'column',
-  alignItems: 'center',
+  // alignItems: 'center',
   width: '300px',
   }
 

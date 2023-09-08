@@ -21,7 +21,8 @@ const App = () => {
   return (
     <div className="App">
       {isLoggedIn ? (
-        <Dashboard />
+        // <Dashboard />
+        <Landing />
       ) : isLoginPage ? (
         <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
       ) : (

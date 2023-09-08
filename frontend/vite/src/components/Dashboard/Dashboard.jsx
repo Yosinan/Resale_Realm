@@ -1,14 +1,15 @@
 import React from 'react'
-
+import ProductForm from '../Products/ProductForm'
 
 function Dashboard() {
   return (
     <>
     <div className='dashboard-container'>
-        <h1>Dashboard</h1>
+        {/* <h1>Dashboard</h1>
+        <br /> */}
         <br />
-        <a href='/'>Home</a>
     </div>
+    <ProductForm />
     </>
   )
 }
