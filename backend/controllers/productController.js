@@ -105,31 +105,30 @@ const editItem = async (req, res, next) => {
 
  const search = async (req, res ) => {
   try {
-    const { search, category, price } = req.query;
+    const { search, category, minPrice, maxPrice } = req.query;
 
-    // Construct the query based on the provided criteria
-    const query = {};
+    const filter = {};
 
     if (search) {
-      query.name = { $regex: search, $options: 'i' }; // Case-insensitive search
+      filter.name = { $regex: search, $options: 'i' };
     }
-
     if (category) {
-      query.category = category;
+      filter.category = category;
+    }
+    if (minPrice && maxPrice) {
+      filter.price = { $gte: minPrice, $lte: maxPrice };
+    } else if (minPrice) {
+      filter.price = { $gte: minPrice };
+    } else if (maxPrice) {
+      filter.price = { $lte: maxPrice };
     }
 
-    if (price) {
-      const [minPrice, maxPrice] = price.split('-');
-      query.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
-    }
-
-    // Query the database
-    const products = await Product.find(query);
+    const products = await Product.find(filter);
 
     res.json(products);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    console.error('Error fetching products:', err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 

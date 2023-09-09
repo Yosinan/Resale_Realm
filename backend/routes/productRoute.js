@@ -11,6 +11,6 @@ router.put("/api/products/edit/:id", auth, editItem);
 router.delete("/api/products/delete/:id", auth, deleteItem);
 router.get("/api/products/", getItems);
 router.get("/api/products/:id", getItemById);
-router.get("/api/search", search);
+router.get("/api/products/search", search);
 
 module.exports = router;
