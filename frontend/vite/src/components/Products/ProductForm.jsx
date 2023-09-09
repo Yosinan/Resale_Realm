@@ -151,10 +151,11 @@ function ProductForm() {
         const fetchCurrentUser = async () => {
             try {
                 const token = localStorage.getItem('Token');
-                const response = await axios.get('http://localhost:5000/api/users', {
+                const response = await axios.get('http://localhost:5000/api/users/profile', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const user = response.data;
+                console.log(user.email);
                 setCurrentUser(user);
             } catch (error) {
                 console.error('Failed to fetch current user:', error);
@@ -258,7 +259,7 @@ function ProductForm() {
                 <h2>Published items</h2>
                 <div className="posted-items-container">
                     {items.map((item) => (
-                        <div key={item._id} className="item-card">
+                        <div key={item.id} className="item-card">
                             <h3>{item.itemTitle}Smart Phone</h3>
 
                         <div className="item-card-image">

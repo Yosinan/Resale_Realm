@@ -52,6 +52,14 @@ function Login({ onLogin, togglePage, showLogin }) {
       setEnable(true);
     }
   }, [password, email]);
+
+  useEffect(() => {
+    const upToken = localStorage.getItem('Token');
+    setToken(upToken);
+    console.log("Token from state is: " + upToken);
+    
+  }, [token]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -60,13 +68,12 @@ function Login({ onLogin, togglePage, showLogin }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, token }),
+        body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('Token', data.token);
-        setToken(data.token);
-        // console.log(data);
+        console.log("Token from local storage is: " + localStorage.getItem('Token'));
         onLogin(data);
       } else {
         setPass(''); // Clear the password field

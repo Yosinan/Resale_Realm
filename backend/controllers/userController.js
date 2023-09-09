@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'yoszewdu@gmail.com',
+    user: '',
     pass: EMAIL_PASSWORD
   },
   secure: true
@@ -113,13 +113,15 @@ const loginUser = async (req, res) => {
 
  user.token = token;
 
- //send the token to the frontend using cookies
- res.cookie("Token", token, {
-   path: "/",
-   httpOnly: true,
-   sameSite: true,
-   secure: true
- });
+//  //send the token to the frontend using cookies
+//  res.cookie("Token", token, {
+//    path: "/",
+//    httpOnly: true,
+//    sameSite: true,
+//    secure: true
+//  });
+      // Send the token to the client
+      // res.status(200).json({ message: 'Login successful', token });
 
  await user.save();
      return res.status(201).json({ message: "Logged in successfully !!!", token: token});
