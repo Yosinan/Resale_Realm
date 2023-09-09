@@ -156,6 +156,7 @@ function ProductForm() {
                 });
                 const user = response.data;
                 console.log(user.email);
+                console.log(token)
                 setCurrentUser(user);
             } catch (error) {
                 console.error('Failed to fetch current user:', error);
@@ -171,18 +172,18 @@ function ProductForm() {
 
     const fetchitems = async () => {
         try {
-            // const token = getCookie('Token');
             const token = localStorage.getItem('Token');
             const response = await axios.get("http://localhost:5000/api/products", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setCreatedAt(response.data.createdAt);
+            console.log(response.data)
+            setItems(response.data);
+            setCreatedAt(response.data.dateAdded);
             setItems(response.data);
         } catch (error) {
             console.error("Error fetching items:", error);
-            //   setErrorMessage("Error fetching items. Please try again.");
             setMessage("Error fetching items. Please try again.");
         }
     };
@@ -199,13 +200,14 @@ function ProductForm() {
         event.preventDefault();
 
         const postData = {
-            itemTitle: itemTitle,
-            content: content,
+            name: itemTitle,
+           unitPrice: content,
+           dateAdded: new Date().toLocaleTimeString,
         };
 
+        const token = localStorage.getItem('Token');
+
         try {
-            // const token = localStorage.getItem('Token');
-            // const token = getCookie('Token');
             await axios.post("http://localhost:5000/api/products/add", postData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -214,7 +216,6 @@ function ProductForm() {
             setItemTitle("");
             setContent("");
             fetchitems(); // Refresh items after successful post
-            //   setSuccessMessage("post published successfully.");
             setMessage("Post published successfully.");
         } catch (error) {
             alert('Login to post');
@@ -260,7 +261,7 @@ function ProductForm() {
                 <div className="posted-items-container">
                     {items.map((item) => (
                         <div key={item.id} className="item-card">
-                            <h3>{item.itemTitle}Smart Phone</h3>
+                            <h3>{item.name}</h3>
 
                         <div className="item-card-image">
                             <img
@@ -269,20 +270,18 @@ function ProductForm() {
 
                             />
                         </div>
-                            <p>{item.content}</p>
-
-                            
+                            <p>{item.unitPrice}</p> 
                                 <div className="item-card-user">
                                     <img
                                         src={currentUser?.profilePictureUrl}
                                         alt={currentUser?.username}
                                     />
+                            <i className="created-at">Posted at: {item.dateAdded}</i>
                                     <p>Iphone 14</p>
                                     <span>{currentUser?.username}</span>
                                     </div>
                                     
 
-                            <i className="created-at">Posted at: {new Date().toLocaleString()}</i>
                         </div>
                     ))}
                 </div>

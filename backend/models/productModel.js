@@ -12,11 +12,11 @@ const productSchema = new mongoose.Schema({
     },
     quantity: {
       type: Number,
-      required: true,
+      // required: true,
     },
     description:{
       type: String,
-      required: true,
+      // required: true,
     },
     images: [String],
     category: String,
@@ -24,6 +24,10 @@ const productSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId, 
       ref:'User', 
       required: true },
+    dateAdded: {
+      type: Date,
+      default: Date.now,
+    },
 
 });
   
