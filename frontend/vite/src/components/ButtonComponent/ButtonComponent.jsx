@@ -18,6 +18,7 @@ const ButtonComponent = ({ onClick }) => {
       };
 
   return (
+    
     <button onClick={onClick} style={buttonStyles}>
         <FontAwesomeIcon icon={faSignInAlt} />
     </button>

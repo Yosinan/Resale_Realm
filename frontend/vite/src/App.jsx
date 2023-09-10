@@ -39,9 +39,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
+import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard'
 import SideLogin from './components/SideLogin/SideLogin'
-const App=()=>{
+import PageNotFound from './components/404/PageNotFound';
+
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginPage, setIsLoginPage] = useState(true);
 
@@ -52,30 +55,22 @@ const App=()=>{
   function toggleLoginPage() {
     setIsLoginPage(!isLoginPage);
   }
-// const handlRoutes=()=>{
+  // const handlRoutes=()=>{
   return (
     <>
-       <div className='page-container'>
-      <div className='content-wrapper'></div>
-      <div className="App">
-        <Router>
-
-          <Routes>
-          {/* <SideLogin /> */}
-          <Route path='/' exact element={<SideLogin />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-        {/* {isLoggedIn ? (
-          <Dashboard />
-        ) : isLoginPage ? (
-          <Login onLogin={handleLogin} togglePage={toggleLoginPage} />
-        ) : (
-          <Register togglePage={toggleLoginPage} />
-        )} */}
-     
-          </Routes>
-        </Router>
+      <div className='page-container'>
+        <div className='content-wrapper'></div>
+        <div className="App">
+          <Router>
+            <Routes>
+              <Route path='/' exact element={<SideLogin />} />
+              <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/home' element={<Home />} />
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
+          </Router>
         </div>
-        </div>
+      </div>
     </>
   )
 }

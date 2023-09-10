@@ -173,9 +173,6 @@ function Register  ({ togglePage, showLogin }) {
         <br />
         <button className="reg" disabled={!enable} type="submit">Sign Up</button>
       </form>
-      {/* <button className="tog"  onClick={togglePage}>
-        Switch to Login
-      </button> */}
       <p >Already have an account ? <span className='tog' onClick={togglePage}> Sign In</span></p>
       </div>
     </div>

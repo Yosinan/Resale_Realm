@@ -135,7 +135,6 @@ const loginUser = async (req, res) => {
 // Logout a user 
 const logoutUser = async (req, res) => {
   try{
-   // const token = req.cookies.token;
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -145,10 +144,9 @@ const logoutUser = async (req, res) => {
     }
     // Remove the token from the database
     user.token = undefined;
-    res.cookie("Token", "");
     await user.save();
 
-    return res.status(201).json({message: "Logged out successfully"});
+    return res.status(201).json({message: "Logged out successfully", token: ""});
     } catch (err) {
       res.status(400).json({ message: err.message });
     }

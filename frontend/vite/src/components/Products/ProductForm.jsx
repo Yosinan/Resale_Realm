@@ -133,6 +133,7 @@ import axios from "axios";
 import './Prod.css';
 import { getCookie } from "../../utils/utils";
 import image from '../../assets/images/icon.jpeg';
+import Footer from  '../Footer/Footer'
 
 function ProductForm() {
     const [itemTitle, setItemTitle] = useState("");
@@ -227,6 +228,7 @@ function ProductForm() {
 
 
     return (
+        <>
         <div className="item-container">
             <div className="new-item-section">
                 <h2>Post a New item</h2>
@@ -238,6 +240,7 @@ function ProductForm() {
                             type="text"
                             value={itemTitle}
                             onChange={handleitemTitleChange}
+                            required
                         />
                     </div>
                     <div>
@@ -246,6 +249,7 @@ function ProductForm() {
                             id="contentInput"
                             value={content}
                             onChange={handleContentChange}
+                            required
                         />
                     </div>
 
@@ -287,6 +291,8 @@ function ProductForm() {
                 </div>
             </div>
         </div>
+        {/* <Footer/> */}
+        </>
     );
 }
 
