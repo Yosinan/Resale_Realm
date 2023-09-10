@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './Login.css'
 import image from '../../assets/images/icon.jpeg'
 import PropTypes from 'prop-types'
+import Message from '../Message/Message'
 
 function Login({ onLogin, togglePage, showLogin }) {
 
@@ -43,6 +44,7 @@ function Login({ onLogin, togglePage, showLogin }) {
   const [responseMessage, setResponseMessage] = useState('');
   const [enable, setEnable] = useState(true);
   const [token, setToken] = useState('');
+  const [message, setMessage] = useState(null);
 
 
   useEffect(() => {
@@ -74,26 +76,31 @@ function Login({ onLogin, togglePage, showLogin }) {
         const data = await response.json();
         localStorage.setItem('Token', data.token);
         console.log("Token from local storage is: " + localStorage.getItem('Token'));
+        setMessage({ text: data.message, type: 'success' });
         onLogin(data);
       } else {
         setPass(''); // Clear the password field
         const error = await response.json();
         console.log(error);
-        setResponseMessage(error.message); // Update the error message
+        // setResponseMessage(error.message); // Update the error message
+        setMessage({ text: error.message, type: 'error' });
+
 
       }
     } catch (error) {
       console.log(error);
-      setResponseMessage(error.message);
+      // setResponseMessage(error.message);
+      setMessage({ text: error.message, type: 'error' });
     }
   };
 
   return (
     <div className='contain' style={loginStyles}>
       <div className='login-form' style={outter}>
-        {responseMessage && (
+        {/* {responseMessage && (
           <p>{responseMessage}</p>
-        )}
+        )} */}
+        {message && <Message text={message.text} type={message.type} />}
         <form className='login-form' onSubmit={handleSubmit}>
           <h2>Login</h2>
           <label htmlFor="email">Email</label>

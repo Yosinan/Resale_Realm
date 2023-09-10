@@ -133,11 +133,11 @@ import axios from "axios";
 import './Prod.css';
 import { getCookie } from "../../utils/utils";
 import image from '../../assets/images/icon.jpeg';
-import Footer from  '../Footer/Footer'
+import Footer from '../Footer/Footer'
 
 function ProductForm() {
     const [itemTitle, setItemTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [price, setPrice] = useState("");
     const [createdAt, setCreatedAt] = useState("");
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState("");
@@ -193,8 +193,9 @@ function ProductForm() {
         setItemTitle(event.target.value);
     };
 
-    const handleContentChange = (event) => {
-        setContent(event.target.value);
+    const handlePriceChange = (event) => {
+
+        setPrice(event.target.value);
     };
 
     const handleSubmit = async (event) => {
@@ -202,8 +203,8 @@ function ProductForm() {
 
         const postData = {
             name: itemTitle,
-           unitPrice: content,
-           dateAdded: new Date().toLocaleTimeString,
+            unitPrice: price,
+            dateAdded: new Date().toLocaleTimeString,
         };
 
         const token = localStorage.getItem('Token');
@@ -215,7 +216,7 @@ function ProductForm() {
                 },
             });
             setItemTitle("");
-            setContent("");
+            setprice("");
             fetchitems(); // Refresh items after successful post
             setMessage("Post published successfully.");
         } catch (error) {
@@ -229,69 +230,70 @@ function ProductForm() {
 
     return (
         <>
-        <div className="item-container">
-            <div className="new-item-section">
-                <h2>Post a New item</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="itemTitleInput">itemTitle:</label>
-                        <input
-                            id="itemTitleInput"
-                            type="text"
-                            value={itemTitle}
-                            onChange={handleitemTitleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="contentInput">Content:</label>
-                        <textarea
-                            id="contentInput"
-                            value={content}
-                            onChange={handleContentChange}
-                            required
-                        />
-                    </div>
-
-                    <button type="submit">Publish</button>
-                </form>
-                {/* <button onClick={() => handleLogout}>logout</button> */}
-                {/* {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>} */}
-                {message && <p className="message">{message}</p>}
-            </div>
-            <div className="posted-items-section">
-                <h2>Published items</h2>
-                <div className="posted-items-container">
-                    {items.map((item) => (
-                        <div key={item.id} className="item-card">
-                            <h3>{item.name}</h3>
-
-                        <div className="item-card-image">
-                            <img
-                                src={image}
-                                alt={item.itemTitle}
-
+            <div className="item-container">
+                <div className="new-item-section">
+                    <h2>Post  New item</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="itemTitleInput">itemTitle:</label>
+                            <input
+                                id="itemTitleInput"
+                                type="text"
+                                value={itemTitle}
+                                onChange={handleitemTitleChange}
+                                required
                             />
                         </div>
-                            <p>{item.unitPrice}</p> 
+                        <div>
+                            <label htmlFor="priceInput">Price:</label>
+                            <input
+                                id="priceInput"
+                                value={price}
+                                onChange={handlePriceChange}
+                                required
+                                type="number"
+                            />
+                        </div>
+
+                        <button type="submit">Publish</button>
+                    </form>
+                    {/* <button onClick={() => handleLogout}>logout</button> */}
+                    {/* {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>} */}
+                    {message && <p className="message">{message}</p>}
+                </div>
+                <div className="posted-items-section">
+                    <h2>Published items</h2>
+                    <div className="posted-items-container">
+                        {items.map((item) => (
+                            <div key={item.id} className="item-card">
+                                <h3>{item.name}</h3>
+
+                                <div className="item-card-image">
+                                    <img
+                                        src={image}
+                                        alt={item.itemTitle}
+
+                                    />
+                                </div>
+                                <p>{item.unitPrice}</p>
                                 <div className="item-card-user">
                                     <img
                                         src={currentUser?.profilePictureUrl}
                                         alt={currentUser?.username}
                                     />
-                            <i className="created-at">Posted at: {item.dateAdded}</i>
+                                    <i className="created-at">Posted at: {item.dateAdded}</i>
                                     <p>Iphone 14</p>
                                     <span>{currentUser?.username}</span>
-                                    </div>
-                                    
+                                </div>
 
-                        </div>
-                    ))}
+
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
-        {/* <Footer/> */}
+            {/* <Footer/> */}
         </>
     );
 }
