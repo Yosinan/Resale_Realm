@@ -4,6 +4,21 @@
   flex-direction: column;
 }
 
+@media only screen and (max-width: 500px) {
+  .form-container {
+    right: 10px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .form-container {
+    /* right: 0 !important; */
+    position: static !important;
+    margin: 0;
+    padding: 0;
+  }
+}
+
 .reg-form h2 {
   font-family: "Times New Roman", Times, serif;
   font-style: italic;

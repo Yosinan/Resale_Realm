@@ -49,8 +49,8 @@ function Register  ({ togglePage, showLogin }) {
 
 
   const regStyles = {
-    // position: 'fixed',
-    bottom: '190px',
+    position: 'fixed',
+    top: '50px',
     right: '65px',
     width: showLogin ? '400px' : '0',
     height: 'auto',

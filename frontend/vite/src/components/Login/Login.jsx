@@ -7,9 +7,9 @@ import Message from '../Message/Message'
 function Login({ onLogin, togglePage, showLogin }) {
 
   const loginStyles = {
-    // position: 'fixed',
-    bottom: '410px',
+    position: 'fixed',
     right: '65px',
+    top: '50px',
     width: showLogin ? '300px' : '0',
     height: 'auto',
     background: '#fff',
