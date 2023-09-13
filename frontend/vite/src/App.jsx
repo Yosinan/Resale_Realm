@@ -43,6 +43,8 @@ import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard'
 import SideLogin from './components/SideLogin/SideLogin'
 import PageNotFound from './components/404/PageNotFound';
+import Landing from './components/Landing/Landing';
+// import ProtectedRoutes from './components/ProtectedRoutes/ProtectdRoutes';
 
 const App = () => {
 
@@ -74,8 +76,10 @@ const App = () => {
         <div className="App" style={appStyles}>
           <Router>
             <Routes>
-              <Route path='/' exact element={<SideLogin />} />
+              <Route path='/' exact element={<Landing/>} />
               <Route path='/dashboard' element={<Dashboard />} />
+              {/* <ProtectedRoutes path='/dashboard' element={<Dashboard />} /> */}
+              {/* <Redirect to='/'> */}
               <Route path='/home' element={<Home />} />
               <Route path='*' element={<PageNotFound />} />
             </Routes>

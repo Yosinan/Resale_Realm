@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
+// import SideLogin from "../SideLogin/SideLogin";
 import './Prod.css';
 import Message from "../Message/Message";
 import { getCookie } from "../../utils/utils";
@@ -36,7 +37,7 @@ function Dashboard() {
 
       if (response.ok) {
         localStorage.removeItem('Token');
-        window.location.href = '/home'
+        window.location.href = '/'
       }
       else {
         console.log('Logout Failed')
@@ -175,7 +176,8 @@ function Dashboard() {
         <button className='logout' onClick={handlelogout}>Logout</button>
         <br />
         <div className="new-item-section">
-          <h2>Post New item</h2>
+         
+          <h2>Post New Item</h2>
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="itemTitleInput">itemTitle:  </label>
@@ -225,15 +227,7 @@ function Dashboard() {
                     src={currentUser?.profilePictureUrl}
                     alt={currentUser?.username}
                   />
-                  <i className="created-at">Posted at: {item.dateAdded}</i>
-                  <br />
-                  <i className="created-at">Posted by: {formatPostedDate(900)}</i>
-                  <p>Iphone 14</p>
-                  {/* <p>{handleOwner(item)}</p> */}
-                  {/* {handleOwner(item) && (
-                    <button className="delete-button">Delete</button>
-                  )} */}
-                 
+                  <i className="created-at">Posted at: {item.dateAdded}</i> 
                 </div>
 
 

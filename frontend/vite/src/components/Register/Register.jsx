@@ -49,10 +49,10 @@ function Register  ({ togglePage, showLogin }) {
 
 
   const regStyles = {
-    // position: 'fixed',
-    bottom: '190px',
+    position: 'fixed',
+    top: '50px',
     right: '65px',
-    width: showLogin ? '400px' : '0',
+    width: showLogin ? '350px' : '0',
     height: 'auto',
     background: '#ffffff',
     backgroundImage: `url(${image})`,
@@ -71,7 +71,7 @@ function Register  ({ togglePage, showLogin }) {
   const outter ={
   display: 'flex',
   backgroundColor: 'rgba(242, 242, 242, 0.28)',
-  padding: '10px',
+  // padding: '10px',
   margin: '30px',
   borderRadius: '15px',
   flexDirection: 'column',

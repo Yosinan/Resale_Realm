@@ -11,6 +11,7 @@ const MainPage = () => {
 
   function handleLogin() {
     setIsLoggedIn(true);
+    window.location.href = '/dashboard';
   }
 
   function toggleLoginPage() {
