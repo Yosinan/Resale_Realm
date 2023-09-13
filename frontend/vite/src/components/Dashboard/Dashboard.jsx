@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 import './Prod.css';
 import Message from "../Message/Message";
 import { getCookie } from "../../utils/utils";
@@ -8,6 +9,17 @@ import Footer from '../Footer/Footer'
 
 
 function Dashboard() {
+
+  const dashStyles = {
+    // position: 'fixed',
+    display: 'flex',
+    bottom: '410px',
+    right: '65px',
+    width: '100%',
+    margin: '0',
+    height: 'auto',
+    background: '#244',
+  }
 
   const handlelogout = async () => {
 
@@ -44,6 +56,7 @@ function Dashboard() {
   // const [errorMessage, setErrorMessage] = useState("");
   // const [successMessage, setSuccessMessage] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const [addedBy, setAddedBy] = useState(null);
 
   // ...
 
@@ -56,9 +69,11 @@ function Dashboard() {
           headers: { Authorization: `Bearer ${token}` },
         });
         const user = response.data;
-        console.log(user.email);
-        console.log(token)
+        // console.log(user.email);
+        // console.log(user.__id)
+        // console.log(token)
         setCurrentUser(user);
+        return user;
       } catch (error) {
         console.error('Failed to fetch current user:', error);
       }
@@ -81,6 +96,7 @@ function Dashboard() {
       });
       console.log(response.data)
       setItems(response.data);
+      setAddedBy(response.data.addedBy)
       setCreatedAt(response.data.dateAdded);
       setItems(response.data);
     } catch (error) {
@@ -98,13 +114,39 @@ function Dashboard() {
     setPrice(event.target.value);
   };
 
+
+  const formatPostedDate = (date) => {
+    const now = moment();
+    const postedDate = moment(date);
+    const diff = now.diff(postedDate, "hours");
+    if (diff < 24) {
+      return `${diff} hours ago`;
+    } else {
+      return `${now.diff(postedDate, "days")} days ago`;
+    }
+  };
+
+  const handleOwner = async (item) => {
+
+    const token = localStorage.getItem('Token');
+   
+    const user = await fetch('http://localhost:5000/api/users/6484bbbec368be4d049addbe', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        });
+
+        return user.name;
+  
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const postData = {
       name: itemTitle,
       unitPrice: price,
-      dateAdded: new Date().toLocaleTimeString,
+      dateAdded: new Date().toLocaleDateString(),
     };
 
     const token = localStorage.getItem('Token');
@@ -129,7 +171,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="item-container">
+      <div className="item-container" style={dashStyles}> 
         <button className='logout' onClick={handlelogout}>Logout</button>
         <br />
         <div className="new-item-section">
@@ -152,17 +194,19 @@ function Dashboard() {
                 value={price}
                 onChange={handlePriceChange}
                 required
-                // type="number"
+                type="number"
               />
             </div>
 
             <button type="submit">Publish</button>
           </form>
           {/* <button onClick={() => handleLogout}>logout</button> */}
-           {message && <Message text={message.text} type={message.type} />} 
+          {message && <Message text={message.text} type={message.type} />}
         </div>
         <div className="posted-items-section">
           <h2>Published items</h2>
+          <p>Showing {items.length} items</p>
+          <br />
           <div className="posted-items-container">
             {items.map((item) => (
               <div key={item.id} className="item-card">
@@ -182,8 +226,14 @@ function Dashboard() {
                     alt={currentUser?.username}
                   />
                   <i className="created-at">Posted at: {item.dateAdded}</i>
+                  <br />
+                  <i className="created-at">Posted by: {formatPostedDate(900)}</i>
                   <p>Iphone 14</p>
-                  <span>{currentUser?.username}</span>
+                  {/* <p>{handleOwner(item)}</p> */}
+                  {/* {handleOwner(item) && (
+                    <button className="delete-button">Delete</button>
+                  )} */}
+                 
                 </div>
 
 
@@ -192,7 +242,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </>
   );
 }

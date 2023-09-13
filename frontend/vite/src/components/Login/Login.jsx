@@ -58,7 +58,7 @@ function Login({ onLogin, togglePage, showLogin }) {
   useEffect(() => {
     const upToken = localStorage.getItem('Token');
     setToken(upToken);
-    console.log("Token from state is: " + upToken);
+    // console.log("Token from state is: " + upToken);
     
   }, [token]);
 
@@ -100,7 +100,7 @@ function Login({ onLogin, togglePage, showLogin }) {
         {/* {responseMessage && (
           <p>{responseMessage}</p>
         )} */}
-        {message && <Message text={message.text} type={message.type} />}
+        {message && <Message key={message.type} text={message.text} type={message.type} />}
         <form className='login-form' onSubmit={handleSubmit}>
           <h2>Login</h2>
           <label htmlFor="email">Email</label>

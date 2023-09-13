@@ -157,6 +157,7 @@ function ProductForm() {
                 });
                 const user = response.data;
                 console.log(user.email);
+                console.log(user._id)
                 console.log(token)
                 setCurrentUser(user);
             } catch (error) {

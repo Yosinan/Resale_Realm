@@ -138,6 +138,10 @@ const logoutUser = async (req, res) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
+    if (!token) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+    
     const user = await User.findOne({ token });
     if (!user) {
       return res.status(401).json({ error: 'Invalid token' });
@@ -179,6 +183,9 @@ const getUserById =  async (req, res) => {
     try {
       // Find a user by ID from the MongoDB collection
       const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
       res.json(user);
     } catch (err) {
       res.status(500).json({ message: err.message });

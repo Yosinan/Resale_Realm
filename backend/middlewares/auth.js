@@ -10,6 +10,11 @@ const auth = async (req, res,next) => {
 
     // Check if the token exists
     try{
+
+        if (!token) {
+            return res.status(401).json({ message: "Unauthorized, login first." });
+        }
+        
         const validuser = await User.findOne({ token });
         // const token = req.cookies.token;
         if (!validuser) {

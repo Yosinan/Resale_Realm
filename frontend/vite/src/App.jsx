@@ -36,7 +36,7 @@
 
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css'
+// import './App.css'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import Home from './components/Home/Home'
@@ -45,6 +45,17 @@ import SideLogin from './components/SideLogin/SideLogin'
 import PageNotFound from './components/404/PageNotFound';
 
 const App = () => {
+
+
+  const appStyles = {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    // backgroundColor: 'red',
+  }
+
+
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginPage, setIsLoginPage] = useState(true);
 
@@ -60,7 +71,7 @@ const App = () => {
     <>
       <div className='page-container'>
         <div className='content-wrapper'></div>
-        <div className="App">
+        <div className="App" style={appStyles}>
           <Router>
             <Routes>
               <Route path='/' exact element={<SideLogin />} />

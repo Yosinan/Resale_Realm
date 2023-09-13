@@ -25,6 +25,8 @@ const productSchema = new mongoose.Schema({
       ref:'User', 
       required: true },
     dateAdded: {
+      // type: Date,
+      // default: Date.now,
       type: Date,
       default: Date.now,
     },

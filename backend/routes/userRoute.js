@@ -9,7 +9,7 @@ router.get("/api/users/status", stat);
 router.post("/api/users/register", registerUser);
 router.post("/api/users/login", loginUser);
 router.get("/api/users/profile", auth , getUser);
-router.get("/api/users/:id", getUserById );
+router.get("/api/users/:id", auth, getUserById );
 
 
 module.exports = router;
