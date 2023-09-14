@@ -167,6 +167,56 @@ const searchAll = async (req, res) => {
   }
 };
 
+
+// sort products by price
+
+const sortProductsByPrice = async (req, res, next) => {
+  try {
+    const products = await Product.find().sort({ unitPrice: 1 });
+    res.send(products);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// sort products by alphabet
+
+const sortProductsByAlphabet = async (req, res, next) => {
+  try {
+    const products = await Product.find().sort({ name: 1 });
+    res.send(products);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// sort products by date
+
+const sortProductsByDate = async (req, res, next) => {
+  try {
+    const products = await Product.find().sort({ dateAdded: 1 });
+    res.send(products);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// sort products by category
+
+const sortProductsByCategory = async (req, res, next) => {
+  try {
+    const products = await Product.find().sort({ category: 1 });
+    res.send(products);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
+
+
+
 module.exports = {
   getItems,
   // getItemById,
@@ -176,5 +226,10 @@ module.exports = {
   searchProducts,
   searchProductsByCategory,
   searchProductsByPrice,
-  searchAll
+  searchAll,
+  sortProductsByPrice,
+  sortProductsByAlphabet,
+  sortProductsByDate,
+  sortProductsByCategory
+  
 }

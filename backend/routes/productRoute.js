@@ -12,6 +12,11 @@ const {
     searchProductsByPrice,
     searchProductsByCategory,
     searchAll, 
+    sortProductsByPrice,
+    sortProductsByAlphabet,
+    sortProductsByDate,
+    sortProductsByCategory
+
 } = require("../controllers/productController");
 
 app.use(cors());
@@ -24,6 +29,11 @@ router.get("/api/products/", getItems);
 router.get("/api/products/search/", searchAll);
 router.get("/api/products/category/:category", searchProductsByCategory);
 router.get("/api/products/price/:unitPrice", searchProductsByPrice);
+router.get("/api/products/sort/", sortProductsByPrice);
+router.get("/api/products/sort/alphabet/", sortProductsByAlphabet);
+router.get("/api/products/sort/date/", sortProductsByDate);
+router.get("/api/products/sort/category/", sortProductsByCategory);
+
 
 
 
