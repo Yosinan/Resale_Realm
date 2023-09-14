@@ -151,11 +151,11 @@ const searchAll = async (req, res) => {
       filter.category = { $regex: category, $options: 'i' };
     }
     if (minPrice && maxPrice) {
-      filter.price = { $gte: minPrice, $lte: maxPrice };
+      filter.unitPrice = { $gte: minPrice, $lte: maxPrice };
     } else if (minPrice) {
-      filter.price = { $gte: minPrice };
+      filter.unitPrice = { $gte: minPrice };
     } else if (maxPrice) {
-      filter.price = { $lte: maxPrice };
+      filter.unitPrice = { $lte: maxPrice };
     }
 
     const products = await Product.find(filter);
