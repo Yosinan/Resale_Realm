@@ -5,7 +5,7 @@ import moment from "moment";
 import './Prod.css';
 import Message from "../Message/Message";
 import { getCookie } from "../../utils/utils";
-import image from '../../assets/images/icon.jpeg';
+import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
 
 
@@ -51,6 +51,10 @@ function Dashboard() {
 
   const [itemTitle, setItemTitle] = useState("");
   const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [category, setCategory] = useState("");
+
   const [createdAt, setCreatedAt] = useState("");
   const [items, setItems] = useState([]);
   const [message, setMessage] = useState(null);
@@ -99,6 +103,7 @@ function Dashboard() {
       setItems(response.data);
       setAddedBy(response.data.addedBy)
       setCreatedAt(response.data.dateAdded);
+      console.log(token)
       setItems(response.data);
     } catch (error) {
       console.error("Error fetching items:", error);
@@ -115,6 +120,21 @@ function Dashboard() {
     setPrice(event.target.value);
   };
 
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+
+
+
 
   const formatPostedDate = (date) => {
     const now = moment();
@@ -130,25 +150,39 @@ function Dashboard() {
   const handleOwner = async (item) => {
 
     const token = localStorage.getItem('Token');
-   
+
     const user = await fetch('http://localhost:5000/api/users/6484bbbec368be4d049addbe', {
       headers: {
         Authorization: `Bearer ${token}`,
-        },
-        });
+      },
+    });
 
-        return user.name;
-  
+    return user.name;
+
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const postData = {
-      name: itemTitle,
-      unitPrice: price,
-      dateAdded: new Date().toLocaleDateString(),
-    };
+
+    const postData = new FormData();
+    postData.append("name", itemTitle);
+    postData.append("unitPrice", price);
+    postData.append("dateAdded", new Date().toLocaleDateString());
+    postData.append("description", description);
+    postData.append("images", image);
+    postData.append("category", category);
+
+    // const postData = {
+    //   name: itemTitle,
+    //   unitPrice: price,
+    //   dateAdded: new Date().toLocaleDateString(),
+    //   description: description,
+    //   image: image,
+    //   category: category,
+    //   // addedBy: currentUser?._id,
+
+    // };
 
     const token = localStorage.getItem('Token');
 
@@ -160,6 +194,9 @@ function Dashboard() {
       });
       setItemTitle("");
       setPrice("");
+      setDescription("");
+      setImage("");
+      setCategory("");
       fetchitems(); // Refresh items after successful post
       setMessage({ type: "success", text: "Post published successfully." });
     } catch (error) {
@@ -172,43 +209,68 @@ function Dashboard() {
 
   return (
     <>
-      <div className="item-container" style={dashStyles}> 
+      <div className="item-container" style={dashStyles}>
         <button className='logout' onClick={handlelogout}>Logout</button>
         <br />
         <div className="new-item-section">
-         
+
           <h2>Post New Item</h2>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="itemTitleInput">itemTitle:  </label>
-              <input
-                id="itemTitleInput"
-                type="text"
-                value={itemTitle}
-                onChange={handleitemTitleChange}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="priceInput">Price:  </label>
-              <input
-                id="priceInput"
-                value={price}
-                onChange={handlePriceChange}
-                required
-                type="number"
-              />
-            </div>
 
-            <button type="submit">Publish</button>
+            <label htmlFor="itemTitleInput">Item Name:  </label>
+            <input
+              id="itemTitleInput"
+              type="text"
+              value={itemTitle}
+              onChange={handleitemTitleChange}
+              required
+            />
+            <br />
+            <label htmlFor="priceInput">Price:  </label>
+            <input
+              id="priceInput"
+              value={price}
+              onChange={handlePriceChange}
+              required
+              type="number"
+            />
+            <br />
+            <label htmlFor="descriptionInput">Description:  </label>
+            <textarea
+              id="descriptionInput"
+              value={description}
+              onChange={handleDescriptionChange}
+              required
+              type="text"
+            />
+            <br />
+            <label htmlFor="imageInput">Image:  </label>
+            <input
+              id="imageInput"
+              onChange={handleImageChange}
+              required
+              type="file"
+            />
+            <br />
+            <label htmlFor="categoryInput">Category:  </label>
+            <select id="categoryInput" value={category} onChange={handleCategoryChange} required>
+              <option value="">Select a category</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Books">Books</option>
+              <option value="Other">Other</option>
+            </select>
+            <br />
+            <button type="submit" >Publish</button>
           </form>
-          {/* <button onClick={() => handleLogout}>logout</button> */}
           {message && <Message text={message.text} type={message.type} />}
         </div>
         <div className="posted-items-section">
           <h2>Published items</h2>
           <p>Showing {items.length} items</p>
           <br />
+
           <div className="posted-items-container">
             {items.map((item) => (
               <div key={item.id} className="item-card">
@@ -216,7 +278,7 @@ function Dashboard() {
 
                 <div className="item-card-image">
                   <img
-                    src={image}
+                    src={image1}
                     alt={item.itemTitle}
 
                   />
@@ -227,7 +289,7 @@ function Dashboard() {
                     src={currentUser?.profilePictureUrl}
                     alt={currentUser?.username}
                   />
-                  <i className="created-at">Posted at: {item.dateAdded}</i> 
+                  <i className="created-at">Posted at: {item.dateAdded}</i>
                 </div>
 
 
@@ -236,7 +298,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
