@@ -6,6 +6,7 @@
     min-height: 100vh;
     flex-grow: 1;
     /* padding: 20px; */
+
 }
 
 .new-item-section {
@@ -23,9 +24,10 @@
 
 .posted-items-section {
     display: flex;
+    margin-left: 100px;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
 }
 
 .posted-items-container {
@@ -40,28 +42,121 @@
 
 .item-card-image img {
     border-radius: 5%;
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 160px;
+}
+
+
+.item-card-user img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    margin:5px;
 }
 
 .posted-items-container h3 {
     color: #000000;
 }
 
-.item-card {
-    background-color: rgba(32, 23, 23, 0.57);
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-    height: 450px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .created-at {
     font-size: 14px;
-    color: #a0a0a0;
-    /* bottom: 0;
-    position: absolute; */
-    margin: 1px;
+    color: #4f4f4f;
+    margin: 8px;
+}
+
+.main-container {
+    min-height: 100vh;
+    flex-grow: 1;
+    background-color: rgba(76, 58, 58, 0.28);
+    height: 100%;
+}
+
+.main-container h2 {
+    color: #000000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-container .logout {
+    margin: 10px;
+    margin-left: 90%;
+}
+
+
+.container {
+    display: flex;
+    margin: 30px;
+    padding: 10px;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #b3aeae;
+    padding: 20px;
+    margin:10px;
+    margin-left: 50px;
+    box-sizing: border-box;
+    height: 50%;
+    position: fixed;
+    top: 240px;
+
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.content {
+    width: 80%;
+    padding: 5px;
+    padding-top: 15px;
+    margin-left: 25%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgba(242, 242, 242, 0.28);
+}
+
+.content h3 {
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+
+}
+
+.item {
+    border-radius: 10px;
+    border-style: none;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 40px;
+}
+
+.item h3 {
+    font-size: 16px;
+}
+
+.item p {
+    font-size: 14px;
+    
+}
+
+.item b {
+    font-size: 18px;
+    margin-left: 25px;
+    text-align: center;
+    color: rgb(0, 0, 0);
 }

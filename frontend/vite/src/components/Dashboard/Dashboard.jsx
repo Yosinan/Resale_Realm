@@ -13,13 +13,13 @@ function Dashboard() {
 
   const dashStyles = {
     // position: 'fixed',
-    display: 'flex',
-    bottom: '410px',
-    right: '65px',
-    width: '100%',
-    margin: '0',
-    height: 'auto',
-    background: '#244',
+    // display: 'flex',
+    // bottom: '410px',
+    // right: '65px',
+    // width: '100%',
+    // margin: '0',
+    // height: 'auto',
+    // background: '#244',
   }
 
   const handlelogout = async () => {
@@ -151,7 +151,7 @@ function Dashboard() {
 
     const token = localStorage.getItem('Token');
 
-    const user = await fetch('http://localhost:5000/api/users/6484bbbec368be4d049addbe', {
+    const user = await fetch('http://localhost:5001/api/users/6484bbbec368be4d049addbe', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -173,21 +173,10 @@ function Dashboard() {
     postData.append("images", image);
     postData.append("category", category);
 
-    // const postData = {
-    //   name: itemTitle,
-    //   unitPrice: price,
-    //   dateAdded: new Date().toLocaleDateString(),
-    //   description: description,
-    //   image: image,
-    //   category: category,
-    //   // addedBy: currentUser?._id,
-
-    // };
-
     const token = localStorage.getItem('Token');
 
     try {
-      await axios.post("http://localhost:5000/api/products/add", postData, {
+      await axios.post("http://localhost:5001/api/products/add", postData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -209,72 +198,28 @@ function Dashboard() {
 
   return (
     <>
-      <div className="item-container" style={dashStyles}>
+    <div className="main-container">
+      
         <button className='logout' onClick={handlelogout}>Logout</button>
-        <br />
-        <div className="new-item-section">
-
-          <h2>Post New Item</h2>
-          <form onSubmit={handleSubmit}>
-
-            <label htmlFor="itemTitleInput">Item Name:  </label>
-            <input
-              id="itemTitleInput"
-              type="text"
-              value={itemTitle}
-              onChange={handleitemTitleChange}
-              required
-            />
-            <br />
-            <label htmlFor="priceInput">Price:  </label>
-            <input
-              id="priceInput"
-              value={price}
-              onChange={handlePriceChange}
-              required
-              type="number"
-            />
-            <br />
-            <label htmlFor="descriptionInput">Description:  </label>
-            <textarea
-              id="descriptionInput"
-              value={description}
-              onChange={handleDescriptionChange}
-              required
-              type="text"
-            />
-            <br />
-            <label htmlFor="imageInput">Image:  </label>
-            <input
-              id="imageInput"
-              onChange={handleImageChange}
-              required
-              type="file"
-            />
-            <br />
-            <label htmlFor="categoryInput">Category:  </label>
-            <select id="categoryInput" value={category} onChange={handleCategoryChange} required>
-              <option value="">Select a category</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Books">Books</option>
-              <option value="Other">Other</option>
-            </select>
-            <br />
-            <button type="submit" >Publish</button>
-          </form>
-          {message && <Message text={message.text} type={message.type} />}
-        </div>
-        <div className="posted-items-section">
-          <h2>Published items</h2>
+           <h2>Published items</h2>
           <p>Showing {items.length} items</p>
           <br />
-
-          <div className="posted-items-container">
+        <div className="container">
+            <div className="sidebar">
+              <h2>Sort & Filter</h2>
+              <ul>
+                Option 1
+                Option 2
+                Option 3
+                Option 4
+                Option 5
+                Option 6
+              </ul>
+            </div>
+          <div className="content">
             {items.map((item) => (
-              <div key={item.id} className="item-card">
-                <h3>{item.name}</h3>
+              <div key={item.id} className="item">
+                
 
                 <div className="item-card-image">
                   <img
@@ -283,24 +228,83 @@ function Dashboard() {
 
                   />
                 </div>
-                <p>{item.unitPrice}</p>
-                <div className="item-card-user">
-                  <img
-                    src={currentUser?.profilePictureUrl}
-                    alt={currentUser?.username}
-                  />
-                  <i className="created-at">Posted at: {item.dateAdded}</i>
-                </div>
-
-
+                  <h3>{item.name}</h3>
+                  <b>ETB: {item.unitPrice}</b>
+                  <div className="item-card-user">
+                    {/* <img
+                      src={currentUser?.profilePictureUrl}
+                      alt={currentUser?.username}
+                    /> */}
+                    <i className="created-at">Posted at: {item.dateAdded}</i>
+                  </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
+        </div>
     </>
   );
 }
 
 export default Dashboard;
+
+
+
+
+
+
+        // <div className="new-item-section">
+
+        //   <h2>Post New Item</h2>
+        //   <form onSubmit={handleSubmit}>
+
+        //     <label htmlFor="itemTitleInput">Item Name:  </label>
+        //     <input
+        //       id="itemTitleInput"
+        //       type="text"
+        //       value={itemTitle}
+        //       onChange={handleitemTitleChange}
+        //       required
+        //     />
+        //     <br />
+        //     <label htmlFor="priceInput">Price:  </label>
+        //     <input
+        //       id="priceInput"
+        //       value={price}
+        //       onChange={handlePriceChange}
+        //       required
+        //       type="number"
+        //     />
+        //     <br />
+        //     <label htmlFor="descriptionInput">Description:  </label>
+        //     <textarea
+        //       id="descriptionInput"
+        //       value={description}
+        //       onChange={handleDescriptionChange}
+        //       required
+        //       type="text"
+        //     />
+        //     <br />
+        //     <label htmlFor="imageInput">Image:  </label>
+        //     <input
+        //       id="imageInput"
+        //       onChange={handleImageChange}
+        //       required
+        //       type="file"
+        //     />
+        //     <br />
+        //     <label htmlFor="categoryInput">Category:  </label>
+        //     <select id="categoryInput" value={category} onChange={handleCategoryChange} required>
+        //       <option value="">Select a category</option>
+        //       <option value="Electronics">Electronics</option>
+        //       <option value="Clothing">Clothing</option>
+        //       <option value="Furniture">Furniture</option>
+        //       <option value="Books">Books</option>
+        //       <option value="Other">Other</option>
+        //     </select>
+        //     <br />
+        //     <button type="submit" >Publish</button>
+        //   </form>
+        //   {message && <Message text={message.text} type={message.type} />}
+        // </div>
