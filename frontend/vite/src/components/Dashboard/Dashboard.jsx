@@ -51,10 +51,14 @@ function Dashboard() {
 
   const [itemTitle, setItemTitle] = useState("");
   const [price, setPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
-
+  const [sortOption, setSortOption] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+  const [filterOption, setFilterOption] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [items, setItems] = useState([]);
   const [message, setMessage] = useState(null);
@@ -88,13 +92,12 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetchitems();
-  }, []);
-
   const fetchitems = async () => {
     try {
+
       const token = localStorage.getItem('Token');
-      const response = await axios.get("http://localhost:5000/api/products", {
+      const url = `http://localhost:5000/api/products/search?sortOption=${sortOption}&sortOrder=${sortOrder}&category=${filterOption}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+      const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -111,9 +114,67 @@ function Dashboard() {
 
     }
   };
+  fetchitems();
+}, [sortOption, sortOrder, filterOption, minPrice, maxPrice]);
 
   const handleitemTitleChange = (event) => {
     setItemTitle(event.target.value);
+  };
+
+
+  const handleSortOptionChange = (event) => {
+   const { value, checked } = event.target;
+    if (checked) {
+      if (value === "name") {
+        setSortOption("name");
+      }
+      if (value === "price") {
+        setSortOption("unitPrice");
+      }
+      if (value === "oldest") {
+        setSortOption("dateAdded");
+        setSortOrder("asc");
+      }
+
+      if (value === "newest") {
+        setSortOption("dateAdded");
+        setSortOrder("desc");
+      }
+
+    } else {
+      setSortOption("");
+    }
+
+
+
+  };
+
+  const handleSortOrderChange = (event) => {
+    
+    if (event.target.value === "asc") {
+      setSortOrder("asc");
+    }
+    if (event.target.value === "desc") {
+      setSortOrder("desc");
+    }
+  };
+
+  const handleFilterOptionChange = (event) => {
+    if (event.target.value === "Electronics") {
+      setFilterOption("Electronics");
+    }
+    if (event.target.value === "Clothing") {
+      setFilterOption("Clothing");
+    }
+    if (event.target.value === "Furniture") {
+      setFilterOption("Furniture");
+    }
+    if (event.target.value === "Books") {
+      setFilterOption("Books");
+    }
+    if (event.target.value === "Other") {
+      setFilterOption("Other");
+    }
   };
 
   const handlePriceChange = (event) => {
@@ -151,7 +212,7 @@ function Dashboard() {
 
     const token = localStorage.getItem('Token');
 
-    const user = await fetch('http://localhost:5001/api/users/6484bbbec368be4d049addbe', {
+    const user = await fetch('http://localhost:5000/api/users/6484bbbec368be4d049addbe', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -206,15 +267,51 @@ function Dashboard() {
           <br />
         <div className="container">
             <div className="sidebar">
-              <h2>Sort & Filter</h2>
-              <ul>
-                Option 1
-                Option 2
-                Option 3
-                Option 4
-                Option 5
-                Option 6
-              </ul>
+              <div className="in-sidebar">
+              <br />
+              <button className="clear" onClick={() => {
+                setSortOption("");
+                setSortOrder("");
+                setFilterOption("");
+                setMinPrice("");
+                setMaxPrice("");
+              }}>Reset</button>
+              <br />
+              <h3>Sort By: </h3>
+            <input type="checkbox" id="name" name="name" value="name" onChange={handleSortOptionChange} />
+            <label htmlFor="name"> Name</label>
+            <br />
+            <input type="checkbox" id="price" name="price" value="price" onChange={handleSortOptionChange} />
+            <label htmlFor="price"> Price</label>
+            <br />
+            <input type="radio" id="dateAdded" name="dateAdded" value="newest" onChange={handleSortOptionChange} />
+            <label htmlFor="dateAdded"> Newest First</label>
+            <br />
+            <input type="radio" id="dateAdded" name="dateAdded" value="oldest" onChange={handleSortOptionChange} />
+            <label htmlFor="dateAdded"> Oldest First</label>
+           
+
+              <h3>Sort Order: </h3>
+              <label htmlFor="filterOption">Filter By Category: </label>
+              <select id="sortOrder" value={sortOrder} onChange={handleSortOrderChange}>
+                <option value="">Select an option</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+              <label htmlFor="filterOption">Filter By Price: </label>
+              <select id="filterOption" value={filterOption} onChange={handleFilterOptionChange}>
+                <option value="">Select an option</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+              </select>
+              <br />
+              <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+              <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+              <br />
+            </div>
             </div>
           <div className="content">
             {items.map((item) => (

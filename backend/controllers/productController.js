@@ -140,7 +140,7 @@ const searchProductsByPrice = async (req, res, next) => {
 
 const searchAll = async (req, res) => {
   try {
-    const { name, category, minPrice, maxPrice, sortBy, sortOrder } = req.query;
+    const { name, category,dateAdded, minPrice, maxPrice, sortOption, sortOrder } = req.query;
 
     const filter = {};
 
@@ -149,6 +149,9 @@ const searchAll = async (req, res) => {
     }
     if (category) {
       filter.category = { $regex: category, $options: 'i' };
+    }
+    if (dateAdded) {
+      filter.dateAdded = { $regex: dateAdded, $options: 'i' };
     }
     if (minPrice && maxPrice) {
       filter.unitPrice = { $gte: minPrice, $lte: maxPrice };
@@ -160,8 +163,8 @@ const searchAll = async (req, res) => {
 
     const sort = {};
 
-    if (sortBy) {
-      sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    if (sortOption) {
+      sort[sortOption] = sortOrder === 'desc' ? -1 : 1;
     }
 
     const products = await Product.find(filter).sort(sort);
