@@ -184,6 +184,20 @@ const getUserById =  async (req, res) => {
       res.status(500).json({ message: err.message });
     }
 };
+// Change user password
+const changepass =  async (req, res, next) => {
+  console.log("changing password ");
+  try {
+    const { userId } = req.params;
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(req.body.password, salt);
+    const userPassword =  await User.findByIdAndUpdate({_id: userId}, { password: password},{ new: true});
+
+    return res.status(200).json({ status: true, data: userPassword});
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+}
 
 const stat = (req, res) => {
     res.status(200).json({message: "ok"});
@@ -196,4 +210,5 @@ module.exports = {
     loginUser,
     logoutUser,
     stat,
+    changepass,
 };
