@@ -7,8 +7,6 @@ import Message from "../Message/Message";
 import { getToken } from "../../utils/utils";
 import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
-import im from '../../../../backend/uploads/img/1695070723945Screenshot from 2023-09-16 22-50-55.png'
-
 
 
 function Dashboard() {

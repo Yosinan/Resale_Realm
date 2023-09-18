@@ -43,11 +43,12 @@ const addItem = (req, res) => {
 
       if (req.files.length === 0 || !req.files) {
         return res.status(400).send('No images uploaded or no files found');
-        
+
       }
       if (req.files.length > 5) {
         return res.status(400).send('Too many images uploaded');
       }
+
 
       const imgArray = req.files.map((file) => {
         return {
