@@ -4,6 +4,13 @@ export const getCookie = (name) => {
     return cookieValue ? cookieValue.pop() : '';
 };
 
+export const getToken = () => {
+   const token = localStorage.getItem('Token');
+    if (!token) {
+         return false;
+    }
+    return token;
+};
 
 export const getFullYear = () => {
     return new Date().getFullYear();

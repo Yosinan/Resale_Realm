@@ -46,15 +46,15 @@ const registerUser = async (req, res, next ) => {
       try{
         const { email,password } = req.body;
 
-        if (!emailPattern.test(email)) {
-          return res.status(400).json({ error: 'Invalid email format' });
-        }
+        // if (!emailPattern.test(email)) {
+        //   return res.status(400).json({ error: 'Invalid email format' });
+        // }
 
     // Validate password strength
-    const isPasswordValid = schema.validate(password);
-    if (!isPasswordValid) {
-        return res.status(400).json({ error: 'Weak password. Please provide a stronger password.' });
-    }
+    // const isPasswordValid = schema.validate(password);
+    // if (!isPasswordValid) {
+    //     return res.status(400).json({ error: 'Weak password. Please provide a stronger password.' });
+    // }
 
         // Check if the user already exists
     const existingUser = await User.findOne({ email });
@@ -192,6 +192,42 @@ const getUserById =  async (req, res) => {
     }
 };
 
+
+// update user information
+
+
+
+// update user password
+const updateUserPassword = async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const password = req.body.password;
+      user.password = password;
+      await user.save();
+      res.status(200).json({ message: "Password updated successfully", password: user.password });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+}
+
+// Delete a user
+
+const deleteUser = async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({ message: "User deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+}
+
+
 const stat = (req, res) => {
     res.status(200).json({message: "ok"});
 };
@@ -202,5 +238,7 @@ module.exports = {
     registerUser,
     loginUser,
     logoutUser,
+    updateUserPassword,
+    deleteUser,
     stat,
 };

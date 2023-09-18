@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 
 // Create a Mongoose schema for products
+
+const imgSchema = new mongoose.Schema({
+  filename: {
+    type: String,
+  },
+  mimetype: {
+    type: String,
+  },  
+});
+
+
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -15,11 +26,8 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   images: {
-  
-    filename:String,
-    data: Buffer,
-    mimetype: String,
-    
+    type: [imgSchema],
+    required: true,
   },
 
   category: {

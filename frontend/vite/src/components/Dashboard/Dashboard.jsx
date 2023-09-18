@@ -4,23 +4,14 @@ import moment from "moment";
 // import SideLogin from "../SideLogin/SideLogin";
 import './Prod.css';
 import Message from "../Message/Message";
-import { getCookie } from "../../utils/utils";
+import { getToken } from "../../utils/utils";
 import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
+import im from '../../../../../backend/uploads/img/images-1695034563323.jpg'
+
 
 
 function Dashboard() {
-
-  const dashStyles = {
-    // position: 'fixed',
-    // display: 'flex',
-    // bottom: '410px',
-    // right: '65px',
-    // width: '100%',
-    // margin: '0',
-    // height: 'auto',
-    // background: '#244',
-  }
 
   const handlelogout = async () => {
 
@@ -49,12 +40,12 @@ function Dashboard() {
     }
   }
 
-  const [itemTitle, setItemTitle] = useState("");
+  const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [file, setfile] = useState([]);
   const [category, setCategory] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -66,8 +57,10 @@ function Dashboard() {
   // const [successMessage, setSuccessMessage] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [addedBy, setAddedBy] = useState(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
+  const [data, setData] = useState(null);
 
-  // ...
+
 
   useEffect(() => {
     // Fetch the current user information
@@ -92,38 +85,46 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-  const fetchitems = async () => {
-    try {
+    const fetchitems = async () => {
+      try {
 
-      const token = localStorage.getItem('Token');
-      const url = `http://localhost:5000/api/products/search?sortOption=${sortOption}&sortOrder=${sortOrder}&category=${filterOption}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data)
-      setItems(response.data);
-      setAddedBy(response.data.addedBy)
-      setCreatedAt(response.data.dateAdded);
-      console.log(token)
-      setItems(response.data);
-    } catch (error) {
-      console.error("Error fetching items:", error);
-      setMessage({ type: "error", text: "Error fetching items. Please try again." });
+        const token = getToken();
+        const url = `http://localhost:5000/api/products/search?sortOption=${sortOption}&sortOrder=${sortOrder}&category=${filterOption}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    }
-  };
-  fetchitems();
-}, [sortOption, sortOrder, filterOption, minPrice, maxPrice]);
+        if (response.status === 200) {
+          console.log('Success')
+          console.log(response.data)
+          setItems(response.data);
+          setAddedBy(response.data.addedBy)
+          setCreatedAt(response.data.dateAdded);
+          console.log(token)
+          setItems(response.data);
+        }
+        else {
+          console.log('Failed')
+        }
 
-  const handleitemTitleChange = (event) => {
-    setItemTitle(event.target.value);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+        setMessage({ type: "error", text: "Error fetching items. Please try again." });
+
+      }
+    };
+    fetchitems();
+  }, [sortOption, sortOrder, filterOption, minPrice, maxPrice]);
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
 
   const handleSortOptionChange = (event) => {
-   const { value, checked } = event.target;
+    const { value, checked } = event.target;
     if (checked) {
       if (value === "name") {
         setSortOption("name");
@@ -150,7 +151,7 @@ function Dashboard() {
   };
 
   const handleSortOrderChange = (event) => {
-    
+
     if (event.target.value === "asc") {
       setSortOrder("asc");
     }
@@ -185,17 +186,15 @@ function Dashboard() {
     setDescription(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    const filesArray = Array.from(files);
+    setfile(filesArray);
   };
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
-
-
-
-
 
   const formatPostedDate = (date) => {
     const now = moment();
@@ -224,34 +223,35 @@ function Dashboard() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-
     const postData = new FormData();
-    postData.append("name", itemTitle);
+    postData.append("name", name);
     postData.append("unitPrice", price);
     postData.append("dateAdded", new Date().toLocaleDateString());
     postData.append("description", description);
-    postData.append("images", image);
+    for (let i = 0; i < file.length; i++) {
+      postData.append("images", file[i]);
+    }
     postData.append("category", category);
 
     const token = localStorage.getItem('Token');
 
     try {
-      await axios.post("http://localhost:5001/api/products/add", postData, {
+      const resp = await axios.post("http://localhost:5000/api/products/add", postData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setItemTitle("");
+
+      setName("");
       setPrice("");
       setDescription("");
-      setImage("");
+      setfile("");
       setCategory("");
-      fetchitems(); // Refresh items after successful post
       setMessage({ type: "success", text: "Post published successfully." });
+
     } catch (error) {
-      alert('Login to post');
-      console.error("Error posting item:", error);
+
+      console.error("Error posting item:", error.message);
       setMessage({ type: "error", text: "Error posting item. Please try again." });
     }
   };
@@ -259,46 +259,104 @@ function Dashboard() {
 
   return (
     <>
-    <div className="main-container">
-      
+      <div className="main-container">
+
         <button className='logout' onClick={handlelogout}>Logout</button>
-           <h2>Published items</h2>
-          <p>Showing {items.length} items</p>
-          <br />
+        <div className="new-item-section">
+          <h2>Post New Item</h2>
+          <form onSubmit={handleSubmit}>
+
+            <label htmlFor="nameInput">Item Name:  </label>
+            <input
+              id="nameInput"
+              type="text"
+              value={name}
+              onChange={handleNameChange}
+              required
+            />
+            <br />
+            <label htmlFor="priceInput">Price:  </label>
+            <input
+              id="priceInput"
+              value={price}
+              onChange={handlePriceChange}
+              required
+              type="number"
+            />
+            <br />
+            <label htmlFor="descriptionInput">Description:  </label>
+            <textarea
+              id="descriptionInput"
+              value={description}
+              onChange={handleDescriptionChange}
+              required
+              type="text"
+            />
+            <br />
+            <label htmlFor="imageInput">Image:  </label>
+            <input
+              id="imageInput"
+              onChange={handleFileChange}
+              //  required
+              type="file"
+              multiple={true}
+            />
+            <br />
+            <label htmlFor="categoryInput">Category:  </label>
+            <select id="categoryInput" value={category} onChange={handleCategoryChange} required>
+              <option value="">Select a category</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Books">Books</option>
+              <option value="Other">Other</option>
+            </select>
+            <br />
+            <button type="submit" >Publish</button>
+          </form>
+          {message && <Message text={message.text} type={message.type} />}
+        </div>
+
+        <h2>Published items</h2>
+        <p>Showing {items.length} items</p>
+        <br />
         <div className="container">
-            <div className="sidebar">
-              <div className="in-sidebar">
+          <div className="sidebar">
+            <div className="in-sidebar">
               <br />
               <button className="clear" onClick={() => {
                 setSortOption("");
                 setSortOrder("");
                 setFilterOption("");
+                document.querySelectorAll('input[type="checkbox"]:checked').forEach((el) => el.checked = false);
+                document.querySelectorAll('input[type="radio"]:checked').forEach((el) => el.checked = false);
                 setMinPrice("");
                 setMaxPrice("");
               }}>Reset</button>
               <br />
               <h3>Sort By: </h3>
-            <input type="checkbox" id="name" name="name" value="name" onChange={handleSortOptionChange} />
-            <label htmlFor="name"> Name</label>
-            <br />
-            <input type="checkbox" id="price" name="price" value="price" onChange={handleSortOptionChange} />
-            <label htmlFor="price"> Price</label>
-            <br />
-            <input type="radio" id="dateAdded" name="dateAdded" value="newest" onChange={handleSortOptionChange} />
-            <label htmlFor="dateAdded"> Newest First</label>
-            <br />
-            <input type="radio" id="dateAdded" name="dateAdded" value="oldest" onChange={handleSortOptionChange} />
-            <label htmlFor="dateAdded"> Oldest First</label>
-           
+              <input type="checkbox" id="name" name="name" value="name" onChange={handleSortOptionChange} />
+              <label htmlFor="name"> Name</label>
+              <br />
+              <input type="checkbox" id="price" name="price" value="price" onChange={handleSortOptionChange} />
+              <label htmlFor="price"> Price</label>
+              <br />
+              <input type="radio" id="dateAdded" name="dateAdded" value="newest" onChange={handleSortOptionChange} />
+              <label htmlFor="dateAdded"> Newest First</label>
+              <br />
+              <input type="radio" id="dateAdded" name="dateAdded" value="oldest" onChange={handleSortOptionChange} />
+              <label htmlFor="dateAdded"> Oldest First</label>
+
 
               <h3>Sort Order: </h3>
-              <label htmlFor="filterOption">Filter By Category: </label>
+              <label htmlFor="filterOption">Sort Order: </label>
               <select id="sortOrder" value={sortOrder} onChange={handleSortOrderChange}>
                 <option value="">Select an option</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
               </select>
-              <label htmlFor="filterOption">Filter By Price: </label>
+              <br />
+              <label htmlFor="filterOption">Filter By Category: </label>
               <select id="filterOption" value={filterOption} onChange={handleFilterOptionChange}>
                 <option value="">Select an option</option>
                 <option value="Electronics">Electronics</option>
@@ -312,96 +370,37 @@ function Dashboard() {
               <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
               <br />
             </div>
-            </div>
+          </div>
           <div className="content">
             {items.map((item) => (
               <div key={item.id} className="item">
-                
-
                 <div className="item-card-image">
                   <img
                     src={image1}
-                    alt={item.itemTitle}
-
+                    alt={item.name}
                   />
                 </div>
-                  <h3>{item.name}</h3>
-                  <b>ETB: {item.unitPrice}</b>
-                  <div className="item-card-user">
-                    {/* <img
-                      src={currentUser?.profilePictureUrl}
-                      alt={currentUser?.username}
-                    /> */}
-                    <i className="created-at">Posted at: {item.dateAdded}</i>
-                  </div>
+                &nbsp; <i>{item.category}</i>&nbsp;&nbsp;
+                <h3>{item.name}</h3>
+                <i>{item.images.length}</i>
+                <br />
+                <i>{item.images.filename}</i>
+                <b>ETB: {item.unitPrice}</b>
+                <div className="item-card-user">
+                  <img
+                  // src={imageUrl}
+                  // alt={item.name}
+                  />
+                  <i className="created-at">Posted at: {item.dateAdded}</i>
+                </div>
               </div>
             ))}
           </div>
         </div>
         <Footer />
-        </div>
+      </div>
     </>
   );
 }
 
 export default Dashboard;
-
-
-
-
-
-
-        // <div className="new-item-section">
-
-        //   <h2>Post New Item</h2>
-        //   <form onSubmit={handleSubmit}>
-
-        //     <label htmlFor="itemTitleInput">Item Name:  </label>
-        //     <input
-        //       id="itemTitleInput"
-        //       type="text"
-        //       value={itemTitle}
-        //       onChange={handleitemTitleChange}
-        //       required
-        //     />
-        //     <br />
-        //     <label htmlFor="priceInput">Price:  </label>
-        //     <input
-        //       id="priceInput"
-        //       value={price}
-        //       onChange={handlePriceChange}
-        //       required
-        //       type="number"
-        //     />
-        //     <br />
-        //     <label htmlFor="descriptionInput">Description:  </label>
-        //     <textarea
-        //       id="descriptionInput"
-        //       value={description}
-        //       onChange={handleDescriptionChange}
-        //       required
-        //       type="text"
-        //     />
-        //     <br />
-        //     <label htmlFor="imageInput">Image:  </label>
-        //     <input
-        //       id="imageInput"
-        //       onChange={handleImageChange}
-        //       required
-        //       type="file"
-        //     />
-        //     <br />
-        //     <label htmlFor="categoryInput">Category:  </label>
-        //     <select id="categoryInput" value={category} onChange={handleCategoryChange} required>
-        //       <option value="">Select a category</option>
-        //       <option value="Electronics">Electronics</option>
-        //       <option value="Clothing">Clothing</option>
-        //       <option value="Furniture">Furniture</option>
-        //       <option value="Books">Books</option>
-        //       <option value="Other">Other</option>
-        //     </select>
-        //     <br />
-        //     <button type="submit" >Publish</button>
-        //   </form>
-        //   {message && <Message text={message.text} type={message.type} />}
-        // </div>
