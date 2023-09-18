@@ -9,7 +9,7 @@ const path = require('path');
 const Storage = multer.diskStorage({
   destination: 'uploads/img',
   filename: (req, file, cb) => {
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    cb(null, Date.now() + file.originalname);
   },
 });
 
@@ -27,7 +27,7 @@ const upload = multer({
       cb(new Error('Only images are allowed'));
     }
   }
-}).array('images', 5);
+}).array('images', 7);
 
 
 // Set up routes for products

@@ -7,7 +7,7 @@ import Message from "../Message/Message";
 import { getToken } from "../../utils/utils";
 import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
-import im from '../../../../../backend/uploads/img/images-1695034563323.jpg'
+import im from '../../../../backend/uploads/img/1695070723945Screenshot from 2023-09-16 22-50-55.png'
 
 
 
@@ -236,7 +236,7 @@ function Dashboard() {
     const token = localStorage.getItem('Token');
 
     try {
-      const resp = await axios.post("http://localhost:5000/api/products/add", postData, {
+      await axios.post("http://localhost:5000/api/products/add", postData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -374,6 +374,16 @@ function Dashboard() {
           <div className="content">
             {items.map((item) => (
               <div key={item.id} className="item">
+                {item.images.map((image) => (
+                  <div key={image._id}>
+                    <img
+                      src={`../../../../backend/uploads/img/${image.filename}`}
+                      alt={image.filename}
+                    />
+                  </div>
+
+                ))
+                }
                 <div className="item-card-image">
                   <img
                     src={image1}
@@ -382,9 +392,6 @@ function Dashboard() {
                 </div>
                 &nbsp; <i>{item.category}</i>&nbsp;&nbsp;
                 <h3>{item.name}</h3>
-                <i>{item.images.length}</i>
-                <br />
-                <i>{item.images.filename}</i>
                 <b>ETB: {item.unitPrice}</b>
                 <div className="item-card-user">
                   <img
