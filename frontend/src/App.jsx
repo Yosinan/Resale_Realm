@@ -10,6 +10,7 @@ import PageNotFound from './components/404/PageNotFound';
 import Landing from './components/Landing/Landing';
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectdRoutes';
 import ProductList from './components/Products/ProductList';
+import PostItems from './components/Dashboard/PostItems';
 
 const App = () => {
 
@@ -42,6 +43,7 @@ const App = () => {
               <Route path='/dashboard' element={<ProtectedRoutes><Dashboard/></ProtectedRoutes>} />
               <Route path='/login' element={<Login onLogin={handleLogin} togglePage={toggleLoginPage} showLogin={true} />} />
               <Route path='/home' element={<Home />} />
+              <Route path='/add' element={<PostItems />} />
               <Route path='*' element={<PageNotFound />} />
               <Route path='/list' element={<ProductList />} />
             </Routes>
