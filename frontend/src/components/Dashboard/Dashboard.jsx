@@ -8,6 +8,7 @@ import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
 import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
+import  im1  from '../../../../backend/uploads/img/1695213046074Westside.jpg';
 
 
 function Dashboard() {
@@ -346,22 +347,22 @@ function Dashboard() {
           </div>
           <div className="content">
             {items.map((item) => (
-              <div key={item.id} className="item">
+              <div key={item._id} className="item">
                 {item.images.map((image) => (
                   <div key={image._id}>
                     <img
-                      src={`../../../../backend/uploads/img/${image.filename}`}
-                      alt={image.filename}
+                      src={`../public/uploads/img/${image.filename}`}
+                      alt={"Uploaded" + image.filename}
                     />
                   </div>
 
                 ))
                 }
                 <div className="item-card-image">
-                  <img
-                    src={image1}
+                  {/* <img
+                    src={im1}
                     alt={item.name}
-                  />
+                  /> */}
                 </div>
                 &nbsp; <i>{item.category}</i>&nbsp;&nbsp;
                 <h3>{item.name}</h3>

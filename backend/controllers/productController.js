@@ -7,7 +7,7 @@ const path = require('path');
 // Set up multer for file uploads
 
 const Storage = multer.diskStorage({
-  destination: 'uploads/img',
+  destination: '../frontend/public/uploads/img',
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
   },
@@ -72,7 +72,6 @@ const addItem = (req, res) => {
       const p = await product.save();
       if (!p) {
         return json.status(400).send("Product not saved");
-        console.log("Product not saved");
       }
       res.status(201).json({ product, message: 'Images uploaded successfully', imageUrl: `../uploads/img/${req.files[0].filename}` });
       console.log(req.files);
@@ -90,7 +89,14 @@ const addItem = (req, res) => {
 const getItems = async (req, res, next) => {
   try {
     const products = await Product.find().populate('addedBy').select('-__v');
-    res.status(200).send(products);
+    res.status(200).json(products);
+   
+    for (let i = 0; i < products.length; i++) {
+     for (let j = 0; j < products[i].images.length; j++) {
+      //  products[i].images[j].filename = `../uploads/img/${products[i].images[j].filename}`;
+      console.log(products[i].images[j].filename);
+     }
+    }
   } catch (err) {
     next(err);
   }
