@@ -3,17 +3,20 @@ import axios from "axios";
 import moment from "moment";
 // import SideLogin from "../SideLogin/SideLogin";
 import './Prod.css';
+import './cust-css.css';
 import Message from "../Message/Message";
 import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
 import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
-import  im1  from '../../../../backend/uploads/img/1695213046074Westside.jpg';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 function Dashboard() {
 
-  
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -195,6 +198,15 @@ function Dashboard() {
 
   };
 
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const postData = new FormData();
@@ -349,20 +361,25 @@ function Dashboard() {
             {items.map((item) => (
               <div key={item._id} className="item">
                 {item.images.map((image) => (
-                  <div key={image._id}>
+                  <div key={image._id} className="item-card-image">
                     <img
                       src={`../public/uploads/img/${image.filename}`}
                       alt={"Uploaded" + image.filename}
                     />
                   </div>
-
                 ))
                 }
-                <div className="item-card-image">
-                  {/* <img
-                    src={im1}
-                    alt={item.name}
-                  /> */}
+                {/* <Slider {...settings}>
+                  {item.images.map((image) => (
+                    <div key={image._id} className="item-card-image">
+                      <img
+                        src={`../public/uploads/img/${image.filename}`}
+                        alt={`Uploaded ${image.filename}`}
+                      />
+                    </div>
+                  ))}
+                </Slider> */}
+                <div >
                 </div>
                 &nbsp; <i>{item.category}</i>&nbsp;&nbsp;
                 <h3>{item.name}</h3>

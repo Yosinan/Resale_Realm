@@ -58,7 +58,7 @@ const addItem = (req, res) => {
       });
 
       const product = new Product({
-        name: req.body.name,
+        name: req.body.name.toUpperCase(),
         unitPrice: req.body.unitPrice,
         description: req.body.description,
         images: imgArray,
