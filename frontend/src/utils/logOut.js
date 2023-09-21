@@ -2,7 +2,6 @@ import { getToken } from "./utils";
 
 
 export const handlelogout = async () => {
-
     // const token = localStorage.getItem('Token');
     const token = getToken();
 
@@ -14,15 +13,22 @@ export const handlelogout = async () => {
             },
         });
 
-
         if (response.ok) {
-            localStorage.removeItem('Token');
-            window.location.href = '/'
+            const confirm = window.confirm('Are you sure you want to logout?');
+            if (confirm) {
+                localStorage.removeItem('Token');
+                window.location.href = '/home'
+            }
+            else {
+                console.log('Logout Cancelled')
+            }
         }
         else {
             console.log('Logout Failed')
         }
+    
     }
+
     catch (e) {
         console.log('Error during logging out' + e)
 

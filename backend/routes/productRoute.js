@@ -12,6 +12,7 @@ const {
     searchProductsByPrice,
     searchProductsByCategory,
     searchAll, 
+    searchProducts,
     sortProductsByPrice,
     sortProductsByAlphabet,
     sortProductsByDate,
@@ -27,6 +28,7 @@ router.delete("/api/products/delete/:id", auth, deleteItem);
 router.get("/api/products/", getItems);
 // router.get("/api/products/:id", getItemById);
 router.get("/api/products/search/", searchAll);
+router.get("/api/products/search/:name", searchProducts);
 router.get("/api/products/category/:category", searchProductsByCategory);
 router.get("/api/products/price/:unitPrice", searchProductsByPrice);
 router.get("/api/products/sort/", sortProductsByPrice);

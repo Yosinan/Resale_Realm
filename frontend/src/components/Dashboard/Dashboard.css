@@ -18,3 +18,51 @@ body {
     padding: 20px;
 
 }
+
+
+.sort-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sort-options label {
+    font-weight: bold;
+    margin-right: 10px;
+    
+}
+
+.sort-options select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.filter-methods {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-methods label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-methods input[type='text'],
+.filter-methods input[type='number'] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.filter-methods button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}

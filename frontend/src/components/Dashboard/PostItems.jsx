@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch, faLaptop, faTshirt, faBook, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import './PostItems.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import Message from "../Message/Message";
+import Status from '../Status/Status';
 import CustomSelect from './CustomSelect';
 // import { getToken } from "../../utils/utils";
 
@@ -47,7 +47,7 @@ const postStyles = {
         border: 'none',
         borderRadius: '15px',
         fontSize: '1rem',
-        backgroundColor: 'lightblue'
+        // backgroundColor: 'lightblue'
     },
 
     button: {
@@ -61,7 +61,7 @@ const postStyles = {
         backgroundColor: '#3c3c3c',
         color: '#1a13d1',
         fontWeight: 'bold',
-        
+
 
     },
     label: {
@@ -79,7 +79,8 @@ function PostItems() {
     const [description, setDescription] = useState("");
     const [file, setfile] = useState([]);
     const [category, setCategory] = useState("");
-    const [message, setMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
 
 
     const handleNameChange = (event) => {
@@ -132,17 +133,31 @@ function PostItems() {
             setDescription("");
             setfile("");
             setCategory("");
-            setMessage({ type: "success", text: "Post published successfully." });
-
+            handleSuccess();
         } catch (error) {
 
             console.error("Error posting item:", error.message);
-            setMessage({ type: "error", text: "Error posting item. Please try again." });
+            handleError();
         }
     };
 
+    const handleSuccess = () => {
+        setSuccessMessage('Item posted successfully.');
+        setTimeout(() => {
+            setSuccessMessage('');
+        }, 3000);
+    };
+
+    const handleError = () => {
+        setErrorMessage('Something went wrong. Please try again.');
+        setTimeout(() => {
+            setErrorMessage('');
+        }, 3000);
+    };
     return (
         <>
+            {successMessage && <Status message={successMessage} type="success" />}
+            {errorMessage && <Status message={errorMessage} type="error" />}
             <div style={postStyles.container}>
                 <h2>Post Your Item Here</h2>
                 <form onSubmit={handleSubmit} style={postStyles.form}>
@@ -237,9 +252,9 @@ function PostItems() {
                             Other
                             </option>
                     </select> */}
-                    <CustomSelect 
-                    category={category}
-                    handleCategoryChange={handleCategoryChange}
+                    <CustomSelect
+                        category={category}
+                        handleCategoryChange={handleCategoryChange}
                     />
                     <br />
                     <button
@@ -247,8 +262,6 @@ function PostItems() {
                         type="submit"
                     >Publish</button>
                 </form>
-                
-                {message && <Message text={message.text} type={message.type} />}
             </div>
         </>
     )

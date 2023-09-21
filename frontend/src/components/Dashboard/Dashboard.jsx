@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
-// import SideLogin from "../SideLogin/SideLogin";
 import './Prod.css';
+// import './Dashboard.css';
 import './cust-css.css';
-import Message from "../Message/Message";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faS, faSign, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
 import image1 from '../../assets/images/icon.jpeg';
 import Footer from '../Footer/Footer'
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 
 function Dashboard() {
@@ -29,12 +28,10 @@ function Dashboard() {
   const [filterOption, setFilterOption] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [items, setItems] = useState([]);
-  const [message, setMessage] = useState(null);
-  // const [errorMessage, setErrorMessage] = useState("");
-  // const [successMessage, setSuccessMessage] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [currentUser, setCurrentUser] = useState([]);
   const [addedBy, setAddedBy] = useState(null);
-  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
   const [data, setData] = useState(null);
 
 
@@ -48,11 +45,8 @@ function Dashboard() {
           headers: { Authorization: `Bearer ${token}` },
         });
         const user = response.data;
-        // console.log(user.email);
-        // console.log(user.__id)
         // console.log(token)
         setCurrentUser(user);
-        return user;
       } catch (error) {
         console.error('Failed to fetch current user:', error);
       }
@@ -77,7 +71,6 @@ function Dashboard() {
           console.log('Success')
           console.log(response.data)
           setItems(response.data);
-          setAddedBy(response.data.addedBy)
           setCreatedAt(response.data.dateAdded);
           console.log(token)
           setItems(response.data);
@@ -88,16 +81,12 @@ function Dashboard() {
 
       } catch (error) {
         console.error("Error fetching items:", error);
-        setMessage({ type: "error", text: "Error fetching items. Please try again." });
+        handleError();
 
       }
     };
     fetchitems();
   }, [sortOption, sortOrder, filterOption, minPrice, maxPrice]);
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
 
   const handleSortOptionChange = (event) => {
@@ -122,9 +111,6 @@ function Dashboard() {
     } else {
       setSortOption("");
     }
-
-
-
   };
 
   const handleSortOrderChange = (event) => {
@@ -155,56 +141,58 @@ function Dashboard() {
     }
   };
 
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value);
+
+  const handleSuccess = () => {
+    setSuccessMessage('Logged In successfully.');
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
   };
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
+  const handleError = () => {
+    setErrorMessage('Something went wrong. Please try again.');
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 3000);
   };
 
-  const handleFileChange = (event) => {
-    const files = event.target.files;
-    const filesArray = Array.from(files);
-    setfile(filesArray);
-  };
 
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
+  const handleSearchChange = async (event) => {
+    const { value } = event.target;
+    if (value) {
+      try {
+        const token = getToken();
+        const response = await axios.get(`http://localhost:5000/api/products/search?name=${value}`, {
+          headers: {
 
-  const formatPostedDate = (date) => {
-    const now = moment();
-    const postedDate = moment(date);
-    const diff = now.diff(postedDate, "hours");
-    if (diff < 24) {
-      return `${diff} hours ago`;
-    } else {
-      return `${now.diff(postedDate, "days")} days ago`;
+            Authorization: `Bearer ${token}`,
+          },
+
+        });
+        if (response.status === 200) {
+          console.log('Success')
+          console.log(response.data)
+          setItems(response.data);
+        }
+        else {
+          console.log('Failed')
+        }
+
+      } catch (error) {
+        console.error("Error fetching items:", error);
+        handleError();
+
+      }
     }
   };
 
-  const handleOwner = async (item) => {
 
-    const token = localStorage.getItem('Token');
-
-    const user = await fetch('http://localhost:5000/api/users/6484bbbec368be4d049addbe', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return user.name;
-
-  };
-
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+  const handleLogOut = () => {
+    const confirm = window.confirm("Are you sure you want to log out?");
+    if (confirm) {
+      localStorage.removeItem('Token');
+      window.location.href = '/';
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -233,77 +221,24 @@ function Dashboard() {
       setDescription("");
       setfile("");
       setCategory("");
-      setMessage({ type: "success", text: "Post published successfully." });
+      handleSuccess();
 
     } catch (error) {
 
       console.error("Error posting item:", error.message);
-      setMessage({ type: "error", text: "Error posting item. Please try again." });
+      handleError();
     }
   };
 
 
   return (
     <>
+      {successMessage && <Status message={successMessage} type="success" />}
+      {errorMessage && <Status message={errorMessage} type="error" />}
       <div className="main-container">
-
-        <button className='logout' onClick={handlelogout}>Logout</button>
-        <div className="new-item-section">
-          <h2>Post New Item</h2>
-          <form onSubmit={handleSubmit}>
-
-            <label htmlFor="nameInput">Item Name:  </label>
-            <input
-              id="nameInput"
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-              required
-            />
-            <br />
-            <label htmlFor="priceInput">Price:  </label>
-            <input
-              id="priceInput"
-              value={price}
-              onChange={handlePriceChange}
-              required
-              type="number"
-            />
-            <br />
-            <label htmlFor="descriptionInput">Description:  </label>
-            <textarea
-              id="descriptionInput"
-              value={description}
-              onChange={handleDescriptionChange}
-              required
-              type="text"
-            />
-            <br />
-            <label htmlFor="imageInput">Image:  </label>
-            <input
-              id="imageInput"
-              onChange={handleFileChange}
-              //  required
-              type="file"
-              multiple={true}
-            />
-            <br />
-            <label htmlFor="categoryInput">Category:  </label>
-            <select id="categoryInput" value={category} onChange={handleCategoryChange} required>
-              <option value="">Select a category</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Books">Books</option>
-              <option value="Other">Other</option>
-            </select>
-            <br />
-            <button type="submit" >Publish</button>
-          </form>
-          {message && <Message text={message.text} type={message.type} />}
-        </div>
-
-        <h2>Published items</h2>
+        <button className='logout' onClick={handleLogOut}><FontAwesomeIcon bounce={true} spinReverse={true} icon={faSignOut} /></button>
+       
+        <h2>Products</h2>
         <p>Showing {items.length} items</p>
         <br />
         <div className="container">
@@ -320,83 +255,99 @@ function Dashboard() {
                 setMaxPrice("");
               }}>Reset</button>
               <br />
-              <h3>Sort By: </h3>
-              <input type="checkbox" id="name" name="name" value="name" onChange={handleSortOptionChange} />
-              <label htmlFor="name"> Name</label>
+              <input
+                type='search'
+                placeholder='Search'
+                value={data}
+                onChange={handleSearchChange} />
               <br />
-              <input type="checkbox" id="price" name="price" value="price" onChange={handleSortOptionChange} />
-              <label htmlFor="price"> Price</label>
-              <br />
-              <input type="radio" id="dateAdded" name="dateAdded" value="newest" onChange={handleSortOptionChange} />
-              <label htmlFor="dateAdded"> Newest First</label>
-              <br />
-              <input type="radio" id="dateAdded" name="dateAdded" value="oldest" onChange={handleSortOptionChange} />
-              <label htmlFor="dateAdded"> Oldest First</label>
+              <div className="sort-options">
+                <h3>Sort By: </h3>
+                <input type="checkbox" id="name" name="name" value="name" onChange={handleSortOptionChange} />
+                <label htmlFor="name"> Name</label>
+                <br />
+                <input type="checkbox" id="price" name="price" value="price" onChange={handleSortOptionChange} />
+                <label htmlFor="price"> Price</label>
+                <br />
+                <input type="radio" id="dateAdded" name="dateAdded" value="newest" onChange={handleSortOptionChange} />
+                <label htmlFor="dateAdded"> Newest First</label>
+                <br />
+                <input type="radio" id="dateAdded" name="dateAdded" value="oldest" onChange={handleSortOptionChange} />
+                <label htmlFor="dateAdded"> Oldest First</label>
+              </div>
+              <div className="filter-methods">
 
-
-              <h3>Sort Order: </h3>
-              <label htmlFor="filterOption">Sort Order: </label>
-              <select id="sortOrder" value={sortOrder} onChange={handleSortOrderChange}>
-                <option value="">Select an option</option>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-              </select>
-              <br />
-              <label htmlFor="filterOption">Filter By Category: </label>
-              <select id="filterOption" value={filterOption} onChange={handleFilterOptionChange}>
-                <option value="">Select an option</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Furniture">Furniture</option>
-                <option value="Books">Books</option>
-                <option value="Other">Other</option>
-              </select>
-              <br />
-              <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-              <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
-              <br />
+                <h3>Sort Order: </h3>
+                <label htmlFor="filterOption">Sort Order: </label>
+                <select id="sortOrder" value={sortOrder} onChange={handleSortOrderChange}>
+                  <option value="">Select an option</option>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+                <br />
+                <label htmlFor="filterOption">Filter By Category: </label>
+                <select id="filterOption" value={filterOption} onChange={handleFilterOptionChange}>
+                  <option value="">Select an option</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Furniture">Furniture</option>
+                  <option value="Books">Books</option>
+                  <option value="Other">Other</option>
+                </select>
+                <br />
+                <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+                <br />
+              </div>
             </div>
           </div>
+
           <div className="content">
+            {items.length === 0 && <p className="no-item">No items found.</p>}
             {items.map((item) => (
-              <div key={item._id} className="item">
-                {item.images.map((image) => (
+              <div key={item.id} className="item">
+                {/* {item.images.map((image) => (
                   <div key={image._id} className="item-card-image">
                     <img
-                      src={`../public/uploads/img/${image.filename}`}
+                      src={`../uploads/img/${image.filename}`}
                       alt={"Uploaded" + image.filename}
                     />
                   </div>
                 ))
-                }
-                {/* <Slider {...settings}>
-                  {item.images.map((image) => (
-                    <div key={image._id} className="item-card-image">
-                      <img
-                        src={`../public/uploads/img/${image.filename}`}
-                        alt={`Uploaded ${image.filename}`}
-                      />
-                    </div>
-                  ))}
-                </Slider> */}
+                } */}
+                <div className="item-card-image">
+                  <img
+                    src={`../uploads/img/${item.images[0].filename}`}
+                    alt={"Uploaded" + item.images[0].filename}
+                  />
+                </div>
+
                 <div >
                 </div>
-                &nbsp; <i>{item.category}</i>&nbsp;&nbsp;
                 <h3>{item.name}</h3>
                 <b>ETB: {item.unitPrice}</b>
-                <div className="item-card-user">
-                  <img
-                  // src={imageUrl}
-                  // alt={item.name}
-                  />
-                  <i className="created-at">Posted at: {item.dateAdded}</i>
-                </div>
+
+                {console.log('added by : ' + item.addedBy + ' User: ' + currentUser.__id)}
+
+                {/* {currentUser && currentUser.__id === item.addedBy ? (
+                    <p>
+
+                      <i className="created-at">Your Post</i>
+                    </p>
+                  ) : (
+                    <p>
+                        <i className="created-at">Posted By: </i>
+                      <i className="created-at">{item.addedBy}</i>
+                    </p>
+                  )
+                  } */}
+                {/* <i className="created-at">Posted at: {item.dateAdded}</i> */}
               </div>
             ))}
           </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }

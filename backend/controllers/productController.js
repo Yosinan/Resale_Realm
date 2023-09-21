@@ -62,9 +62,6 @@ const addItem = (req, res) => {
         unitPrice: req.body.unitPrice,
         description: req.body.description,
         images: imgArray,
-        //   mimetype: req.files[0].mimetype,
-        //   filename: req.files[0].filename,
-        // },
         category: req.body.category,
         addedBy: req.user._id,
       })
@@ -74,7 +71,6 @@ const addItem = (req, res) => {
         return json.status(400).send("Product not saved");
       }
       res.status(201).json({ product, message: 'Images uploaded successfully', imageUrl: `../uploads/img/${req.files[0].filename}` });
-      console.log(req.files);
 
     });
 
@@ -88,14 +84,11 @@ const addItem = (req, res) => {
 // GET all products
 const getItems = async (req, res, next) => {
   try {
-    const products = await Product.find().populate('addedBy').select('-__v');
+    const products = await Product.find().populate('addedBy', 'name').select('-__v');
     res.status(200).json(products);
-   
+    // console.log(products);
     for (let i = 0; i < products.length; i++) {
-     for (let j = 0; j < products[i].images.length; j++) {
-      //  products[i].images[j].filename = `../uploads/img/${products[i].images[j].filename}`;
-      console.log(products[i].images[j].filename);
-     }
+      console.log(products[i].addedBy.name);
     }
   } catch (err) {
     next(err);
