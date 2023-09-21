@@ -5,7 +5,7 @@ import './Prod.css';
 // import './Dashboard.css';
 import './cust-css.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOut, faTimes, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faSignOut, faTimes, faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
@@ -34,7 +34,7 @@ function Dashboard() {
   const [addedBy, setAddedBy] = useState(null);
   const [data, setData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
   useEffect(() => {
@@ -196,6 +196,13 @@ function Dashboard() {
     setSelectedProduct(null);
   };
 
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? selectedProduct.images.length - 1 : prevIndex - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === selectedProduct.images.length - 1 ? 0 : prevIndex + 1));
+  };
 
   const handleLogOut = () => {
     const confirm = window.confirm("Are you sure you want to log out?");
@@ -354,15 +361,21 @@ function Dashboard() {
                     <FontAwesomeIcon icon={faTimes} />
                   </button>
                   <h2>{selectedProduct.name}</h2>
-                  {selectedProduct.images.map((image) => (
-                    <div key={image._id} className="item-card-image">
-                      <img
-                        src={`../uploads/img/${image.filename}`}
-                        alt={"Uploaded" + image.filename}
-                      />
-                    </div>
-                  ))
-                  }
+                    <i>{selectedProduct.images.length}</i> &nbsp;
+                    {selectedProduct.images.length > 1 ? (
+                     <span>Images</span>  
+                    ) : (
+                      <span>Image</span>
+                    )}
+                  <div className="product-images">
+                    <button className="prev-button" onClick={handlePrevImage}>
+                      <FontAwesomeIcon icon={faChevronLeft} />
+                    </button>
+                    <img src={`../uploads/img/${selectedProduct.images[currentImageIndex].filename}`} alt={selectedProduct.name} />
+                    <button className="next-button" onClick={handleNextImage}>
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </button>
+                  </div>
                   <p className="description">Description: {selectedProduct.description}</p>
                   <p className="created-at">Category: {selectedProduct.category}</p>
                   <p className="price">ETB: {selectedProduct.unitPrice}</p>
@@ -373,6 +386,16 @@ function Dashboard() {
               </div>
             )}
           </div>
+
+          {/* {selectedProduct.images.map((image) => (
+            <div key={image._id} className="item-card-image">
+              <img
+                src={`../uploads/img/${image.filename}`}
+                alt={"Uploaded" + image.filename}
+              />
+            </div>
+          ))
+          } */}
         </div>
       </div>
       <Footer />
