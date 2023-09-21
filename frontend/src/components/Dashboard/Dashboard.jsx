@@ -363,7 +363,7 @@ function Dashboard() {
                     </div>
                   ))
                   }
-                  <p className="description">{selectedProduct.description}</p>
+                  <p className="description">Description: {selectedProduct.description}</p>
                   <p className="created-at">Category: {selectedProduct.category}</p>
                   <p className="price">ETB: {selectedProduct.unitPrice}</p>
                   <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
