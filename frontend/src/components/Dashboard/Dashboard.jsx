@@ -5,7 +5,7 @@ import './Prod.css';
 // import './Dashboard.css';
 import './cust-css.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faS, faSign, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { faSignOut, faTimes, faHeart } from '@fortawesome/free-solid-svg-icons';
 import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
@@ -33,6 +33,7 @@ function Dashboard() {
   const [currentUser, setCurrentUser] = useState([]);
   const [addedBy, setAddedBy] = useState(null);
   const [data, setData] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
 
 
@@ -186,6 +187,15 @@ function Dashboard() {
     }
   };
 
+  const openProductDetails = (productId) => {
+    const product = items.find((p) => p.id === productId);
+    setSelectedProduct(product);
+  };
+
+  const closeProductDetails = () => {
+    setSelectedProduct(null);
+  };
+
 
   const handleLogOut = () => {
     const confirm = window.confirm("Are you sure you want to log out?");
@@ -237,7 +247,7 @@ function Dashboard() {
       {errorMessage && <Status message={errorMessage} type="error" />}
       <div className="main-container">
         <button className='logout' onClick={handleLogOut}><FontAwesomeIcon bounce={true} spinReverse={true} icon={faSignOut} /></button>
-       
+
         <h2>Products</h2>
         <p>Showing {items.length} items</p>
         <br />
@@ -302,26 +312,17 @@ function Dashboard() {
             </div>
           </div>
 
+          {/* Main content */}
           <div className="content">
             {items.length === 0 && <p className="no-item">No items found.</p>}
             {items.map((item) => (
-              <div key={item.id} className="item">
-                {/* {item.images.map((image) => (
-                  <div key={image._id} className="item-card-image">
-                    <img
-                      src={`../uploads/img/${image.filename}`}
-                      alt={"Uploaded" + image.filename}
-                    />
-                  </div>
-                ))
-                } */}
+              <div key={item.id} className="product-item" onClick={() => openProductDetails(item.id)}>
                 <div className="item-card-image">
                   <img
                     src={`../uploads/img/${item.images[0].filename}`}
                     alt={"Uploaded" + item.images[0].filename}
                   />
                 </div>
-
                 <div >
                 </div>
                 <h3>{item.name}</h3>
@@ -342,8 +343,35 @@ function Dashboard() {
                   )
                   } */}
                 {/* <i className="created-at">Posted at: {item.dateAdded}</i> */}
+
               </div>
             ))}
+
+            {selectedProduct && (
+              <div className="product-details-modal">
+                <div className="product-details">
+                  <button className="close-button" onClick={closeProductDetails}>
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
+                  <h2>{selectedProduct.name}</h2>
+                  {selectedProduct.images.map((image) => (
+                    <div key={image._id} className="item-card-image">
+                      <img
+                        src={`../uploads/img/${image.filename}`}
+                        alt={"Uploaded" + image.filename}
+                      />
+                    </div>
+                  ))
+                  }
+                  <p className="description">{selectedProduct.description}</p>
+                  <p className="created-at">Category: {selectedProduct.category}</p>
+                  <p className="price">ETB: {selectedProduct.unitPrice}</p>
+                  <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
+                  <p className="created-at">Posted By: {selectedProduct.addedBy}</p>
+
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
