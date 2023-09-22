@@ -72,11 +72,12 @@
 .main-container {
     min-height: 80vh;
     flex-grow: 1;
-    background-color: rgba(76, 58, 58, 0.28);
+    background-color: #f3f5fa;
     height: 100%;
 }
 
-.main-container h2 {
+.main-container h2,
+p {
     color: #000000;
     text-align: center;
     margin-bottom: 20px;
@@ -94,21 +95,18 @@
 
 .container {
     display: flex;
-    margin: 30px;
+    margin: 15px;
     padding: 10px;
 }
 
 .sidebar {
-    width: 20%;
-    /* background-color: #b3aeae; */
-    padding: 20px;
-    margin: 10px;
-    margin-left: 50px;
+    width: 5%;
+    padding: 10px;
+    margin: 5px;
     box-sizing: border-box;
-    height: 80%;
-    position: fixed;
-    top: 20px;
-    margin-top: 50px;
+    height: 200px;
+    position: sticky;
+    top: 80px;
 
 }
 
@@ -142,22 +140,22 @@
     width: 80%;
     padding: 10px;
     padding-top: 15px;
-    margin-left: 25%;
+    margin-left: 20%;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     /* display: grid;
     grid-template-columns: repeat(4, 1fr); */
-    grid-gap: 20px;
+    grid-gap: 15px;
     overflow-y: auto;
     flex-wrap: wrap;
     justify-content: space-around;
-    background-color: rgba(242, 242, 242, 0.28);
+    background-color: #ffffffd3;
 }
 
 .content h3 {
     font-size: 18px;
-    color: rgb(0, 0, 0);
+    color: rgb(202, 43, 43);
     text-align: center;
 
 }
@@ -189,9 +187,8 @@ label {
 }
 
 
-input[type="radio"],
-input[type="checkbox"] {
-    width: 20%;
+input {
+    width: 100px;
     height: 30px;
     border-radius: 5px;
     border-style: none;
@@ -199,6 +196,38 @@ input[type="checkbox"] {
     padding-left: 10px;
 }
 
+
+.sort-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.in-sort-options {
+    border: 1px solid #ccc;
+    width: 160px;
+    margin-left: 85%;
+    margin-top: -30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.sort-options li {
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sort-options li:hover {
+    background-color: #ccc;
+}
+
+.sort-options,
+ul {
+    list-style: none;
+    padding: 0;
+}
 
 /* ProductList.css */
 .product-list {
@@ -214,8 +243,8 @@ input[type="checkbox"] {
     transition: transform 0.2s;
     width: 250px;
     border-radius: 10px;
-    border-style: none;
-    background-color: rgba(239, 239, 239, 0.737);
+    /* border-style: none; */
+    background-color: rgba(160, 155, 168, 0.539);
     padding: 5px;
     padding-bottom: 20px;
     text-align: center;
@@ -223,7 +252,7 @@ input[type="checkbox"] {
 
 .product-item:hover {
     transform: scale(1.05);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .product-item img {
@@ -242,6 +271,10 @@ input[type="checkbox"] {
 .product-item p {
     font-size: 14px;
     color: #333;
+}
+
+.product-item b {
+    color: rgba(37, 34, 223, 0.923);
 }
 
 .product-details-modal {

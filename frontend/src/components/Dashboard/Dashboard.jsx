@@ -35,6 +35,7 @@ function Dashboard() {
   const [data, setData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showSort, setShowSort] = useState(false);
 
 
   useEffect(() => {
@@ -90,28 +91,36 @@ function Dashboard() {
   }, [sortOption, sortOrder, filterOption, minPrice, maxPrice]);
 
 
-  const handleSortOptionChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      if (value === "name") {
-        setSortOption("name");
-      }
-      if (value === "price") {
-        setSortOption("unitPrice");
-      }
-      if (value === "oldest") {
-        setSortOption("dateAdded");
-        setSortOrder("asc");
-      }
+  const handleSortOptionChange = (val) => {
 
-      if (value === "newest") {
-        setSortOption("dateAdded");
-        setSortOrder("desc");
-      }
-
-    } else {
-      setSortOption("");
+    if (val === "name") {
+      setSortOption("name");
     }
+    if (val === "price") {
+      setSortOption("unitPrice");
+    }
+
+    if (val == 'highest') {
+      setSortOption("unitPrice");
+      setSortOrder("desc");
+    }
+
+    if (val == 'lowest') {
+      setSortOption("unitPrice");
+      setSortOrder("asc");
+    }
+
+    if (val === "oldest") {
+      setSortOption("dateAdded");
+      setSortOrder("asc");
+    }
+
+    if (val === "newest") {
+      setSortOption("dateAdded");
+      setSortOrder("desc");
+    }
+
+
   };
 
   const handleSortOrderChange = (event) => {
@@ -187,6 +196,22 @@ function Dashboard() {
     }
   };
 
+
+  const openSort = () => {
+    setShowSort(!showSort);
+
+    if (showSort) {
+      defaultSort();
+    }
+  };
+
+  const defaultSort = () => {
+    setSortOption("");
+    setSortOrder("");
+  };
+
+
+
   const openProductDetails = (productId) => {
     const product = items.find((p) => p.id === productId);
     setSelectedProduct(product);
@@ -254,15 +279,29 @@ function Dashboard() {
       {errorMessage && <Status message={errorMessage} type="error" />}
       <div className="main-container">
         <button className='logout' onClick={handleLogOut}><FontAwesomeIcon bounce={true} spinReverse={true} icon={faSignOut} /></button>
-
         <h2>Products</h2>
         <p>Showing {items.length} items</p>
+        <br />
+        <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By : <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}>Default</span></p>
+        <br />
+        {showSort && (
+          <div className="sort-options">
+            <div className="in-sort-options">
+              <u>
+                <li onClick={() => handleSortOptionChange('newest')}>Newest First</li>
+                <li onClick={() => handleSortOptionChange('highest')}>Highest Price First</li>
+                <li onClick={() => handleSortOptionChange('lowest')}>Lowest Price First</li>
+              </u>
+            </div>
+
+          </div>
+        )}
         <br />
         <div className="container">
           <div className="sidebar">
             <div className="in-sidebar">
               <br />
-              <button className="clear" onClick={() => {
+              {/* <button className="clear" onClick={() => {
                 setSortOption("");
                 setSortOrder("");
                 setFilterOption("");
@@ -310,12 +349,12 @@ function Dashboard() {
                   <option value="Furniture">Furniture</option>
                   <option value="Books">Books</option>
                   <option value="Other">Other</option>
-                </select>
-                <br />
-                <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-                <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
-                <br />
-              </div>
+                </select> */}
+              <br />
+              <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+              <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+              <br />
+
             </div>
           </div>
 
@@ -335,22 +374,21 @@ function Dashboard() {
                 <h3>{item.name}</h3>
                 <b>ETB: {item.unitPrice}</b>
 
-                {console.log('added by : ' + item.addedBy + ' User: ' + currentUser.__id)}
+                {/* {console.log('added by : ' + item.addedBy + ' User: ' + currentUser.__id)} */}
 
-                {/* {currentUser && currentUser.__id === item.addedBy ? (
-                    <p>
+                {currentUser && currentUser.__id === item.addedBy ? (
+                  <p>
 
-                      <i className="created-at">Your Post</i>
-                    </p>
-                  ) : (
-                    <p>
-                        <i className="created-at">Posted By: </i>
-                      <i className="created-at">{item.addedBy}</i>
-                    </p>
-                  )
-                  } */}
+                    <i className="created-at">Your Post</i>
+                  </p>
+                ) : (
+                  <p>
+                    <i className="created-at">Posted By: </i>
+                    <i className="created-at">{item.addedBy.name}</i>
+                  </p>
+                )
+                }
                 {/* <i className="created-at">Posted at: {item.dateAdded}</i> */}
-
               </div>
             ))}
 
@@ -361,12 +399,12 @@ function Dashboard() {
                     <FontAwesomeIcon icon={faTimes} />
                   </button>
                   <h2>{selectedProduct.name}</h2>
-                    <i>{selectedProduct.images.length}</i> &nbsp;
-                    {selectedProduct.images.length > 1 ? (
-                     <span>Images</span>  
-                    ) : (
-                      <span>Image</span>
-                    )}
+                  <i>{selectedProduct.images.length}</i> &nbsp;
+                  {selectedProduct.images.length > 1 ? (
+                    <span>Images</span>
+                  ) : (
+                    <span>Image</span>
+                  )}
                   <div className="product-images">
                     <button className="prev-button" onClick={handlePrevImage}>
                       <FontAwesomeIcon icon={faChevronLeft} />
