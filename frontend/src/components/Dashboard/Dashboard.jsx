@@ -5,7 +5,20 @@ import './Prod.css';
 // import './Dashboard.css';
 import './cust-css.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOut, faTimes, faHeart, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faSignOut, 
+  faTimes, 
+  faHeart, 
+  faChevronLeft, 
+  faChevronRight,
+  faSortAlphaAsc,
+  faSort,
+  faClock,
+  faDollarSign,
+  faSortAmountUp,
+  faArrowDown,
+  faArrowUp,
+} from '@fortawesome/free-solid-svg-icons';
 import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
@@ -36,6 +49,7 @@ function Dashboard() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showSort, setShowSort] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("Default");
 
 
   useEffect(() => {
@@ -123,6 +137,15 @@ function Dashboard() {
 
   };
 
+  const sortingOptions = [
+    { label: 'Default', icon: faSort },
+    { label: 'A-Z', icon: faSortAlphaAsc },
+    { label: 'Highest Price First', icon: faArrowUp },
+    { label: 'Lowest Price First', icon: faArrowDown },
+    { label: 'Newest First', icon: faClock },
+    { label: 'Oldest First', icon: faClock },
+  ];
+
   const handleSortOrderChange = (event) => {
 
     if (event.target.value === "asc") {
@@ -199,16 +222,41 @@ function Dashboard() {
 
   const openSort = () => {
     setShowSort(!showSort);
+  };
 
-    if (showSort) {
-      defaultSort();
+  const filteredOptions = sortingOptions.filter((option) => option.label !== selectedOption);
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+
+    if (option === "Default") {
+      setSortOption("");
+      setSortOrder("");
     }
+    if (option === "A-Z") {
+      setSortOption("name");
+      setSortOrder("asc");
+    }
+    if (option === "Highest Price First") {
+      setSortOption("unitPrice");
+      setSortOrder("desc");
+    }
+    if (option === "Lowest Price First") {
+      setSortOption("unitPrice");
+      setSortOrder("asc");
+    }
+    if (option === "Newest First") {
+      setSortOption("dateAdded");
+      setSortOrder("desc");
+    }
+    if (option === "Oldest First") {
+      setSortOption("dateAdded");
+      setSortOrder("asc");
+    }
+
+    setShowSort(false);
   };
 
-  const defaultSort = () => {
-    setSortOption("");
-    setSortOrder("");
-  };
 
 
 
@@ -282,16 +330,23 @@ function Dashboard() {
         <h2>Products</h2>
         <p>Showing {items.length} items</p>
         <br />
-        <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By : <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}>Default</span></p>
+        <div className="toggleDropdown">
+        <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By: 
+        <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} /> 
+        <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}>{selectedOption}</span></p>
+        </div>
         <br />
         {showSort && (
           <div className="sort-options">
             <div className="in-sort-options">
-              <u>
-                <li onClick={() => handleSortOptionChange('newest')}>Newest First</li>
-                <li onClick={() => handleSortOptionChange('highest')}>Highest Price First</li>
-                <li onClick={() => handleSortOptionChange('lowest')}>Lowest Price First</li>
-              </u>
+              <ul>
+                {filteredOptions.map((option) => (
+                  <li key={option.label} onClick={(e) => handleOptionSelect(option.label)}>
+                    <FontAwesomeIcon icon={option.icon} style={{ marginRight: '10px' }} />
+                    {option.label}
+                  </li>
+                ))}
+              </ul>
             </div>
 
           </div>
@@ -351,8 +406,10 @@ function Dashboard() {
                   <option value="Other">Other</option>
                 </select> */}
               <br />
-              <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-              <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+              <div className="price-range">
+                <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+              </div>
               <br />
 
             </div>

@@ -187,7 +187,8 @@ label {
 }
 
 
-input {
+.price-range,
+input[type=number] {
     width: 100px;
     height: 30px;
     border-radius: 5px;
@@ -196,6 +197,42 @@ input {
     padding-left: 10px;
 }
 
+.my-component {
+    position: relative;
+    /* Make the container relative */
+}
+
+.sort-by-toggle {
+    cursor: pointer;
+}
+
+.sorting-options {
+    position: absolute;
+    top: 100%;
+    /* Position the dropdown below the "Sort By" text */
+    left: 0;
+    z-index: 1;
+    /* Ensure the dropdown is above other content */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    list-style: none;
+    margin: 0;
+}
+
+.sorting-options li {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.sorting-options li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Show the dropdown when it's visible */
+.my-component .sorting-options {
+    display: block;
+}
 
 .sort-options {
     display: flex;
@@ -204,7 +241,6 @@ input {
 }
 
 .in-sort-options {
-    border: 1px solid #ccc;
     width: 160px;
     margin-left: 85%;
     margin-top: -30px;
@@ -213,20 +249,25 @@ input {
 
 
 
-.sort-options li {
-    padding: 5px;
+.in-sort-options li {
+    padding: 3px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
-.sort-options li:hover {
-    background-color: #ccc;
+.in-sort-options li:hover {
+    background-color: #f3f5fa;
 }
 
-.sort-options,
+.in-sort-options,
 ul {
     list-style: none;
     padding: 0;
+    position: absolute;
+    border-radius: 3%;
+    left: 0;
+    background-color: #ffffff;
+    /* z-index: 1; */
 }
 
 /* ProductList.css */
