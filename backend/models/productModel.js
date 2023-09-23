@@ -35,8 +35,13 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   addedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    
+  },
+  addedByUsername: {
+    type: String,
     required: true,
   },
   dateAdded: {

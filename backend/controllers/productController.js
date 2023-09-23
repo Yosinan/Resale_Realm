@@ -64,6 +64,7 @@ const addItem = (req, res) => {
         images: imgArray,
         category: req.body.category,
         addedBy: req.user._id,
+        addedByUsername: req.user.name,
       })
 
       const p = await product.save();
@@ -84,7 +85,7 @@ const addItem = (req, res) => {
 // GET all products
 const getItems = async (req, res, next) => {
   try {
-    const products = await Product.find().populate('addedBy', 'name').select('-__v');
+    const products = await Product.find().populate({ path: 'addedBy', select: 'name'}).select('-__v');
     res.status(200).json(products);
     // console.log(products);
     for (let i = 0; i < products.length; i++) {

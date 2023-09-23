@@ -40,6 +40,7 @@ function Dashboard() {
   const [file, setfile] = useState([]);
   const [category, setCategory] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [filterOption, setFilterOption] = useState("");
   const [createdAt, setCreatedAt] = useState("");
@@ -142,6 +143,7 @@ function Dashboard() {
           setItems(response.data);
           setCreatedAt(response.data.dateAdded);
           console.log(token)
+          console.log(response.data)
           setItems(response.data);
         }
         else {
@@ -199,15 +201,7 @@ function Dashboard() {
     { label: 'Oldest First', icon: faClock },
   ];
 
-  const handleSortOrderChange = (event) => {
 
-    if (event.target.value === "asc") {
-      setSortOrder("asc");
-    }
-    if (event.target.value === "desc") {
-      setSortOrder("desc");
-    }
-  };
 
   const handleFilterOptionChange = (event) => {
     if (event.target.value === "Electronics") {
@@ -250,10 +244,13 @@ function Dashboard() {
 
   const handleSearchChange = async (event) => {
     const { value } = event.target;
-    if (value) {
       try {
         const token = getToken();
-        const response = await axios.get(`http://localhost:5000/api/products/search?name=${value}`, {
+        const response = await axios.get(
+          value ?
+          `http://localhost:5000/api/products/search?name=${value}`
+          : 'http://localhost:5000/api/products',
+        {
           headers: {
 
             Authorization: `Bearer ${token}`,
@@ -261,8 +258,6 @@ function Dashboard() {
 
         });
         if (response.status === 200) {
-          console.log('Success')
-          console.log(response.data)
           setItems(response.data);
         }
         else {
@@ -274,7 +269,6 @@ function Dashboard() {
         handleError();
 
       }
-    }
   };
 
 
@@ -412,14 +406,12 @@ function Dashboard() {
         <div className="container">
           <div className="sidebar">
             <div className="in-sidebar">
-              {/*
+
               <input
                 type='search'
                 placeholder='Search'
                 value={data}
                 onChange={handleSearchChange} />
-              <br />
-             */}
               <br />
               <button
                 className="clear"
@@ -427,6 +419,7 @@ function Dashboard() {
                 onClick={() => {
                   setMinPrice("");
                   setMaxPrice("");
+                  setSearch("");
                 }}>
                 <FontAwesomeIcon icon={faUndoAlt} style={{ marginRight: '10px' }} />
               </button>
@@ -458,7 +451,7 @@ function Dashboard() {
                 <h3>{item.name}</h3>
                 <b>ETB: {item.unitPrice}</b>
 
-                {/* {console.log('added by : ' + item.addedBy + ' User: ' + currentUser.__id)} */}
+                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
                 {currentUser && currentUser.__id === item.addedBy ? (
                   <p>
@@ -468,7 +461,7 @@ function Dashboard() {
                 ) : (
                   <p>
                     <i className="created-at">Posted By: </i>
-                    <i className="created-at">{item.addedBy.name}</i>
+                    <i className="created-at">{item.addedByUsername}</i>
                   </p>
                 )
                 }
@@ -501,7 +494,16 @@ function Dashboard() {
                   <p className="created-at">Category: {selectedProduct.category}</p>
                   <p className="price">ETB: {selectedProduct.unitPrice}</p>
                   <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
-                  <p className="created-at">Posted By: {selectedProduct.addedBy}</p>
+                  <p className="created-at">Posted By: {selectedProduct.addedByUsername}</p>
+
+                  {/* {currentUser && currentUser.__id === selectedProduct.addedBy ? (
+                    <button className="delete-button" onClick={closeProductDetails}>
+                      <FontAwesomeIcon icon={faTimes} /> 
+                      <span>Delete</span>
+                    </button>
+                  ) : (
+                    null )
+                  } */}
 
                 </div>
               </div>
