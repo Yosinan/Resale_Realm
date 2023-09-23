@@ -14,6 +14,8 @@ import {
   faSortAlphaAsc,
   faSort,
   faClock,
+  faArrowLeft,
+  faArrowRight,
   faDollarSign,
   faSortAmountUp,
   faArrowDown,
@@ -50,6 +52,56 @@ function Dashboard() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showSort, setShowSort] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Default");
+  const [currenPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+
+
+
+  const itemsToDisplay = items.slice(
+    (currenPage - 1) * itemsPerPage,
+    currenPage * itemsPerPage
+  );
+
+
+  function handlePageChange() {
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+    return (
+      <div className="pagination-container">
+        <button
+          className="pagination-button"
+          onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
+          disabled={currenPage === 1}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+        {/* <span>
+          Page {currenPage} of {totalPages}
+        </span> */}
+        <div className="page-numbers">
+          {pageNumbers.map((pageNumber) => (
+            <button
+              key={pageNumber}
+              className={'pagination-button'}
+              disabled={pageNumber === currenPage}
+              onClick={() => setCurrentPage(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          ))}
+        </div>
+        <button
+          className="pagination-button"
+          onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+          disabled={currenPage === totalPages}
+        >
+          <FontAwesomeIcon icon={faArrowRight} />
+        </button>
+      </div>
+    );
+  }
 
 
   useEffect(() => {
@@ -332,8 +384,7 @@ function Dashboard() {
         <br />
         <div className="toggleDropdown">
         <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By: 
-        <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} /> 
-        <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}>{selectedOption}</span></p>
+            <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}> <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} />  {selectedOption}</span></p>
         </div>
         <br />
         {showSort && (
@@ -418,7 +469,7 @@ function Dashboard() {
           {/* Main content */}
           <div className="content">
             {items.length === 0 && <p className="no-item">No items found.</p>}
-            {items.map((item) => (
+            {itemsToDisplay.map((item) => (
               <div key={item.id} className="product-item" onClick={() => openProductDetails(item.id)}>
                 <div className="item-card-image">
                   <img
@@ -481,18 +532,10 @@ function Dashboard() {
               </div>
             )}
           </div>
-
-          {/* {selectedProduct.images.map((image) => (
-            <div key={image._id} className="item-card-image">
-              <img
-                src={`../uploads/img/${image.filename}`}
-                alt={"Uploaded" + image.filename}
-              />
-            </div>
-          ))
-          } */}
         </div>
+        {handlePageChange()}
       </div>
+     
       <Footer />
     </>
   );

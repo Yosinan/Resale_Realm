@@ -241,6 +241,9 @@ input[type=number] {
 }
 
 .in-sort-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 160px;
     margin-left: 85%;
     margin-top: -30px;
@@ -406,3 +409,46 @@ ul {
 .next-button {
     right: 20px;
 }
+
+
+
+/* CSS for Pagination Container */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* CSS for Pagination Buttons */
+.pagination-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.pagination-button:hover {
+    background-color: #0056b3;
+}
+
+/* CSS for Disabled Pagination Buttons */
+.pagination-button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* CSS for Page Information */
+.page-info {
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Apply these styles in your component */

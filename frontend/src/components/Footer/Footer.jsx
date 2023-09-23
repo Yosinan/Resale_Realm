@@ -3,7 +3,7 @@ import { getFullYear } from '../../utils/utils'
 // import './Footer.css'
 
 const footerStyles = {
-    backgroundColor: 'blue',
+    backgroundColor: 'lightgray',
     color: 'black',
     textAlign: 'center',
     // position: 'fixed',
