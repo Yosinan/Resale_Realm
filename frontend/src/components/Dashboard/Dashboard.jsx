@@ -5,17 +5,18 @@ import './Prod.css';
 // import './Dashboard.css';
 import './cust-css.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faSignOut, 
-  faTimes, 
-  faHeart, 
-  faChevronLeft, 
+import {
+  faSignOut,
+  faTimes,
+  faHeart,
+  faChevronLeft,
   faChevronRight,
   faSortAlphaAsc,
   faSort,
   faClock,
   faArrowLeft,
   faArrowRight,
+  faUndoAlt,
   faDollarSign,
   faSortAmountUp,
   faArrowDown,
@@ -241,6 +242,11 @@ function Dashboard() {
     }, 3000);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === '-' || event.key === '+' || event.key === 'e') {
+      event.preventDefault();
+    }
+  };
 
   const handleSearchChange = async (event) => {
     const { value } = event.target;
@@ -383,7 +389,7 @@ function Dashboard() {
         <p>Showing {items.length} items</p>
         <br />
         <div className="toggleDropdown">
-        <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By: 
+          <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By:
             <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}> <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} />  {selectedOption}</span></p>
         </div>
         <br />
@@ -406,60 +412,30 @@ function Dashboard() {
         <div className="container">
           <div className="sidebar">
             <div className="in-sidebar">
-              <br />
-              {/* <button className="clear" onClick={() => {
-                setSortOption("");
-                setSortOrder("");
-                setFilterOption("");
-                document.querySelectorAll('input[type="checkbox"]:checked').forEach((el) => el.checked = false);
-                document.querySelectorAll('input[type="radio"]:checked').forEach((el) => el.checked = false);
-                setMinPrice("");
-                setMaxPrice("");
-              }}>Reset</button>
-              <br />
+              {/*
               <input
                 type='search'
                 placeholder='Search'
                 value={data}
                 onChange={handleSearchChange} />
               <br />
-              <div className="sort-options">
-                <h3>Sort By: </h3>
-                <input type="checkbox" id="name" name="name" value="name" onChange={handleSortOptionChange} />
-                <label htmlFor="name"> Name</label>
-                <br />
-                <input type="checkbox" id="price" name="price" value="price" onChange={handleSortOptionChange} />
-                <label htmlFor="price"> Price</label>
-                <br />
-                <input type="radio" id="dateAdded" name="dateAdded" value="newest" onChange={handleSortOptionChange} />
-                <label htmlFor="dateAdded"> Newest First</label>
-                <br />
-                <input type="radio" id="dateAdded" name="dateAdded" value="oldest" onChange={handleSortOptionChange} />
-                <label htmlFor="dateAdded"> Oldest First</label>
-              </div>
-              <div className="filter-methods">
-
-                <h3>Sort Order: </h3>
-                <label htmlFor="filterOption">Sort Order: </label>
-                <select id="sortOrder" value={sortOrder} onChange={handleSortOrderChange}>
-                  <option value="">Select an option</option>
-                  <option value="asc">Ascending</option>
-                  <option value="desc">Descending</option>
-                </select>
-                <br />
-                <label htmlFor="filterOption">Filter By Category: </label>
-                <select id="filterOption" value={filterOption} onChange={handleFilterOptionChange}>
-                  <option value="">Select an option</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Furniture">Furniture</option>
-                  <option value="Books">Books</option>
-                  <option value="Other">Other</option>
-                </select> */}
+             */}
               <br />
+              <button
+                className="clear"
+                style={{ marginTop: '10px', marginLeft: '10px', backgroundColor: 'white', color: 'black', border: '2px solid #008CBA', borderRadius: '12px', padding: '5px 15px', fontSize: '16px', width: '50px' }}
+                onClick={() => {
+                  setMinPrice("");
+                  setMaxPrice("");
+                }}>
+                <FontAwesomeIcon icon={faUndoAlt} style={{ marginRight: '10px' }} />
+              </button>
               <div className="price-range">
-                <input type="number" placeholder="Min Price" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-                <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+                <h3>Price Range</h3>
+                <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} /><input type="number" placeholder='Min Price' value={minPrice} onChange={(e) => setMinPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
+                <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '15px' }} />
+                <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} />
+                <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
               </div>
               <br />
 
@@ -496,7 +472,6 @@ function Dashboard() {
                   </p>
                 )
                 }
-                {/* <i className="created-at">Posted at: {item.dateAdded}</i> */}
               </div>
             ))}
 
@@ -535,7 +510,6 @@ function Dashboard() {
         </div>
         {handlePageChange()}
       </div>
-     
       <Footer />
     </>
   );
