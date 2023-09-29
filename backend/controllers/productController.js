@@ -3,6 +3,7 @@ const Product = require('../models/productModel');
 const User = require("../models/userModel");
 const multer = require('multer');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 // Set up multer for file uploads
 
@@ -67,14 +68,16 @@ const addItem = (req, res) => {
         addedByUsername: req.user.name,
       })
 
+
+
+
       const p = await product.save();
       if (!p) {
         return json.status(400).send("Product not saved");
       }
       res.status(201).json({ product, message: 'Images uploaded successfully', imageUrl: `../uploads/img/${req.files[0].filename}` });
 
-    });
-
+    })
 
 
   } catch (err) {
@@ -88,12 +91,44 @@ const getItems = async (req, res, next) => {
     const products = await Product.find().populate({ path: 'addedBy', select: 'name'}).select('-__v');
     res.status(200).json(products);
     // console.log(products);
-    for (let i = 0; i < products.length; i++) {
-      console.log(products[i].addedBy.name);
+    // for (let i = 0; i < products.length; i++) {
+    //   console.log(products[i].addedBy.name);
+    // }
+
+    // send email to admin
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      secure: false,
+      auth: {
+        user: 'yoszewdu@gmail.com',
+        pass: '"wemakeourownrules"-maxine!',
+      },
+      host: 'smtp.gmail.com',
+      
+
+
+    });
+
+    // console.log(transporter);
+    const mailOptions = {
+      from: 'yoszewdu@gmail.com',
+      to: 'ymymym4634@example.com',
+      subject: 'New product added',
+      text: 'A new product has been added:',
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log('error' + err.message);
+      } else {
+        console.log(`Email sent successfully: ${info.response}`);
+      }
     }
+    );
   } catch (err) {
     next(err);
   }
+  
 };
 
 const getImageUrl = async (req, res, next) => {
