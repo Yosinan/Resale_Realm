@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import './Login.css'
-import image from '../../assets/images/icon.jpeg'
+import log from './Login.module.css'
+import image from '../../assets/icon/icon.jpeg'
 import PropTypes from 'prop-types'
 import Status from '../Status/Status'
 
@@ -10,7 +10,7 @@ function Login({ onLogin, togglePage, showLogin }) {
     position: 'fixed',
     right: '65px',
     top: '50px',
-    width: showLogin ? '300px' : '0',
+    width: showLogin ? '350px' : '0',
     height: 'auto',
     background: '#fff',
     backgroundImage: `url(${image})`,
@@ -21,7 +21,7 @@ function Login({ onLogin, togglePage, showLogin }) {
     border: '1px solid #ccc',
     transition: 'width 0.3s',
     overflow: 'hidden',
-    padding: '20px',
+    padding: '10px',
     borderRadius: '5px',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
     display: showLogin ? 'block' : 'none'
@@ -32,10 +32,10 @@ function Login({ onLogin, togglePage, showLogin }) {
     display: 'flex',
     backgroundColor: 'rgba(242, 242, 242, 0.28)',
     padding: '10px',
-    margin: '25px',
+    margin: '15px',
     borderRadius: '15px',
     flexDirection: 'column',
-    width: '250px',
+    width: '300px',
   }
 
   const [email, setEmail] = useState('');
@@ -110,14 +110,14 @@ function Login({ onLogin, togglePage, showLogin }) {
   };
 
   return (
-    <div className='contain' style={loginStyles}>
+    <div className={log.contain} style={loginStyles}>
       {successMessage && <Status message={successMessage} type="success" />}
       {errorMessage && <Status message={errorMessage} type="error" />}
-      <div className='login-form' style={outter}>
+      <div className={log.loginForm} style={outter}>
         {/* {responseMessage && (
           <p>{responseMessage}</p>
         )} */}
-        <form className='login-form' onSubmit={handleSubmit}>
+        <form className={log.loginForm} onSubmit={handleSubmit}>
           <h2>Login</h2>
           <label htmlFor="email">Email</label>
           <input
@@ -139,13 +139,13 @@ function Login({ onLogin, togglePage, showLogin }) {
             name="password"
             required={true}
           />
-          <button className='login' type="submit" disabled={!enable}>
+          <button className={log.button} type="submit" disabled={!enable}>
             Login
           </button>
         </form>
         <br />
-        <a href='#'><i>Forgot password ?</i></a>
-        <p >Don't have an account ? <span className='tog' onClick={togglePage}> Sign Up</span></p>
+        <a href='#' className={log.a} ><span>Forgot password ?</span></a>
+        <p >Don't have an account ? <span className={log.tog} onClick={togglePage}> Sign Up</span></p>
       </div>
     </div>
   );

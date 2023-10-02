@@ -1,17 +1,17 @@
-.form-container,
-.reg-form {
+.formContainer,
+.regForm {
   display: flex;
   flex-direction: column;
 }
 
 @media only screen and (max-width: 500px) {
-  .form-container {
+  .formContainer {
     right: 10px !important;
   }
 }
 
 @media only screen and (max-width: 400px) {
-  .form-container {
+  .formContainer {
     /* right: 0 !important; */
     position: static !important;
     margin: 0;
@@ -19,13 +19,28 @@
   }
 }
 
-.reg-form h2 {
+.regForm h2 {
   font-family: "Times New Roman", Times, serif;
   font-style: italic;
   color: rgb(255, 255, 255);
+  text-align: center;
 }
 
-.form-container {
+.formContainer p {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.regForm label {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    color: rgb(0, 0, 0);
+    padding: 0.25rem 0;
+  }
+
+.formContainer {
   padding: 5.75rem;
   border: 1px solid white;
   border-radius: 9px;
@@ -60,8 +75,6 @@ button:hover {
 }
 
 
-.outter {}
-
 p {
   text-align: center;
   color: rgb(255, 255, 255);
@@ -83,7 +96,7 @@ button:disabled {
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
 }
 
@@ -99,6 +112,25 @@ button:disabled {
   @media (max-width: 1024px) {
     bottom: 230px;
   }
+}
 
-  ;
+
+
+
+.button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgb(245, 118, 118);
+  cursor: pointer;
+  color: aliceblue;
+}
+
+.button:hover {
+  background-color: rgba(37, 19, 110, 0.699);
+}
+
+.button:disabled {
+  background-color: rgb(122, 115, 115);
+  cursor: not-allowed;
 }

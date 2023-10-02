@@ -1,5 +1,5 @@
-.form-container,
-.login-form {
+.formContainer,
+.loginForm {
   display: flex;
   flex-direction: column;
 }
@@ -9,10 +9,18 @@
   width: 100%;
 }
 
-.login-form h2 {
+.loginForm h2 {
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
   color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.loginForm label {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: large;
+  color: rgb(0, 0, 0);
+  padding: 0.25rem 0;
 }
 
 
@@ -36,18 +44,21 @@
   }
 }
 
-.login-form {
+.loginForm {
   fill: rgba(255, 255, 255, 0.2);
   stroke-width: 1px;
   stroke: #e0e0e0;
   filter: drop-shadow(0px 82px 40px rgba(100, 100, 100, 0.08));
 }
 
-label {
-  text-align: left;
-  color: rgb(255, 255, 255);
-  padding: 0.25rem 0;
+
+.loginForm p {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 17px;
+  color: rgb(0, 0, 0);
+  text-align: center;
 }
+
 
 input {
   margin: 0.5rem 0;
@@ -56,7 +67,14 @@ input {
   border-radius: 7px;
 }
 
-button {
+.a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  text-align: center;
+  font-size: large;
+}
+
+.button {
   border: none;
   border-radius: 10px;
   padding: 10px;
@@ -65,11 +83,11 @@ button {
   color: aliceblue;
 }
 
-button:hover {
+.button:hover {
   background-color: rgba(37, 19, 110, 0.699);
 }
 
-button:disabled {
+.button:disabled {
   background-color: rgb(122, 115, 115);
   cursor: not-allowed;
 }
@@ -85,7 +103,7 @@ button:disabled {
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
 }
 

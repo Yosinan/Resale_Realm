@@ -22,18 +22,18 @@ const MainPage = () => {
     setShowLogin(!showLogin);
   };
 
-  
+
 
   return (
     <div>
-       {isLoggedIn ? (
-          <Dashboard />
-        ) : isLoginPage ? (
-          <Login onLogin={handleLogin} togglePage={toggleLoginPage} showLogin={showLogin}/>
-        ) : (
-          <Register togglePage={toggleLoginPage} showLogin={showLogin}/>
-        )}
-        <ButtonComponent onClick={handleButtonClick} />
+      {isLoggedIn ? (
+        <Dashboard />
+      ) : isLoginPage ? (
+        <Login onLogin={handleLogin} togglePage={toggleLoginPage} showLogin={showLogin} />
+      ) : (
+        <Register togglePage={toggleLoginPage} showLogin={showLogin} />
+      )}
+      <ButtonComponent onClick={handleButtonClick} />
     </div>
   );
 };

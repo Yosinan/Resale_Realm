@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Register.css';
-import image from '../../assets/images/icon.jpeg';
+import reg from './Register.module.css';
+import image from '../../assets/icon/icon.jpeg';
 import Status from '../Status/Status';
 
 const PasswordStrengthIndicator = ({ password }) => {
@@ -63,7 +63,7 @@ function Register({ togglePage, showLogin }) {
     border: '1px solid #ccc',
     transition: 'width 0.3s',
     overflow: 'hidden',
-    padding: '20px',
+    padding: '10px',
     borderRadius: '5px',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
     display: showLogin ? 'block' : 'none',
@@ -73,11 +73,10 @@ function Register({ togglePage, showLogin }) {
   const outter = {
     display: 'flex',
     backgroundColor: 'rgba(242, 242, 242, 0.28)',
-    // padding: '10px',
-    margin: '30px',
+    padding: '10px',
+    margin: '15px',
     borderRadius: '15px',
     flexDirection: 'column',
-    // alignItems: 'center',
     width: '300px',
   }
 
@@ -143,7 +142,7 @@ function Register({ togglePage, showLogin }) {
   return (
     <>
 
-      <div className="form-container" style={regStyles}>
+      <div className={reg.formContainer} style={regStyles}>
         {successMessage && <Status message={successMessage} type="success" />}
         {errorMessage && <Status message={errorMessage} type="error" />}
         <div className='outter' style={outter}>
@@ -151,7 +150,7 @@ function Register({ togglePage, showLogin }) {
             <p>{responseMessage}</p>
           )}
 
-          <form className="reg-form" onSubmit={handleSubmit}>
+          <form className={reg.regForm} onSubmit={handleSubmit}>
             <h2>Sign Up</h2>
             <label htmlFor='user'>Name</label>
             <input
@@ -196,9 +195,9 @@ function Register({ togglePage, showLogin }) {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <br />
-            <button className="reg" disabled={!enable} type="submit">Sign Up</button>
+            <button className={reg.button} disabled={!enable} type="submit">Sign Up</button>
           </form>
-          <p >Already have an account ? <span className='tog' onClick={togglePage}> Sign In</span></p>
+          <p>Already have an account ? <span className={reg.tog} onClick={togglePage}> Sign In</span></p>
         </div>
       </div>
     </>

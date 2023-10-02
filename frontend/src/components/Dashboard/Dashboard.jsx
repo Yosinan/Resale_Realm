@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
-import './Prod.css';
+import dash from './P.module.css'
+import './Prod.css'
 // import './Dashboard.css';
 import './cust-css.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,7 +26,7 @@ import {
 import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
 import { handlelogout } from "../../utils/logOut";
-import image1 from '../../assets/images/icon.jpeg';
+import image1 from '../../assets/icon/icon.jpeg';
 import Footer from '../Footer/Footer'
 
 
@@ -244,10 +245,10 @@ function Dashboard() {
 
   const handleSearchChange = async (event) => {
     const { value } = event.target;
-      try {
-        const token = getToken();
-        const response = await axios.get(
-          value ?
+    try {
+      const token = getToken();
+      const response = await axios.get(
+        value ?
           `http://localhost:5000/api/products/search?name=${value}`
           : 'http://localhost:5000/api/products',
         {
@@ -257,18 +258,18 @@ function Dashboard() {
           },
 
         });
-        if (response.status === 200) {
-          setItems(response.data);
-        }
-        else {
-          console.log('Failed')
-        }
-
-      } catch (error) {
-        console.error("Error fetching items:", error);
-        handleError();
-
+      if (response.status === 200) {
+        setItems(response.data);
       }
+      else {
+        console.log('Failed')
+      }
+
+    } catch (error) {
+      console.error("Error fetching items:", error);
+      handleError();
+
+    }
   };
 
 
@@ -377,19 +378,19 @@ function Dashboard() {
     <>
       {successMessage && <Status message={successMessage} type="success" />}
       {errorMessage && <Status message={errorMessage} type="error" />}
-      <div className="main-container">
-        <button className='logout' onClick={handleLogOut}><FontAwesomeIcon bounce={true} spinReverse={true} icon={faSignOut} /></button>
+      <div className={dash.mainContainer}>
+        <button className={dash.logout} onClick={handleLogOut}><FontAwesomeIcon icon={faSignOut} /></button>
         <h2>Products</h2>
         <p>Showing {items.length} items</p>
         <br />
-        <div className="toggleDropdown">
-          <p style={{ textAlign: 'right', marginRight: '90px' }} >Sort By:
-            <span style={{ cursor: 'pointer' }} onClick={() => { openSort() }}> <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} />  {selectedOption}</span></p>
+        <div className={dash.toggleDropdown}>
+          <p> Sort By:
+            <span onClick={() => { openSort() }}> <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} />  {selectedOption}</span></p>
         </div>
         <br />
         {showSort && (
-          <div className="sort-options">
-            <div className="in-sort-options">
+          <div className={dash.sortOptions}>
+            <div className={dash.inSortOptions}>
               <ul>
                 {filteredOptions.map((option) => (
                   <li key={option.label} onClick={(e) => handleOptionSelect(option.label)}>
@@ -403,9 +404,9 @@ function Dashboard() {
           </div>
         )}
         <br />
-        <div className="container">
-          <div className="sidebar">
-            <div className="in-sidebar">
+        <div className={dash.container}>
+          <div className={dash.sidebar}>
+            <div className={dash.inSidebar}>
 
               <input
                 type='search'
@@ -423,7 +424,7 @@ function Dashboard() {
                 }}>
                 <FontAwesomeIcon icon={faUndoAlt} style={{ marginRight: '10px' }} />
               </button>
-              <div className="price-range">
+              <div className={dash.priceRange}>
                 <h3>Price Range</h3>
                 <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} /><input type="number" placeholder='Min Price' value={minPrice} onChange={(e) => setMinPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
                 <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '15px' }} />
@@ -436,11 +437,11 @@ function Dashboard() {
           </div>
 
           {/* Main content */}
-          <div className="content">
-            {items.length === 0 && <p className="no-item">No items found.</p>}
+          <div className={dash.content}>
+            {items.length === 0 && <p className={dash.noItem}>No items found.</p>}
             {itemsToDisplay.map((item) => (
-              <div key={item.id} className="product-item" onClick={() => openProductDetails(item.id)}>
-                <div className="item-card-image">
+              <div key={item.id} className={dash.productItem} onClick={() => openProductDetails(item.id)}>
+                <div className={dash.itemCardImage}>
                   <img
                     src={`../uploads/img/${item.images[0].filename}`}
                     alt={"Uploaded" + item.images[0].filename}
@@ -469,9 +470,9 @@ function Dashboard() {
             ))}
 
             {selectedProduct && (
-              <div className="product-details-modal">
-                <div className="product-details">
-                  <button className="close-button" onClick={closeProductDetails}>
+              <div className={dash.productDetailsModal}>
+                <div className={dash.productDetails}>
+                  <button className={dash.closeButton} onClick={closeProductDetails}>
                     <FontAwesomeIcon icon={faTimes} />
                   </button>
                   <h2>{selectedProduct.name}</h2>
@@ -481,7 +482,7 @@ function Dashboard() {
                   ) : (
                     <span>Image</span>
                   )}
-                  <div className="product-images">
+                  <div className={dash.productImages}>
                     <button className="prev-button" onClick={handlePrevImage}>
                       <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
