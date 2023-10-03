@@ -63,6 +63,22 @@ h6 {
 }
 
 
+/* .content {
+    width: 80%;
+    padding: 10px;
+    padding-top: 15px;
+    margin-left: 20%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 15px;
+    overflow-y: auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #ffffffd3;
+
+} */
+
 
 *,
 *::after,
@@ -180,7 +196,7 @@ button {
 .banner_bg_main {
     width: 100%;
     float: left;
-    background-image: url(../../../assets/images/images/banner-bg.png);
+    background-image: url(../../assets/images/images/banner-bg.png);
     height: auto;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -238,6 +254,12 @@ button {
     display: flex;
 }
 
+.side-login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+}
 
 /* opennav bar start */
 
@@ -687,6 +709,14 @@ input.mail_bt::placeholder {
     color: #f26522;
 }
 
+
+.logout {
+    margin: 1px;
+    background-color: rgb(49, 44, 43);
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    padding: 5px;
+}
 
 /* footer section end */
 

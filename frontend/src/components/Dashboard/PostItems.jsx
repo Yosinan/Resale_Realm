@@ -6,8 +6,9 @@ import './PostItems.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Status from '../Status/Status';
 import CustomSelect from './CustomSelect';
+import Nav from '../../pages/Landing/nav';
 // import { getToken } from "../../utils/utils";
-
+import useAuth from '../hooks/useAuth';
 
 const postStyles = {
     container: {
@@ -82,6 +83,7 @@ function PostItems() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
+    const authenticated = useAuth();
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -134,6 +136,8 @@ function PostItems() {
             setfile("");
             setCategory("");
             handleSuccess();
+
+            window.location = "/dashboard";
         } catch (error) {
 
             console.error("Error posting item:", error.message);
@@ -158,6 +162,9 @@ function PostItems() {
         <>
             {successMessage && <Status message={successMessage} type="success" />}
             {errorMessage && <Status message={errorMessage} type="error" />}
+            {<Nav />}
+
+            
             <div style={postStyles.container}>
                 <h2>Post Your Item Here</h2>
                 <form onSubmit={handleSubmit} style={postStyles.form}>

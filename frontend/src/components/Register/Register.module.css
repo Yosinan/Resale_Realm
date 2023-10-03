@@ -34,11 +34,11 @@
 }
 
 .regForm label {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: large;
-    color: rgb(0, 0, 0);
-    padding: 0.25rem 0;
-  }
+  font-family: 'Times New Roman', Times, serif;
+  font-size: large;
+  color: rgb(0, 0, 0);
+  padding: 0.25rem 0;
+}
 
 .formContainer {
   padding: 5.75rem;
@@ -61,35 +61,12 @@ input {
   background-color: rgb(243, 243, 243);
 }
 
-button {
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: rgb(245, 118, 118);
-  cursor: pointer;
-  color: aliceblue;
-}
-
-button:hover {
-  background-color: rgba(37, 19, 110, 0.699);
-}
-
 
 p {
   text-align: center;
   color: rgb(255, 255, 255);
 }
 
-.btn {
-  background: none;
-  color: rgb(245, 118, 118);
-  text-decoration: underline;
-}
-
-button:disabled {
-  background-color: rgb(122, 115, 115);
-  cursor: not-allowed;
-}
 
 .tog {
   background-color: rgb(81 86 255);
@@ -115,13 +92,11 @@ button:disabled {
 }
 
 
-
-
 .button {
   border: none;
   border-radius: 10px;
   padding: 10px;
-  background-color: rgb(245, 118, 118);
+  background-color: rgb(0, 0, 0);
   cursor: pointer;
   color: aliceblue;
 }

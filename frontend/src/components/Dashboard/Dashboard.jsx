@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import dash from './P.module.css'
-import './Prod.css'
-// import './Dashboard.css';
-import './cust-css.css';
+import Nav from '../../pages/Landing/nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSignOut,
@@ -19,15 +17,12 @@ import {
   faArrowRight,
   faUndoAlt,
   faDollarSign,
-  faSortAmountUp,
   faArrowDown,
   faArrowUp,
 } from '@fortawesome/free-solid-svg-icons';
 import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
-import { handlelogout } from "../../utils/logOut";
-import image1 from '../../assets/icon/icon.jpeg';
-import Footer from '../Footer/Footer'
+
 
 
 function Dashboard() {
@@ -72,9 +67,9 @@ function Dashboard() {
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
     return (
-      <div className="pagination-container">
+      <div className={dash.pagination_container}>
         <button
-          className="pagination-button"
+          className={dash.pagination_button}
           onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
           disabled={currenPage === 1}
         >
@@ -83,11 +78,11 @@ function Dashboard() {
         {/* <span>
           Page {currenPage} of {totalPages}
         </span> */}
-        <div className="page-numbers">
+        <div className={dash.page_numbers}>
           {pageNumbers.map((pageNumber) => (
             <button
               key={pageNumber}
-              className={'pagination-button'}
+              className={dash.pagination_button}
               disabled={pageNumber === currenPage}
               onClick={() => setCurrentPage(pageNumber)}
             >
@@ -96,8 +91,7 @@ function Dashboard() {
           ))}
         </div>
         <button
-          className="pagination-button"
-          onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+          className={dash.pagination_button}          onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
           disabled={currenPage === totalPages}
         >
           <FontAwesomeIcon icon={faArrowRight} />
@@ -378,6 +372,7 @@ function Dashboard() {
     <>
       {successMessage && <Status message={successMessage} type="success" />}
       {errorMessage && <Status message={errorMessage} type="error" />}
+      <Nav />
       <div className={dash.mainContainer}>
         <button className={dash.logout} onClick={handleLogOut}><FontAwesomeIcon icon={faSignOut} /></button>
         <h2>Products</h2>
@@ -407,13 +402,14 @@ function Dashboard() {
         <div className={dash.container}>
           <div className={dash.sidebar}>
             <div className={dash.inSidebar}>
-
-              <input
-                type='search'
-                placeholder='Search'
-                value={data}
-                onChange={handleSearchChange} />
-              <br />
+              <div className={dash.dash_input}>
+                <input
+                  type='search'
+                  placeholder='Search'
+                  value={data}
+                  onChange={handleSearchChange} />
+                <br />
+              </div>
               <button
                 className="clear"
                 style={{ marginTop: '10px', marginLeft: '10px', backgroundColor: 'white', color: 'black', border: '2px solid #008CBA', borderRadius: '12px', padding: '5px 15px', fontSize: '16px', width: '50px' }}
@@ -426,10 +422,12 @@ function Dashboard() {
               </button>
               <div className={dash.priceRange}>
                 <h3>Price Range</h3>
-                <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} /><input type="number" placeholder='Min Price' value={minPrice} onChange={(e) => setMinPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
-                <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '15px' }} />
-                <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} />
-                <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
+                <div className={dash.dash_input}>
+                  <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} /><input type="number" placeholder='Min Price' value={minPrice} onChange={(e) => setMinPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
+                  <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '15px' }} />
+                  <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} />
+                  <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
+                </div>
               </div>
               <br />
 
@@ -483,11 +481,11 @@ function Dashboard() {
                     <span>Image</span>
                   )}
                   <div className={dash.productImages}>
-                    <button className="prev-button" onClick={handlePrevImage}>
+                    <button className={dash.prev_button} onClick={handlePrevImage}>
                       <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                     <img src={`../uploads/img/${selectedProduct.images[currentImageIndex].filename}`} alt={selectedProduct.name} />
-                    <button className="next-button" onClick={handleNextImage}>
+                    <button className={dash.next_button} onClick={handleNextImage}>
                       <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                   </div>
@@ -513,7 +511,6 @@ function Dashboard() {
         </div>
         {handlePageChange()}
       </div>
-      <Footer />
     </>
   );
 }

@@ -54,13 +54,6 @@
 }
 
 
-/* .item-card-user img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    margin: 5px;
-} */
 
 .postedItemsContainer h3 {
     color: #000000;
@@ -196,9 +189,19 @@ label {
 }
 
 
+.dash_input input {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    /* width: 100px; */
+    border: none;
+    border-radius: 7px;
+    background-color: rgb(243, 243, 243);
+}
+
+
 .priceRange,
 input[type=number] {
-    width: 100px;
+    width: 150px;
     height: 30px;
     border-radius: 5px;
     border-style: none;
@@ -208,7 +211,6 @@ input[type=number] {
 
 .myComponent {
     position: relative;
-    /* Make the container relative */
 }
 
 .sort-by-toggle {
@@ -259,13 +261,22 @@ input[type=number] {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media screen  and (max-width: 500px) {
+@media screen and (max-width: 500px) {
     .inSortOptions {
         background-color: red;
     }
 }
 
-
+.inSortOptions
+ul {
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    border-radius: 3%;
+    left: 0;
+    background-color: #ffffff;
+    /* z-index: 1; */
+}
 
 .inSortOptions li {
     padding: 3px;
@@ -277,8 +288,7 @@ input[type=number] {
     background-color: #f3f5fa;
 }
 
-.inSortOptions,
-ul {
+.inSortOptions {
     list-style: none;
     padding: 0;
     position: absolute;
@@ -421,30 +431,36 @@ ul {
     height: 250px;
 }
 
-.prev-button,
-.next-button {
+.prev_button,
+.next_button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
-    color: #fff;
+    color: #000000;
     font-size: 24px;
     cursor: pointer;
 }
 
-.prev-button {
+.prev_button:hover,
+.next_button:hover {
+    background-color: inherit;
+    font-size: larger;
+}
+
+.prev_button {
     left: 20px;
 }
 
-.next-button {
+.next_button {
     right: 20px;
 }
 
 
 
 /* CSS for Pagination Container */
-.pagination-container {
+.pagination_container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -453,7 +469,7 @@ ul {
 }
 
 /* CSS for Pagination Buttons */
-.pagination-button {
+.pagination_button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -465,18 +481,18 @@ ul {
     transition: background-color 0.3s;
 }
 
-.pagination-button:hover {
+.pagination_button:hover {
     background-color: #0056b3;
 }
 
 /* CSS for Disabled Pagination Buttons */
-.pagination-button[disabled] {
+.pagination_button[disabled] {
     background-color: #ccc;
     cursor: not-allowed;
 }
 
 /* CSS for Page Information */
-.page-info {
+.page_info {
     margin: 0 10px;
     font-weight: bold;
     font-size: 16px;

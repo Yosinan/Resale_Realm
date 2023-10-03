@@ -78,9 +78,10 @@ input {
   border: none;
   border-radius: 10px;
   padding: 10px;
-  background-color: rgb(245, 118, 118);
+  background-color: rgb(0, 0, 0);
   cursor: pointer;
   color: aliceblue;
+  margin-top: 15px;
 }
 
 .button:hover {
@@ -92,11 +93,7 @@ input {
   cursor: not-allowed;
 }
 
-.btn {
-  background: none;
-  color: rgb(245, 118, 118);
-  text-decoration: underline;
-}
+
 
 .tog {
   background-color: rgb(81 86 255);

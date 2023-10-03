@@ -3,6 +3,7 @@ import log from './Login.module.css'
 import image from '../../assets/icon/icon.jpeg'
 import PropTypes from 'prop-types'
 import Status from '../Status/Status'
+import { Link, redirect } from 'react-router-dom'
 
 function Login({ onLogin, togglePage, showLogin }) {
 
@@ -95,6 +96,7 @@ function Login({ onLogin, togglePage, showLogin }) {
 
         onLogin(data);
         console.log(data);
+        window.location.href = '/add';
 
       } else {
         setPass('');
