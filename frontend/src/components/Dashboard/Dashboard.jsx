@@ -8,6 +8,7 @@ import {
   faSignOut,
   faTimes,
   faHeart,
+  faSearch,
   faChevronLeft,
   faChevronRight,
   faSortAlphaAsc,
@@ -399,6 +400,27 @@ function Dashboard() {
           </div>
         )}
         <br />
+        <div class="main">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search Items"
+              value={data}
+              onChange={handleSearchChange}
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                style={{ backgroundColor: "#f26522", borderColor: "#f26522 " }}
+                // onClick={handleSearchChange()}
+              >
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
+            </div>
+          </div>
+        </div>
         <div className={dash.container}>
           <div className={dash.sidebar}>
             <div className={dash.inSidebar}>
@@ -409,6 +431,7 @@ function Dashboard() {
                   value={data}
                   onChange={handleSearchChange} />
                 <br />
+
               </div>
               <button
                 className="clear"

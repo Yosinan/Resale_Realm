@@ -213,6 +213,12 @@ input[type=number] {
     position: relative;
 }
 
+
+.toggleDropdown p {
+    text-align: right;
+    margin-right: 90px;
+    font-size: 25px;
+}
 .sort-by-toggle {
     cursor: pointer;
 }

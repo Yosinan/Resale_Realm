@@ -129,17 +129,7 @@ const LandingNew = () => {
                         <a class="dropdown-item" href="#">Something else here</a> */}
                                 </div>
                             </div><br />
-                            <div class="main">
-                                {/* <!-- Another variation with a button --> */}
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search this blog" />
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary" type="button" style={{ backgroundColor: "#f26522", borderColor: "#f26522 " }}>
-                                            <FontAwesomeIcon icon={faSearch} />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="header_box">
                                 <div class="lang_box ">
                                     {/* <a href="#" title="" class="nav-link" data-toggle="dropdown" aria-expanded="true">
