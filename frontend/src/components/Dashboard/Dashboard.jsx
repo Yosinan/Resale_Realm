@@ -22,8 +22,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Status from "../Status/Status";
 import { getToken } from "../../utils/utils";
-
-
+import Sidenav from "../../pages/Landing/sidenav";
 
 function Dashboard() {
 
@@ -91,7 +90,7 @@ function Dashboard() {
           ))}
         </div>
         <button
-          className={dash.pagination_button}          onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+          className={dash.pagination_button} onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
           disabled={currenPage === totalPages}
         >
           <FontAwesomeIcon icon={faArrowRight} />
@@ -373,6 +372,7 @@ function Dashboard() {
       {successMessage && <Status message={successMessage} type="success" />}
       {errorMessage && <Status message={errorMessage} type="error" />}
       <Nav />
+      <Sidenav />
       <div className={dash.mainContainer}>
         <button className={dash.logout} onClick={handleLogOut}><FontAwesomeIcon icon={faSignOut} /></button>
         <h2>Products</h2>

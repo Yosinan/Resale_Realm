@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css'
+// import './App.css'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import Home from './components/Home/Home'
@@ -12,6 +12,9 @@ import LandingNew from './pages/Landing/landingN';
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectdRoutes';
 import ProductList from './components/Products/ProductList';
 import PostItems from './components/Dashboard/PostItems';
+import {Settings} from './pages/settings.jsx/settings' 
+import { Product } from './pages/posts/posts'; 
+import Page from './pages/page/page';
 
 const App = () => {
 
@@ -51,6 +54,9 @@ const App = () => {
               <Route path='/add' element={<PostItems />} />
               <Route path='*' element={<PageNotFound />} />
               <Route path='/list' element={<ProductList />} />
+              <Route path='settings' element={<Settings />} />
+              <Route path='post' element={<Product />} />
+              <Route path='page' element={<Page />} />
             </Routes>
           </Router>
         </div>

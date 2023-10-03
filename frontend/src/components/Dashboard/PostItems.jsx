@@ -164,7 +164,7 @@ function PostItems() {
             {errorMessage && <Status message={errorMessage} type="error" />}
             {<Nav />}
 
-            
+
             <div style={postStyles.container}>
                 <h2>Post Your Item Here</h2>
                 <form onSubmit={handleSubmit} style={postStyles.form}>

@@ -6,6 +6,7 @@ import Nav from './nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSearch,
+    faSignOut
 } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import SideLogin from '../../components/SideLogin/SideLogin';
@@ -26,6 +27,14 @@ const LandingNew = () => {
         setNavWidth(0);
     };
 
+
+    const handleLogOut = () => {
+        const confirm = window.confirm("Are you sure you want to log out?");
+        if (confirm) {
+            localStorage.removeItem('Token');
+            window.location.href = '/';
+        }
+    };
 
 
     const handleSuccess = () => {
@@ -108,6 +117,7 @@ const LandingNew = () => {
                                 <a href="post"> Your Post</a>
                                 <a href="page">Profile Update</a>
                                 <a href="ClosedPost">Closed Post</a>
+                                <a><button onClick={handleLogOut} >Sign Out <FontAwesomeIcon icon={faSignOut} /></button></a>
                             </div>
                             <span className="toggle_icon" onClick={openNav}><img src={imgs} alt="Toggle Navigation" /></span>
                             <div class="dropdown">
