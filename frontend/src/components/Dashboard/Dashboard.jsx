@@ -138,7 +138,7 @@ function Dashboard() {
           console.log('Success')
           console.log(response.data)
           setItems(response.data);
-         
+
           console.log(token)
         }
         else {
@@ -500,11 +500,17 @@ function Dashboard() {
                     <span>Image</span>
                   )}
                   <div className={dash.productImages}>
-                    <button className={dash.prev_button} onClick={handlePrevImage}>
+                    <button
+                      class='btn btn-primary'
+                      // className={dash.prev_button}
+                      onClick={handlePrevImage}>
                       <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                     <img src={`../uploads/img/${selectedProduct.images[currentImageIndex].filename}`} alt={selectedProduct.name} />
-                    <button className={dash.next_button} onClick={handleNextImage}>
+                    <button
+                      class='btn btn-primary'
+                      // className={dash.next_button}
+                      onClick={handleNextImage}>
                       <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                   </div>
