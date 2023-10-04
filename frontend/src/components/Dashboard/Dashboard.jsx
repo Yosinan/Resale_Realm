@@ -385,6 +385,7 @@ function Dashboard() {
                     type="radio"
                     name="cat"
                     value="Books"
+                    className="form-check-input"
                     id="radio-input"
                     checked={filterOption === "Books"}
                     onChange={handleFilterOptionChange}
@@ -397,6 +398,7 @@ function Dashboard() {
                   <input
                     type="radio"
                     name="cat"
+                    className="form-check-input"
                     id="radio-input"
                     value="Clothing"
                     checked={filterOption === "Clothing"}
@@ -411,6 +413,7 @@ function Dashboard() {
                     type="radio"
                     name="cat"
                     id="radio-input"
+                    className="form-check-input"
                     value="Electronics"
                     checked={filterOption === "Electronics"}
                     onChange={handleFilterOptionChange}
@@ -424,6 +427,7 @@ function Dashboard() {
                     type="radio"
                     name="cat"
                     id="radio-input"
+                    className="form-check-input"
                     value="Furniture"
                     checked={filterOption === "Furniture"}
                     onChange={handleFilterOptionChange}
@@ -437,6 +441,7 @@ function Dashboard() {
                     type="radio"
                     name="cat"
                     id="radio-input"
+                    className="form-check-input"
                     value="Other"
                     checked={filterOption === "Other"}
                     onChange={handleFilterOptionChange}

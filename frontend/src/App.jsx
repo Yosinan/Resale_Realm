@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import './App.css'
-import Login from './components/Login/Login'
-import Register from './components/Register/Register'
+import MainLogin from './components/Login/MainLogin'
+import MainRegister from './components/Register/MainRegister'
 import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard'
 import SideLogin from './components/SideLogin/SideLogin'
@@ -51,8 +51,9 @@ const App = () => {
             <Routes>
               <Route path='/' exact element={<LandingNew />} />
               <Route path='/dashboard' element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
-              <Route path='/login' element={<Login onLogin={handleLogin} togglePage={toggleLoginPage} showLogin={true} />} />
-              <Route path='/log' element={<SideLogin />} />
+              <Route path='/login' element={<MainLogin onLogin={handleLogin} />} />
+              <Route path='/register' element={<MainRegister />} />
+              {/* <Route path='/log' element={<SideLogin />} /> */}
               <Route path='/home' element={<Home />} />
               <Route path='/add' element={<PostItems />} />
               <Route path='*' element={<PageNotFound />} />

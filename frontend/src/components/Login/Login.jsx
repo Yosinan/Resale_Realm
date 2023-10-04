@@ -96,7 +96,7 @@ function Login({ onLogin, togglePage, showLogin }) {
 
         onLogin(data);
         console.log(data);
-        window.location.href = '/add';
+        window.location.href = '/dashboard';
 
       } else {
         setPass('');
@@ -147,7 +147,7 @@ function Login({ onLogin, togglePage, showLogin }) {
         </form>
         <br />
         <a href='#' className={log.a} ><span>Forgot password ?</span></a>
-        <p >Don't have an account ? <span className={log.tog} onClick={togglePage}> Sign Up</span></p>
+        <p style={{fontSize:'18px', color: 'white'}}>Don't have an account ? <button class='btn btn-blue' onClick={togglePage}> Sign Up</button></p>
       </div>
     </div>
   );

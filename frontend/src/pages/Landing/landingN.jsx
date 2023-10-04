@@ -11,13 +11,21 @@ import {
 import axios from "axios";
 import SideLogin from '../../components/SideLogin/SideLogin';
 import Footer from '../../components/Footer/Footer';
+import Status from '../../components/Status/Status';
+import MainLogin from '../../components/Login/MainLogin';
+import MainRegister from '../../components/Register/MainRegister';
+import useAuth from '../../components/hooks/useAuth';
 
 
 
 const LandingNew = () => {
     const [navWidth, setNavWidth] = useState(0);
     const [items, setItems] = useState([]);
-
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showSignModal, setShowSignModal] = useState(false);
+    const authenticated = useAuth();
 
     const openNav = () => {
         setNavWidth(250);
@@ -26,6 +34,32 @@ const LandingNew = () => {
     const closeNav = () => {
         setNavWidth(0);
     };
+
+
+    const openLoginModal = () => {
+        setShowLoginModal(true);
+    };
+
+    const closeLoginModal = () => {
+        setShowLoginModal(false);
+    };
+
+    const openSignModal = () => {
+        setShowSignModal(true);
+    }
+
+    const closeSignModal = () => {
+        setShowSignModal(false);
+    }
+
+    const handleBuy = () => {
+        if (authenticated) {
+           window.location.href = '/dashboard';
+        }
+        else {
+            handleError();
+        }
+    }
 
 
     const handleLogOut = () => {
@@ -45,10 +79,12 @@ const LandingNew = () => {
     };
 
     const handleError = () => {
-        setErrorMessage('Something went wrong. Please try again.');
+        setErrorMessage('You have to Log in');
         setTimeout(() => {
             setErrorMessage('');
         }, 3000);
+        openLoginModal();
+        // openSignModal();
     };
 
 
@@ -85,617 +121,465 @@ const LandingNew = () => {
 
 
     return (
-        <div>
+        <>
+            <div>
+                {successMessage && <Status message={successMessage} type="success" />}
+                {errorMessage && <Status message={errorMessage} type="error" />}
 
-            <div class="banner_bg_main">
-                {/* <!-- header top section start --> */}
-                <div>
-                    <Nav />
-                </div>
-                <div className='side-login'>
-                    {<SideLogin />}
-                </div>
-                {/* <!-- header top section start -->
+                <div class="banner_bg_main">
+                    {/* <!-- header top section start --> */}
+                    <div>
+                        <Nav />
+                    </div>
+                    <div className='side-login'>
+                        {<SideLogin />}
+                    </div>
+                    {/* <!-- header top section start -->
          <!-- logo section start --> */}<br />
-                <div class="logo_section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="logo"><a href="index.html"><img alt='logo' /></a></div>
+                    <div class="logo_section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="logo"><a href="index.html"><img alt='logo' /></a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* <!-- logo section end -->
+                    {/* <!-- logo section end -->
          <!-- header section start --> */}
-                <div class="header_section">
-                    <div class="container">
-                        <div class="containt_main">
-                            <div id="mySidenav" style={{ width: `${navWidth}px`, height: '300px' }} className="sidenav">
-                                <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
-                                <a href="settings">Profile</a>
-                                <a href="post"> Your Post</a>
-                                <a href="page">Profile Update</a>
-                                <a href="ClosedPost">Closed Post</a>
-                                <a>
-                                    <button
-                                        class='btn btn-yellow'
-                                        onClick={handleLogOut} >Sign Out &nbsp; <FontAwesomeIcon icon={faSignOut} /></button></a>
-                            </div>
-                            <span className="toggle_icon" onClick={openNav}><img src={imgs} alt="Toggle Navigation" /></span>
-                            <div class="dropdown">
-                                {/* <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
+                    <div class="header_section">
+                        <div class="container">
+                            <div class="containt_main">
+                                <div id="mySidenav" style={{ width: `${navWidth}px`, height: '300px' }} className="sidenav">
+                                    <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
+                                    <a href="settings">Profile</a>
+                                    <a href="post"> Your Post</a>
+                                    <a href="page">Profile Update</a>
+                                    <a href="ClosedPost">Closed Post</a>
+                                    {authenticated ? (
+                                        <a>
+                                            <button
+                                                class='btn btn-yellow'
+                                                onClick={handleLogOut} >Sign Out &nbsp; <FontAwesomeIcon icon={faSignOut} /></button></a>
+                                    ) : null}
+                                </div>
+                                <span className="toggle_icon" onClick={openNav}><img src={imgs} alt="Toggle Navigation" /></span>
+                                <div class="dropdown">
+                                    {/* <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
                      </button> */}
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    {/* <a class="dropdown-item" href="#">Action</a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {/* <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <a class="dropdown-item" href="#">Something else here</a> */}
-                                </div>
-                            </div><br />
+                                    </div>
+                                </div><br />
 
-                            <div class="header_box">
-                                <div class="lang_box ">
-                                    {/* <a href="#" title="" class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header_box">
+                                    <div class="lang_box ">
+                                        {/* <a href="#" title="" class="nav-link" data-toggle="dropdown" aria-expanded="true">
                         <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"/> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
                         </a> */}
-                                    <div class="dropdown-menu ">
-                                        <a href="#" class="dropdown-item">
-                                            <img src="images/flag-france.png" class="mr-2" alt="flag" />
-                                            French
-                                        </a>
+                                        <div class="dropdown-menu ">
+                                            <a href="#" class="dropdown-item">
+                                                <img src="images/flag-france.png" class="mr-2" alt="flag" />
+                                                French
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="login_menu">
-                                    <ul>
-                                        <li><a href="#">
-                                            {/* <i class="fa fa-shopping-cart" aria-hidden="true"></i> */}
-                                            <span class="padding_10"></span></a>
-                                        </li>
-                                        <li><a href="#">
-                                            {/* <i class="fa fa-user" aria-hidden="true"></i> */}
-                                            <span class="padding_10"></span></a>
-                                        </li>
-                                    </ul>
+                                    <div class="login_menu">
+                                        <ul>
+                                            <li><a href="#">
+                                                {/* <i class="fa fa-shopping-cart" aria-hidden="true"></i> */}
+                                                <span class="padding_10"></span></a>
+                                            </li>
+                                            <li><a href="#">
+                                                {/* <i class="fa fa-user" aria-hidden="true"></i> */}
+                                                <span class="padding_10"></span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* <!-- header section end -->
+                    {/* <!-- header section end -->
          <!-- banner section start --> */}
-                <div class="banner_section layout_padding">
-                    <div class="container">
-                        <div id="my_slider" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1 class="banner_taital">Get Start <br />Your favorite shopping</h1>
-                                            <div class="buynow_bt"><a href="dashboard">Buy Now</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
-                                            { }
-                                            <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
-                                            <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="fashion_section">
-                <div id="main_slider" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="container">
-                                {/* <h1 class="fashion_taital">Man & Woman Fashion</h1> */}
-                                <div class="fashion_section_2">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
+                    <div class="banner_section layout_padding">
+                        <div class="container">
+                            <div id="my_slider" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h1 class="banner_taital">Get Start <br />Your favorite shopping</h1>
+                                                <div class="buynow_bt">
+                                                    <button
+                                                        href="dashboard"
+                                                        class='btn btn-blue'
+                                                        onClick={handleBuy}
+                                                        
+                                                    >
+                                                        Buy Now</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="fashion_section_2">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
+                                                { }
+                                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
-                                                </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
+                                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                                <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-            </div>
-            <div class="fashion_section">
-                <div id="main_slider" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="container">
-                                {/* <h1 class="fashion_taital">Man & Woman Fashion</h1> */}
-                                <div class="fashion_section_2">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                <div class="fashion_section">
+                    <div id="main_slider" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    {/* <h1 class="fashion_taital">Man & Woman Fashion</h1> */}
+                                    <div class="fashion_section_2">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                        ))}
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                    </div>
 
 
-                                                        </div>
-                                                    ))}
 
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
+                                                            </div>
+                                                        ))}
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="fashion_section_2">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                        ))}
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
-                                                            </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
-
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
-
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="fashion_section_2">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
-            <div class="fashion_section">
-                <div id="main_slider" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="container">
-                                {/* <h1 class="fashion_taital">Man & Woman Fashion</h1> */}
-                                <div class="fashion_section_2">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
+                <div class="fashion_section">
+                    <div id="main_slider" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    {/* <h1 class="fashion_taital">Man & Woman Fashion</h1> */}
+                                    <div class="fashion_section_2">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
 
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                        ))}
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
-
-                                                        </div>
-                                                    ))}
+                                                    </div>
 
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
+                                                            </div>
+                                                        ))}
 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="fashion_section_2">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                    <div class="fashion_section_2">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
 
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
+                                                            </div>
+                                                        ))}
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="box_main">
-                                                <div className='content'>
-                                                    {items.slice(2).map((item) => (
-                                                        <div key={item.id}>                                                        <div e>
-                                                            <img
-                                                                src={`../uploads/img/${item.images[0].filename}`}
-                                                                alt={"Uploaded" + item.images[0].filename}
-                                                            />
-                                                        </div>
-                                                            <div >
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
                                                             </div>
-                                                            <h3>{item.name}</h3>
-                                                            <b>ETB: {item.unitPrice}</b>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
 
-                                                            {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
 
 
-                                                        </div>
-                                                    ))}
+                                                            </div>
+                                                        ))}
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -705,9 +589,202 @@ const LandingNew = () => {
                         </div>
                     </div>
                 </div>
+                <div class="fashion_section">
+                    <div id="main_slider" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    {/* <h1 class="fashion_taital">Man & Woman Fashion</h1> */}
+                                    <div class="fashion_section_2">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fashion_section_2">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-4">
+                                                <div class="box_main">
+                                                    <div className='content'>
+                                                        {items.slice(2).map((item) => (
+                                                            <div key={item.id}>                                                        <div e>
+                                                                <img
+                                                                    src={`../uploads/img/${item.images[0].filename}`}
+                                                                    alt={"Uploaded" + item.images[0].filename}
+                                                                />
+                                                            </div>
+                                                                <div >
+                                                                </div>
+                                                                <h3>{item.name}</h3>
+                                                                <b>ETB: {item.unitPrice}</b>
+
+                                                                {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
+
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {<Footer />}
             </div>
-            {<Footer />}
-        </div>
+
+            {showLoginModal && (
+                <div className="log-modal">
+                    <div className="log-in">
+                        <button className="close-button" onClick={closeLoginModal}>
+                            Close
+                        </button>
+                       
+                        <MainLogin />
+                        
+                    </div>
+                </div>
+            )}
+
+
+            {showSignModal && (
+                <div className="log-modal">
+                    <div className="log-in">
+                        <button className="close-button" onClick={closeSignModal}>
+                            Close
+                        </button>
+                        <MainRegister  />
+                    </div>
+                </div>
+            )}
+
+
+        </>
 
 
     )

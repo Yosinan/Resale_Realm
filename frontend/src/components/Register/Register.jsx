@@ -197,7 +197,7 @@ function Register({ togglePage, showLogin }) {
             <br />
             <button className={reg.button} disabled={!enable} type="submit">Sign Up</button>
           </form>
-          <p>Already have an account ? <span className={reg.tog} onClick={togglePage}> Sign In</span></p>
+          <p style={{ fontSize: '16px', color: 'white' }}>Already have an account ? <button class='btn btn-blue' onClick={togglePage}> Sign In</button></p>
         </div>
       </div>
     </>
