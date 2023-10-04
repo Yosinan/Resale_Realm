@@ -40,7 +40,7 @@ const Sidenav = () => {
               </p>
               <a href="settings">Profile Management</a>
               <a href="post"> Your post</a>
-              <a href="page">Update Profile</a>
+              <a href="profile">Update Profile</a>
               <a href="ClosedPost">Closed Post</a>
               <a><button
                 class='btn btn-yellow'

@@ -94,12 +94,9 @@ function Register() {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            // setResponseMessage('Passwords do not match');
             handleError('Passwords do not match');
             return;
         }
-
-        // alert(name + '' + email + '' + password)
 
         try {
             const response = await fetch('http://localhost:5000/api/users/register', {

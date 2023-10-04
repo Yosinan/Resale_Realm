@@ -54,7 +54,7 @@ const LandingNew = () => {
 
     const handleBuy = () => {
         if (authenticated) {
-           window.location.href = '/dashboard';
+            window.location.href = '/dashboard';
         }
         else {
             handleError();
@@ -134,121 +134,51 @@ const LandingNew = () => {
                     <div className='side-login'>
                         {<SideLogin />}
                     </div>
-                    {/* <!-- header top section start -->
-         <!-- logo section start --> */}<br />
                     <div class="logo_section">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="logo"><a href="index.html"><img alt='logo' /></a></div>
+                                    {/* <div class="logo"><a href="#"><img alt='logo' /></a></div> */}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {/* <!-- logo section end -->
-         <!-- header section start --> */}
-                    <div class="header_section">
-                        <div class="container">
-                            <div class="containt_main">
-                                <div id="mySidenav" style={{ width: `${navWidth}px`, height: '300px' }} className="sidenav">
-                                    <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
-                                    <a href="settings">Profile</a>
-                                    <a href="post"> Your Post</a>
-                                    <a href="page">Profile Update</a>
-                                    <a href="ClosedPost">Closed Post</a>
-                                    {authenticated ? (
+                    {authenticated ? (
+                        <div class="header_section">
+                            <div class="container">
+                                <div class="containt_main">
+                                    <div id="mySidenav" style={{ width: `${navWidth}px`, height: '300px' }} className="sidenav">
+                                        <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
+                                        <a href="settings">Profile</a>
+                                        <a href="post"> Your Post</a>
+                                        <a href="profile">Profile Update</a>
+                                        <a href="ClosedPost">Closed Post</a>
                                         <a>
                                             <button
                                                 class='btn btn-yellow'
                                                 onClick={handleLogOut} >Sign Out &nbsp; <FontAwesomeIcon icon={faSignOut} /></button></a>
-                                    ) : null}
-                                </div>
-                                <span className="toggle_icon" onClick={openNav}><img src={imgs} alt="Toggle Navigation" /></span>
-                                <div class="dropdown">
-                                    {/* <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
-                     </button> */}
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        {/* <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a> */}
                                     </div>
-                                </div><br />
-
-                                <div class="header_box">
-                                    <div class="lang_box ">
-                                        {/* <a href="#" title="" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"/> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a> */}
-                                        <div class="dropdown-menu ">
-                                            <a href="#" class="dropdown-item">
-                                                <img src="images/flag-france.png" class="mr-2" alt="flag" />
-                                                French
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="login_menu">
-                                        <ul>
-                                            <li><a href="#">
-                                                {/* <i class="fa fa-shopping-cart" aria-hidden="true"></i> */}
-                                                <span class="padding_10"></span></a>
-                                            </li>
-                                            <li><a href="#">
-                                                {/* <i class="fa fa-user" aria-hidden="true"></i> */}
-                                                <span class="padding_10"></span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <span className="toggle_icon" onClick={openNav}><img src={imgs} alt="Toggle Navigation" /></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {/* <!-- header section end -->
-         <!-- banner section start --> */}
+                    ) : null}
+
                     <div class="banner_section layout_padding">
                         <div class="container">
-                            <div id="my_slider" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h1 class="banner_taital">Get Start <br />Your favorite shopping</h1>
-                                                <div class="buynow_bt">
-                                                    <button
-                                                        href="dashboard"
-                                                        class='btn btn-blue'
-                                                        onClick={handleBuy}
-                                                        
-                                                    >
-                                                        Buy Now</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
-                                                { }
-                                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
-                                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h1 class="banner_taital">Get Start <br />Your favorite shopping</h1>
+                                    <div class="buynow_bt">
+                                        <button
+                                            href="dashboard"
+                                            class='btn btn-blue'
+                                            onClick={handleBuy}>
+                                            Buy Now</button>
                                     </div>
                                 </div>
-                                <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-                                    <i class="fa fa-angle-left"></i>
-                                </a>
-                                <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
                             </div>
+
                         </div>
                     </div>
 
@@ -277,7 +207,6 @@ const LandingNew = () => {
                                                                 <b>ETB: {item.unitPrice}</b>
 
                                                                 {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
-
 
                                                             </div>
                                                         ))}
@@ -764,9 +693,9 @@ const LandingNew = () => {
                         <button className="close-button" onClick={closeLoginModal}>
                             Close
                         </button>
-                       
+
                         <MainLogin />
-                        
+
                     </div>
                 </div>
             )}
@@ -778,7 +707,7 @@ const LandingNew = () => {
                         <button className="close-button" onClick={closeSignModal}>
                             Close
                         </button>
-                        <MainRegister  />
+                        <MainRegister />
                     </div>
                 </div>
             )}
