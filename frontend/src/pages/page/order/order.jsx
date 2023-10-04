@@ -232,7 +232,7 @@ const Order = () => {
                     <input
                       // required
                       type="tel"
-                      value={phoneNo}
+                      // value={phoneNo}
                       class="form-control-lg"
                       placeholder="phone number" />
                     <span class="required-indicator">*</span>

@@ -69,6 +69,7 @@ function Dashboard() {
       <div className={dash.pagination_container}>
         <button
           className={dash.pagination_button}
+          class={currenPage === 1 ? 'btn-sm btn-light' : 'btn-sm btn-primary'}
           onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
           disabled={currenPage === 1}
         >
@@ -80,6 +81,7 @@ function Dashboard() {
         <div className={dash.page_numbers}>
           {pageNumbers.map((pageNumber) => (
             <button
+              class='btn btn-primary'
               key={pageNumber}
               className={dash.pagination_button}
               disabled={pageNumber === currenPage}
@@ -90,6 +92,7 @@ function Dashboard() {
           ))}
         </div>
         <button
+          class={currenPage === totalPages ? 'btn-sm btn-light' : 'btn-sm btn-primary'}
           className={dash.pagination_button} onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
           disabled={currenPage === totalPages}
         >
@@ -135,10 +138,8 @@ function Dashboard() {
           console.log('Success')
           console.log(response.data)
           setItems(response.data);
-          setCreatedAt(response.data.dateAdded);
+         
           console.log(token)
-          console.log(response.data)
-          setItems(response.data);
         }
         else {
           console.log('Failed')

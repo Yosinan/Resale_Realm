@@ -26,7 +26,7 @@ const Nav = () => {
                            <li><a href="#">Contact</a></li>
                            {authenticated ? (
                               <li>
-                                 <a href='add'>Sell</a>
+                                 <a href='sell'>Sell</a>
                               </li>
                            ) : (
                               <li>
