@@ -42,7 +42,10 @@ const Sidenav = () => {
               <a href="post"> Your post</a>
               <a href="page">Update Profile</a>
               <a href="ClosedPost">Closed Post</a>
-              <a><button onClick={handleLogOut} >Sign Out <FontAwesomeIcon icon={faSignOut} /></button></a>
+              <a><button
+                class='btn btn-yellow'
+
+                onClick={handleLogOut} >Sign Out &nbsp;<FontAwesomeIcon icon={faSignOut} /></button></a>
 
             </div>
             <span className="toggle_icon    " onClick={openNav}>

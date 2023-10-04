@@ -92,8 +92,8 @@ const LandingNew = () => {
                 <div>
                     <Nav />
                 </div>
-<div className='side-login'>
-                {<SideLogin />}
+                <div className='side-login'>
+                    {<SideLogin />}
                 </div>
                 {/* <!-- header top section start -->
          <!-- logo section start --> */}<br />
@@ -117,7 +117,10 @@ const LandingNew = () => {
                                 <a href="post"> Your Post</a>
                                 <a href="page">Profile Update</a>
                                 <a href="ClosedPost">Closed Post</a>
-                                <a><button onClick={handleLogOut} >Sign Out <FontAwesomeIcon icon={faSignOut} /></button></a>
+                                <a>
+                                    <button
+                                        class='btn btn-yellow'
+                                        onClick={handleLogOut} >Sign Out &nbsp; <FontAwesomeIcon icon={faSignOut} /></button></a>
                             </div>
                             <span className="toggle_icon" onClick={openNav}><img src={imgs} alt="Toggle Navigation" /></span>
                             <div class="dropdown">
@@ -129,7 +132,7 @@ const LandingNew = () => {
                         <a class="dropdown-item" href="#">Something else here</a> */}
                                 </div>
                             </div><br />
-                           
+
                             <div class="header_box">
                                 <div class="lang_box ">
                                     {/* <a href="#" title="" class="nav-link" data-toggle="dropdown" aria-expanded="true">
@@ -176,7 +179,7 @@ const LandingNew = () => {
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h1 class="banner_taital">Get Start <br />Your favriot shoping</h1>
-                                           {}
+                                            { }
                                             <div class="buynow_bt"><a href="#">Buy Now</a></div>
                                         </div>
                                     </div>
@@ -703,7 +706,7 @@ const LandingNew = () => {
                     </div>
                 </div>
             </div>
-{<Footer/>}
+            {<Footer />}
         </div>
 
 
