@@ -1,16 +1,56 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import './order.css'
-import Nav from '../../landingNew/nav';
-import Sidenav from '../../landingNew/sidenav';
-import CustomSelect from './CustomSelect'
+import Nav from '../../Landing/nav'
+import Sidenav from '../../Landing/sidenav';
+import useAuth from '../../../components/hooks/useAuth';
+import Status from '../../../components/Status/Status';
 import axios from 'axios';
-import Status from '../../../../utils/Status';
+import CustomSelect from './CustomSelect';
+
+const Order = () => {
+  // useEffect(() => {
+
+  //   $("#wizard").steps({
+  //     headerTag: "h4",
+  //     bodyTag: "section",
+  //     transitionEffect: "fade",
+  //     enableAllSteps: true,
+  //     transitionEffectSpeed: 500,
+  //     onStepChanging: function (event, currentIndex, newIndex) {
+
+  //       return true;
+  //     },
+  //     labels: {
+  //       // finish: "Home",
+  //       next: "Next",
+  //       previous: "Previous"
+  //     }
+  //   });
 
 
-export const Order = () => {
+  //   $('.wizard > .steps li a').click(function () {
+  //     $(this).parent().addClass('checked');
+  //     $(this).parent().prevAll().addClass('checked');
+  //     $(this).parent().nextAll().removeClass('checked');
+  //   });
 
 
+  //   $('.forward').click(function () {
+  //     $("#wizard").steps('next');
+  //   })
+  //   $('.backward').click(function () {
+  //     $("#wizard").steps('previous');
+  //   })
+
+
+  //   $('.checkbox-circle label').click(function () {
+  //     $('.checkbox-circle label').removeClass('active');
+  //     $(this).addClass('active');
+  //   })
+  // }, []);
+
+  const [currentStep, setCurrentStep] = useState(0);
+  const [stepStatuses, setStepStatuses] = useState([false, false, false]);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -19,6 +59,7 @@ export const Order = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const authenticated = useAuth();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -71,6 +112,8 @@ export const Order = () => {
       setfile("");
       setCategory("");
       handleSuccess();
+
+      window.location = "/dashboard";
     } catch (error) {
 
       console.error("Error posting item:", error.message);
@@ -92,112 +135,167 @@ export const Order = () => {
     }, 3000);
   };
 
-  useEffect(() => {
+  const handleNextClick = () => {
+    const updatedStepStatuses = [...stepStatuses];
+    updatedStepStatuses[currentStep] = true;
+    setStepStatuses(updatedStepStatuses);
 
-    $("#wizard").steps({
-      headerTag: "h4",
-      bodyTag: "section",
-      transitionEffect: "fade",
-      enableAllSteps: true,
-      transitionEffectSpeed: 500,
-      onStepChanging: function (event, currentIndex, newIndex) {
+    setCurrentStep(currentStep + 1);
+  };
 
-        return true;
-      },
-      labels: {
-        // finish: "Home",
-        next: "Next",
-        previous: "Previous"
-      }
-    });
+  const handlePreviousClick = () => {
+    const updatedStepStatuses = [...stepStatuses];
+    updatedStepStatuses[currentStep] = false;
+    setStepStatuses(updatedStepStatuses);
 
+    setCurrentStep(currentStep - 1);
+  };
 
-    $('.wizard > .steps li a').click(function () {
-      $(this).parent().addClass('checked');
-      $(this).parent().prevAll().addClass('checked');
-      $(this).parent().nextAll().removeClass('checked');
-    });
+  const handleStepClick = (stepIndex) => {
+    // const updatedStepStatuses = [...stepStatuses];
+    // updatedStepStatuses[stepIndex] = true;
+    setCurrentStep(stepIndex);
+  };
 
 
-    $('.forward').click(function () {
-      $("#wizard").steps('next');
-    })
-    $('.backward').click(function () {
-      $("#wizard").steps('previous');
-    })
 
-    $('.checkbox-circle label').click(function () {
-      $('.checkbox-circle label').removeClass('active');
-      $(this).addClass('active');
-    })
-  }, []);
   return (
     <>
+      {successMessage && <Status message={successMessage} type="success" />}
+      {errorMessage && <Status message={errorMessage} type="error" />}
       <Nav />
       <Sidenav />
       <div>
         <div class="wrapper ">
-          <form onSubmit={handleSubmit} >
+          <form onSubmit={handleSubmit}>
             <div className="ordershadow" id="wizard">
+              <h3>Post Item</h3>
+              <ul className="steps">
+                {["", "", "", ""].map((step, index) => (
+                  <li key={index} className={`${stepStatuses[index] ? "completed" : ""
+                    } ${currentStep === index ? "checked" : ""}`}>
+                    <a className='' onClick={() => handleStepClick(index)}>{step}</a>
+                  </li>
+                ))}
+              </ul>
               <h4></h4>
-              <section>
-                <div class="form-row">
-                  <input type="text" class="form-control" placeholder="Item Name" onChange={handleNameChange} value={name} required />
-                </div>
-                <div class="form-row">
-                  <input type="text" class="form-control" placeholder="price" onChange={handlePriceChange} value={price} required />
-                </div>
-                <div class="form-row">
-                  <input type="file" class="form-control" placeholder="photo add" multiple="true" onChange={handleFileChange} required />
-                </div>
-              </section>
+              {currentStep === 0 && (
+                <section>
+                  <div class="form-row">
+                    <input
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Item Name"
+                      value={name}
+                      onChange={handleNameChange} />
+                  </div>
+                  <div class="form-row">
+                    <input
+                      required
+                      type="text"
+                      class="form-control"
+                      value={price}
+                      onChange={handlePriceChange}
+                      placeholder="price" />
+                  </div>
+                  <div class="form-row">
+                    <input required
+                      type="file"
+                      class="form-control"
+                      onChange={handleFileChange}
+                      multiple={true}
+                      placeholder="Add Photo"
+                    />
+                  </div>
+                  <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
+                </section>
+              )}
               <h4></h4>
-              <section>
-                <div class="form-row"> <input type="tel" class="form-control" placeholder="phone number" required /> </div>
-                <div class="form-row"> <input type="text" class="form-control" placeholder="city" required /> </div>
-                <div class="form-row"> <input type="text" class="form-control" placeholder="subcity" /> </div>
-              </section>
+              {currentStep === 1 && (
+                <section>
+                  <div class="form-row">
+                    <input
+                      // required
+                      type="tel"
+                      class="form-control"
+                      placeholder="phone number" />
+                  </div>
+                  <div class="form-row">
+                    <input
+                      // required
+                      type="text"
+                      class="form-control"
+                      placeholder="city" />
+                  </div>
+                  <div class="form-row">
+                    <input
+                      // required
+                      type="text"
+                      class="form-control"
+                      placeholder="subcity" />
+                  </div>
+                  <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
+                  <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
+                </section>
+
+              )}
               <h4></h4>
-              <section>
-                <div>
-                  Category:
-                  {/* <CustomSelect
-                    // category={category}
-                    // handleCategoryChange={handleCategoryChange}
-                  /> */}
-                  <select name="" id="" class="form-control" onChange={handleCategoryChange}>
-                    <option value="">Select Category</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Books">Books</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <br />
-                <div class="form-row" style={{ marginBottom: "18px" }}>
-                  <textarea name="" id="" class="form-control" value={description}
-                    onChange={handleDescriptionChange} placeholder="Discription" style={{ Height: "108px" }}>
-                  </textarea>
-                </div>
-              </section>
+              {currentStep === 2 && (
+                <section>
+                  <div>
+                    <CustomSelect
+                      category={category}
+                      handleCategoryChange={handleCategoryChange}
+                    />
+                  </div>
+                  <br />
+                  <div class="form-row" style={{ marginBottom: "18px" }}>
+                    <textarea
+                      class="form-control"
+                      placeholder="Discription"
+                      value={description}
+                      onChange={handleDescriptionChange}
+                      style={{ Height: "108px" }}>
+                    </textarea>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      // required 
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Negotiable
+                    </label>
+                  </div>
+                  <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
+                  <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
+                </section>
+              )}
+
               <h4></h4>
-              <section>
-                {/* <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                  <circle class="path circle" fill="none" stroke="#73AF55" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                  <polyline class="path check" fill="none" stroke="#73AF55" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
-                </svg> */}
-                <p class="succes">Upload  successfully. </p>
-                <button
-                  type="submit"
-                >Publish</button>
-                {successMessage && <Status message={successMessage} type="success" />}
-                {errorMessage && <Status message={errorMessage} type="error" />}
-              </section>
+              {currentStep === 3 && (
+
+                <section className='svg'>
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#73AF55" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                    <polyline class="path check" fill="none" stroke="#73AF55" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                  </svg>
+                  <p class="succes">Ready to Post </p>
+                  <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
+                  <button type="submit" className='btn btn-secondary'>Post</button>
+                </section>
+              )}
             </div>
           </form>
         </div>
       </div>
+
     </>
   )
 }
+
+
+export default Order;

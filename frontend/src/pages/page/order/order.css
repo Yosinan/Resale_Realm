@@ -1,4 +1,4 @@
-body {
+.body {
   font-family: "Poppins-Regular";
   font-size: 15px;
   color: #666;
@@ -16,7 +16,13 @@ textarea {
 
 
 
-select {
+
+
+
+input,
+textarea,
+select,
+button {
   font-family: "Poppins-Regular";
   font-size: 15px;
   color: #666
@@ -718,11 +724,11 @@ h5.card-title {
   color: #6645eb
 }
 
-/* svg {
+.svg {
   width: 100px;
   display: block;
   margin: 40px auto 0
-} */
+}
 
 .path {
   stroke-dasharray: 1000;
@@ -802,5 +808,83 @@ p {
 
 .ordershadow {
   box-shadow: 10px 10px 10px 10px rgb(224, 222, 222);
+  align-items: center;
+  align-content: center;
+  display: flex; 
+  flex-direction: column; 
+  
+}
 
+
+
+/* Style for steps as a thin line */
+.steps {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.steps li {
+  flex: 1;
+  text-align: center;
+}
+
+.steps a {
+  display: block;
+  padding: 0;
+  border: none;
+  display: flex;
+  height: 8px;
+  width: 60px;
+  align-items: center;
+  background: #edebef;
+  cursor: pointer;
+  color: #fff !important;
+  position: relative;
+  border-radius: 100rem;
+  text-decoration: none;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  font-weight: 40;
+  margin: 8px;
+  align-self: center;
+
+}
+
+.steps li.completed a {
+  background-color: #007bff;
+  /* Blue color for completed steps */
+}
+
+.steps li.checked a {
+  background-color: #007bff;
+}
+
+
+/* Style for button container */
+.button-container {
+  /* display: flex;*/
+  justify-content: space-between; 
+  margin-top: 20px;
+
+  /* Adjust the margin as needed */
+}
+
+
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
