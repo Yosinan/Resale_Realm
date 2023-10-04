@@ -53,6 +53,7 @@ const Order = () => {
   const [stepStatuses, setStepStatuses] = useState([false, false, false]);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [description, setDescription] = useState("");
   const [file, setfile] = useState([]);
   const [category, setCategory] = useState("");
@@ -84,6 +85,11 @@ const Order = () => {
     setCategory(category);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === '-' || event.key === '+' || event.key === 'e') {
+      event.preventDefault();
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -185,28 +191,36 @@ const Order = () => {
                     <input
                       required
                       type="text"
-                      class="form-control"
+                      class="form-control-lg"
                       placeholder="Item Name"
                       value={name}
                       onChange={handleNameChange} />
+                    <span class="required-indicator">*</span>
+
                   </div>
                   <div class="form-row">
                     <input
                       required
-                      type="text"
-                      class="form-control"
+                      type="number"
+                      class="form-control-lg"
                       value={price}
+                      min={1}
+                      onKeyDown={handleKeyPress}
                       onChange={handlePriceChange}
                       placeholder="price" />
+                    <span class="required-indicator">*</span>
+
                   </div>
                   <div class="form-row">
                     <input required
                       type="file"
-                      class="form-control"
+                      class="form-control-"
                       onChange={handleFileChange}
                       multiple={true}
                       placeholder="Add Photo"
                     />
+                    <span class="required-indicator">*</span>
+
                   </div>
                   <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
                 </section>
@@ -218,21 +232,38 @@ const Order = () => {
                     <input
                       // required
                       type="tel"
-                      class="form-control"
+                      value={phoneNo}
+                      class="form-control-lg"
                       placeholder="phone number" />
+                    <span class="required-indicator">*</span>
+
+                  </div>
+                  <div class="form-row">
+                    {/* <input
+                      // required
+                      type="text"
+                      class="form-control-lg"
+                      placeholder="city" /> */}
+
+                    <select class="form-control-lg" required>
+                      <option value="" disabled selected>City</option>
+                      <option value="Addis Ababa">Addis Ababa</option>
+                      <option value="Adama">Adama</option>
+                      <option value="Assosa">Assosa</option>
+                      <option value="Bahir Dar">Bahir Dar</option>
+                      <option value="Dire Dawa">Dire Dawa</option>
+                      <option value="Gondar">Gondar</option>
+                      <option value="Hawassa">Hawassa</option>
+                      <option value="Jijiga">Jijiga</option>
+                      <option value="Mekelle">Mekelle</option>
+                    </select>
+                    <span class="required-indicator">*</span>
+
                   </div>
                   <div class="form-row">
                     <input
-                      // required
                       type="text"
-                      class="form-control"
-                      placeholder="city" />
-                  </div>
-                  <div class="form-row">
-                    <input
-                      // required
-                      type="text"
-                      class="form-control"
+                      class="form-control-lg"
                       placeholder="subcity" />
                   </div>
                   <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
@@ -243,26 +274,31 @@ const Order = () => {
               <h4></h4>
               {currentStep === 2 && (
                 <section>
-                  <div>
+                  <div class='form-control-l'>
+                    <span class="required-indicator">*</span>
                     <CustomSelect
                       category={category}
                       handleCategoryChange={handleCategoryChange}
                     />
+                    
                   </div>
+                  <br />
                   <br />
                   <div class="form-row" style={{ marginBottom: "18px" }}>
                     <textarea
-                      class="form-control"
+                      class="form-control-lg"
                       placeholder="Discription"
                       value={description}
                       onChange={handleDescriptionChange}
                       style={{ Height: "108px" }}>
                     </textarea>
+                    <span class="required-indicator">*</span>
+
                   </div>
                   <div class="form-check">
                     <input
                       // required 
-                      class="form-check-input"
+                      class="form-check-input-"
                       type="checkbox"
                       value=""
                       id="flexCheckDefault" />
@@ -277,15 +313,14 @@ const Order = () => {
 
               <h4></h4>
               {currentStep === 3 && (
-
                 <section className='svg'>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
                     <circle class="path circle" fill="none" stroke="#73AF55" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1" />
                     <polyline class="path check" fill="none" stroke="#73AF55" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
                   </svg>
-                  <p class="succes">Ready to Post </p>
-                  <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
-                  <button type="submit" className='btn btn-secondary'>Post</button>
+                  <p>Ready to Post </p>
+                  <button type="submit" className='btn-lg btn-success'>Post</button>
+                  {/* <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button> */}
                 </section>
               )}
             </div>

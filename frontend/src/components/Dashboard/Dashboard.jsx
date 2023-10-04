@@ -8,6 +8,11 @@ import {
   faSignOut,
   faTimes,
   faHeart,
+  faQuestionCircle,
+  faBook,
+  faCouch,
+  faLaptop,
+  faTshirt,
   faSearch,
   faChevronLeft,
   faChevronRight,
@@ -28,23 +33,17 @@ import Sidenav from "../../pages/Landing/sidenav";
 function Dashboard() {
 
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [file, setfile] = useState([]);
-  const [category, setCategory] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-  const [filterOption, setFilterOption] = useState("");
-  const [createdAt, setCreatedAt] = useState("");
+  const [filterOption, setFilterOption] = useState([]);
   const [items, setItems] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
-  const [addedBy, setAddedBy] = useState(null);
   const [data, setData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -154,38 +153,6 @@ function Dashboard() {
     fetchitems();
   }, [sortOption, sortOrder, filterOption, minPrice, maxPrice]);
 
-
-  const handleSortOptionChange = (val) => {
-
-    if (val === "name") {
-      setSortOption("name");
-    }
-    if (val === "price") {
-      setSortOption("unitPrice");
-    }
-
-    if (val == 'highest') {
-      setSortOption("unitPrice");
-      setSortOrder("desc");
-    }
-
-    if (val == 'lowest') {
-      setSortOption("unitPrice");
-      setSortOrder("asc");
-    }
-
-    if (val === "oldest") {
-      setSortOption("dateAdded");
-      setSortOrder("asc");
-    }
-
-    if (val === "newest") {
-      setSortOption("dateAdded");
-      setSortOrder("desc");
-    }
-
-
-  };
 
   const sortingOptions = [
     { label: 'Default', icon: faSort },
@@ -305,8 +272,6 @@ function Dashboard() {
   };
 
 
-
-
   const openProductDetails = (productId) => {
     const product = items.find((p) => p.id === productId);
     setSelectedProduct(product);
@@ -324,49 +289,6 @@ function Dashboard() {
     setCurrentImageIndex((prevIndex) => (prevIndex === selectedProduct.images.length - 1 ? 0 : prevIndex + 1));
   };
 
-  const handleLogOut = () => {
-    const confirm = window.confirm("Are you sure you want to log out?");
-    if (confirm) {
-      localStorage.removeItem('Token');
-      window.location.href = '/';
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const postData = new FormData();
-    postData.append("name", name);
-    postData.append("unitPrice", price);
-    postData.append("dateAdded", new Date().toLocaleDateString());
-    postData.append("description", description);
-    for (let i = 0; i < file.length; i++) {
-      postData.append("images", file[i]);
-    }
-    postData.append("category", category);
-
-    const token = localStorage.getItem('Token');
-
-    try {
-      await axios.post("http://localhost:5000/api/products/add", postData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setName("");
-      setPrice("");
-      setDescription("");
-      setfile("");
-      setCategory("");
-      handleSuccess();
-
-    } catch (error) {
-
-      console.error("Error posting item:", error.message);
-      handleError();
-    }
-  };
-
 
   return (
     <>
@@ -375,13 +297,37 @@ function Dashboard() {
       <Nav />
       <Sidenav />
       <div className={dash.mainContainer}>
-        <button className={dash.logout} onClick={handleLogOut}><FontAwesomeIcon icon={faSignOut} /></button>
+        {/* <button className={dash.logout} onClick={handleLogOut}><FontAwesomeIcon icon={faSignOut} /></button> */}
         <h2>Products</h2>
         <p>Showing {items.length} items</p>
         <br />
-        <div className={dash.toggleDropdown}>
-          <p> Sort By:
-            <span onClick={() => { openSort() }}> <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} />  {selectedOption}</span></p>
+        <div className={dash.top}>
+          <div class="main">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control-"
+                placeholder="Search Items"
+                value={data}
+                onChange={handleSearchChange}
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  style={{ backgroundColor: "#f26522", borderColor: "#f26522 " }}
+                // onClick={handleSearchChange()}
+                >
+                  <FontAwesomeIcon icon={faSearch} />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={dash.toggleDropdown}>
+            <p> Sort By:
+              <span onClick={() => { openSort() }}> <FontAwesomeIcon icon={faSort} style={{ marginLeft: '10px' }} />  {selectedOption}</span>
+            </p>
+          </div>
         </div>
         <br />
         {showSort && (
@@ -400,31 +346,10 @@ function Dashboard() {
           </div>
         )}
         <br />
-        <div class="main">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search Items"
-              value={data}
-              onChange={handleSearchChange}
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-secondary"
-                type="button"
-                style={{ backgroundColor: "#f26522", borderColor: "#f26522 " }}
-                // onClick={handleSearchChange()}
-              >
-                <FontAwesomeIcon icon={faSearch} />
-              </button>
-            </div>
-          </div>
-        </div>
         <div className={dash.container}>
           <div className={dash.sidebar}>
             <div className={dash.inSidebar}>
-              <div className={dash.dash_input}>
+              {/* <div className={dash.dash_input}>
                 <input
                   type='search'
                   placeholder='Search'
@@ -432,7 +357,7 @@ function Dashboard() {
                   onChange={handleSearchChange} />
                 <br />
 
-              </div>
+              </div> */}
               <button
                 className="clear"
                 style={{ marginTop: '10px', marginLeft: '10px', backgroundColor: 'white', color: 'black', border: '2px solid #008CBA', borderRadius: '12px', padding: '5px 15px', fontSize: '16px', width: '50px' }}
@@ -440,6 +365,7 @@ function Dashboard() {
                   setMinPrice("");
                   setMaxPrice("");
                   setSearch("");
+                  setFilterOption("");
                 }}>
                 <FontAwesomeIcon icon={faUndoAlt} style={{ marginRight: '10px' }} />
               </button>
@@ -450,6 +376,75 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '15px' }} />
                   <FontAwesomeIcon icon={faDollarSign} style={{ marginRight: '10px' }} />
                   <input type="number" placeholder="Max Price" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} onKeyDown={handleKeyPress} min={0} />
+                </div>
+                <div className={dash.cat}>
+
+                  <h3>Category</h3>
+                  <input
+                    type="radio"
+                    name="cat"
+                    value="Books"
+                    id="radio-input"
+                    checked={filterOption === "Books"}
+                    onChange={handleFilterOptionChange}
+                  >
+                  </input>
+                  <label>
+                    Books &nbsp;<FontAwesomeIcon icon={faBook}></FontAwesomeIcon>
+                  </label>
+                  <br />
+                  <input
+                    type="radio"
+                    name="cat"
+                    id="radio-input"
+                    value="Clothing"
+                    checked={filterOption === "Clothing"}
+                    onChange={handleFilterOptionChange}
+                  >
+                  </input>
+                  <label>
+                    Cloths &nbsp; <FontAwesomeIcon icon={faTshirt}></FontAwesomeIcon>
+                  </label>
+                  <br />
+                  <input
+                    type="radio"
+                    name="cat"
+                    id="radio-input"
+                    value="Electronics"
+                    checked={filterOption === "Electronics"}
+                    onChange={handleFilterOptionChange}
+                  >
+                  </input>
+                  <label>
+                    Electronics &nbsp; <FontAwesomeIcon icon={faLaptop}></FontAwesomeIcon>
+                  </label>
+                  <br />
+                  <input
+                    type="radio"
+                    name="cat"
+                    id="radio-input"
+                    value="Furniture"
+                    checked={filterOption === "Furniture"}
+                    onChange={handleFilterOptionChange}
+                  >
+                  </input>
+                  <label>
+                    Furnitures &nbsp; <FontAwesomeIcon icon={faCouch}></FontAwesomeIcon>
+                  </label>
+                  <br />
+                  <input
+                    type="radio"
+                    name="cat"
+                    id="radio-input"
+                    value="Other"
+                    checked={filterOption === "Other"}
+                    onChange={handleFilterOptionChange}
+                  >
+                  </input>
+                  <label>
+                    Other  &nbsp; <FontAwesomeIcon icon={faQuestionCircle}></FontAwesomeIcon>
+                  </label>
+                  <br />
                 </div>
               </div>
               <br />

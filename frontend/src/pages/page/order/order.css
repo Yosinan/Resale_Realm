@@ -15,8 +15,10 @@ textarea {
 }
 
 
-
-
+.required-indicator {
+  margin-left: 5px;
+  color: red;
+}
 
 
 input,
@@ -725,9 +727,21 @@ h5.card-title {
 }
 
 .svg {
-  width: 100px;
-  display: block;
-  margin: 40px auto 0
+  /* width: 100px; */
+  display: flex;
+  flex-direction: column;
+  /* margin: 40px auto 0 */
+}
+
+.svg svg {
+  height: 90px;
+  margin-top: 1px;
+  margin-bottom: 40px;
+}
+
+.svg p {
+  font-size: 30px;
+  align-items: center;
 }
 
 .path {

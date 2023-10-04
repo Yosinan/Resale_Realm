@@ -13,6 +13,7 @@ const styles = {
         fontSize: '2rem',
         backgroundColor: '#1a1a1a',
         color: '#000',
+        marginTop: '40px'
     },
 
     inner: {
@@ -35,7 +36,9 @@ const styles = {
 
     p: {
         color: 'red',
+        marginTop: '20px',
         textAlign: 'center',
+        fontSize: '40px'
         
     }
 
@@ -44,12 +47,12 @@ const styles = {
 function PageNotFound() {
     return (
         <>
-            <div className="container" style={styles.container}>
-                <div className="inner" style={styles.inner}>
+            <div  style={styles.container}>
+                <div style={styles.inner}>
                     <FontAwesomeIcon icon={faExclamationTriangle} size="3x" />
                     <p style={styles.p}>Page Not Found</p>
                 </div>
-                <a href="/home" style={styles.a}>Back to Home</a>
+                <a href="/" style={styles.a}>Back to Home</a>
             </div>
         </>
     )
