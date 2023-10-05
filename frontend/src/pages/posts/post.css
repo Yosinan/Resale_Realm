@@ -4,3 +4,7 @@
     margin-top: 10%;
     min-height: 100vh;
 }
+
+.custom-modal {
+    max-width: 900px;
+}

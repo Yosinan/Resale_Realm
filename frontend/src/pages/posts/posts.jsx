@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './post.css'
 import Sidenav from '../Landing/sidenav';
+import { Link } from 'react-router-dom';
 import Nav from '../Landing/nav';
 import axios from 'axios';
 import Status from '../../components/Status/Status';
@@ -174,22 +175,6 @@ export const Product = () => {
     setShowModal(false);
   };
 
-  const handleInputChange = (id, field, value) => {
-    const updatedItems = items.map((item) => {
-      if (item._id === id) {
-        return {
-          ...item,
-          [field]: value,
-        };
-      } else {
-        return item;
-      }
-    });
-
-    setItems(updatedItems);
-  };
-
-
 
   return (
     <section style={{ backgroundColor: "#fffffff" }}>
@@ -198,71 +183,7 @@ export const Product = () => {
       <Nav />
       <br />
       <div class="container  py-5">
-
         <Sidenav />
-
-        {/* <div class="row postmargin justify-content-center mb-3">
-          <div class="col-md-12 col-xl-10">
-            <div class="card shadow-0 border rounded-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
-                        class="w-100" />
-                      <a href="#!">
-                        <div class="hover-overlay">
-                          <div class="mask" style={{ backgroundColor: "rgba(253, 253, 253, 0.15)" }}></div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-lg-6 col-xl-6">
-                    <h5>T shirts</h5>
-                    <div class="d-flex flex-row">
-                      <div class="text-danger mb-1 me-2">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <span></span>
-                    </div>
-                    <div class="mt-1 mb-0 text-muted small">
-                      <span></span>
-                      <span class="text-primary"> </span>
-                      <span></span>
-                      <span class="text-primary">  </span>
-                      <span><br /></span>
-                    </div>
-                    <div class="mb-2 text-muted small">
-
-                    </div>
-                    <p class="text-truncate mb-4 mb-md-0">
-                      description ...
-                    </p>
-                  </div>
-                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                    <div class="d-flex flex-row align-items-center mb-1">
-                      <h4 class="mb-1 me-1">130 birr</h4>
-                      <span class="text-danger"><s></s></span>
-                    </div>
-                    <h6 class="text-success"></h6>
-                    <div class="d-flex flex-column mt-4">
-                      <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                      <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                        Repost
-                      </button>
-                      <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         {items.length === 0 && (
           <div className="container text-center">
             <h3>You have not posted an item yet</h3>
@@ -272,48 +193,48 @@ export const Product = () => {
           {items.length === 0 ? (
             <div className="d-flex flex-column align-items-center justify-content-center vh-100">
               <h3 className="mb-3">No items found</h3>
-              <Link to="/new">
+              <Link to="/sell">
                 <Button variant="primary">Post an item</Button>
               </Link>
             </div>
           ) : (
-          <div className="row">
-            {items.map((item) => (
-              <div className="col-md-6 col-lg-4 mb-4" key={item.id}>
-                <div className="card">
-                  <img
-                    src={`../uploads/img/${item.images[0].filename}`}
-                    className="card-img-top img-thumbnail"
-                    alt={item.name}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
-                    <p className="card-text">{item.description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <h4 className="mb-0">{item.unitPrice} birr</h4>
-                      <div>
-                        <button
-                          className="btn btn-primary btn-sm me-2"
-                          onClick={() => handleEdit(item)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          Delete
-                        </button>
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+              {items.map((item) => (
+                <div className="col" key={item.id}>
+                  <div className="card h-100">
+                    <img
+                      src={`../uploads/img/${item.images[0].filename}`}
+                      className="card-img-top img-thumbnail"
+                      alt={item.name}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{item.title}</h5>
+                      <p className="card-text">{item.description}</p>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <h4 className="mb-0">{item.unitPrice} birr</h4>
+                        <div>
+                          <button
+                            className="btn btn-primary btn-sm me-2"
+                            onClick={() => handleEdit(item)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
           )}
         </div>
-        
+
         <Modal show={showModal} onHide={handleCancelDelete}>
           <Modal.Header closeButton>
             <Modal.Title>Confirm Delete</Modal.Title>
@@ -330,7 +251,11 @@ export const Product = () => {
         </Modal>
 
 
-        <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal
+          show={showEditModal}
+          onHide={() => setShowEditModal(false)}
+          dialogClassName='custom-modal'
+        >
           <Modal.Header closeButton>
             <Modal.Title>Edit Item</Modal.Title>
           </Modal.Header>

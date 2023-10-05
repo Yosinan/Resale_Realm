@@ -23,10 +23,10 @@ const Nav = () => {
                            <li><a href="/">HOME</a></li>
                            {/* <li><a href="#">Gift Ideas</a></li> */}
                            <li><a href="/about">ABOUT</a></li>
-                           <li><a href="#">Contact</a></li>
+                           {/* <li><a href="#">Contact</a></li> */}
                            {authenticated ? (
                               <li>
-                                 <a href='sell'>Sell</a>
+                                 <a href='sell'>SELL</a>
                               </li>
                            ) : (
                               <li>

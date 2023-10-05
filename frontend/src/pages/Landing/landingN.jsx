@@ -168,7 +168,7 @@ const LandingNew = () => {
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h1 class="banner_taital">Get Start <br />Your favorite shopping</h1>
+                                    <h1 class="banner_taital">Resale Redefined <br/> Discover a New Way to Buy and Sell</h1>
                                     <div class="buynow_bt">
                                         <button
                                             href="dashboard"
