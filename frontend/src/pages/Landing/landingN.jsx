@@ -122,11 +122,12 @@ const LandingNew = () => {
 
     const it = [
         {
-            category: 'Furniture',
-            name: 'Rustic Wooden Coffee Table',
-            price: 120.00,
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrQNmEF70O6LqJ6rRxLxNl6sxfWQhYARWy8g&usqp=CAU://via.placeholder.com/150',
+            category: 'Clothes',
+            name: 'Vintage Floral Sundress',
+            price: 25.00,
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRJV4JmSQxnjz0ZD2lq5zz4p2dq4bERYBxtw&usqp=CAU',
         },
+       
         {
             category: 'Electronics',
             name: 'DJI Mavic Air 2 Drone',
@@ -147,11 +148,12 @@ const LandingNew = () => {
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_xCHsr3aLe9vMmOQqidUDojnuZPBKqtUtVA&usqp=CAU',
         },
         {
-            category: 'Books',
-            name: 'The Great Gatsby',
-            price: 10.00,
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCN-WlMxNLrEx-TEkXdGUYD1ZlmBf2MvRa7w&usqp=CAU',
+            category: 'Furniture',
+            name: 'Rustic Wooden Coffee Table',
+            price: 120.00,
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrQNmEF70O6LqJ6rRxLxNl6sxfWQhYARWy8g&usqp=CAU://via.placeholder.com/150',
         },
+       
         {
             category: 'Furniture',
             name: 'Antique Oak Dining Table',
@@ -165,10 +167,10 @@ const LandingNew = () => {
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-LwaZ_6u6QoXzqRD_O-UC_4WgyR5skbLIJQ&usqp=CAU',
         },
         {
-            category: 'Clothes',
-            name: 'Vintage Floral Sundress',
-            price: 25.00,
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRJV4JmSQxnjz0ZD2lq5zz4p2dq4bERYBxtw&usqp=CAU',
+            category: 'Electronics',
+            name: 'Apple MacBook Pro (2022)',
+            price: 1499.99,
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbZfsLZPrtywXcWQcD6YjM_JXPtVKGVif6ckCxREUgZ9fwYUQMeCc5zsYoIaht4hafCr8&usqp=CAU',
         },
         {
             category: 'Books',
@@ -177,11 +179,12 @@ const LandingNew = () => {
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Mb6xfbrEdrz_AdjNfq2rxit9x_65FW9UBg&usqp=CAU',
         },
         {
-            category: 'Electronics',
-            name: 'Apple MacBook Pro (2022)',
-            price: 1499.99,
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbZfsLZPrtywXcWQcD6YjM_JXPtVKGVif6ckCxREUgZ9fwYUQMeCc5zsYoIaht4hafCr8&usqp=CAU',
+            category: 'Books',
+            name: 'The Great Gatsby',
+            price: 10.00,
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCN-WlMxNLrEx-TEkXdGUYD1ZlmBf2MvRa7w&usqp=CAU',
         },
+       
         {
             category: 'Electronics',
             name: 'Apple iPhone X',
