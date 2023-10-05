@@ -241,7 +241,7 @@ export const Product = () => {
           </Modal.Header>
           <Modal.Body>Are you sure you want to delete?</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCancelDelete}>
+            <Button variant="light" onClick={handleCancelDelete}>
               Cancel
             </Button>
             <Button variant="danger" onClick={handleConfirmDelete}>
@@ -314,7 +314,7 @@ export const Product = () => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+            <Button variant="light" onClick={() => setShowEditModal(false)}>
               Cancel
             </Button>
             <Button variant="primary" onClick={handleSave}>
