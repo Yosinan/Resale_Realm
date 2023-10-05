@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../Landing/nav';
 import axios from 'axios';
 import Status from '../../components/Status/Status';
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Card } from "react-bootstrap";
 
 export const Product = () => {
 
@@ -202,11 +202,15 @@ export const Product = () => {
               {items.map((item) => (
                 <div className="col" key={item.id}>
                   <div className="card h-100">
-                    <img
+                    <Card.Img
+                      variant="top"
+                      style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                  
                       src={`../uploads/img/${item.images[0].filename}`}
                       className="card-img-top img-thumbnail"
                       alt={item.name}
                     />
+
                     <div className="card-body">
                       <h5 className="card-title">{item.title}</h5>
                       <p className="card-text">{item.description}</p>

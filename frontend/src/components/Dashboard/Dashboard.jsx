@@ -5,6 +5,7 @@ import dash from './P.module.css'
 import Nav from '../../pages/Landing/nav';
 import Footer from '../../components/Footer/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Modal, Button } from "react-bootstrap";
 import {
   faSignOut,
   faTimes,
@@ -53,7 +54,15 @@ function Dashboard() {
   const [currenPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
 
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
+  const handleShowFullDescription = () => {
+    setShowFullDescription(true);
+  };
+
+  const handleCloseFullDescription = () => {
+    setShowFullDescription(false);
+  };
 
   const itemsToDisplay = items.slice(
     (currenPage - 1) * itemsPerPage,
@@ -493,12 +502,12 @@ function Dashboard() {
             ))}
 
             {selectedProduct && (
+             
               <div className={dash.productDetailsModal}>
                 <div className={dash.productDetails}>
                   <button className={dash.closeButton} onClick={closeProductDetails}>
                     <FontAwesomeIcon icon={faTimes} />
                   </button>
-                  <h2>{selectedProduct.name}</h2>
                   <i>{selectedProduct.images.length}</i> &nbsp;
                   {selectedProduct.images.length > 1 ? (
                     <span>Images</span>
@@ -520,13 +529,22 @@ function Dashboard() {
                       <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                   </div>
-                  <p className="description">Description: {selectedProduct.description}</p>
+                  <p className="description">
+                    Description:{" "}
+                    {selectedProduct.description.length > 10
+                      ? `${selectedProduct.description.slice(0, 10)}...`
+                      : selectedProduct.description}{" "}
+                    {selectedProduct.description.length < 100 && (
+                      <button className="btn btn-link" onClick={handleShowFullDescription}>
+                        See More
+                      </button>
+                    )}
+                  </p>
                   <p className="created-at">Category: {selectedProduct.category}</p>
-                  <p className="price">ETB: {selectedProduct.unitPrice}</p>
+                  {/* <p className="price">ETB: {selectedProduct.unitPrice}</p> */}
                   <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
-                  <p className="created-at">Posted By: {selectedProduct.addedByUsername}</p>
-                  <p >City : {selectedProduct.city}</p>
-                  <p>Negotiable : {selectedProduct.negotiable}</p>
+                  <p >Location: {selectedProduct.city }</p>
+                  {/* <p>Negotiable: {selectedProduct.deliverable}</p> */}
 
                   {/* {currentUser && currentUser.__id === selectedProduct.addedBy ? (
                     <button className="delete-button" onClick={closeProductDetails}>
