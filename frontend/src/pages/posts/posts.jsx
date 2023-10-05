@@ -220,7 +220,7 @@ export const Product = () => {
                             Edit
                           </button>
                           <button
-                            className="btn btn-danger btn-sm"
+                            className="btn btn-outline-danger btn-sm"
                             onClick={() => handleDelete(item.id)}
                           >
                             Delete
