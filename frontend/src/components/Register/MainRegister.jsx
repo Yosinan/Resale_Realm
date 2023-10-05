@@ -111,6 +111,7 @@ function Register() {
                 const data = await response.json();
                 // setResponseMessage(data.message);
                 handleSuccess();
+                window.location.href = '/login'
             } else {
                 const error = await response.json();
                 // setResponseMessage(error.error);
