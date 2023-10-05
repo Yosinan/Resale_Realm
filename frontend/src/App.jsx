@@ -15,6 +15,7 @@ import PostItems from './components/Dashboard/PostItems';
 import {Settings} from './pages/settings.jsx/settings' 
 import { Product } from './pages/posts/posts'; 
 import Page from './pages/page/page';
+import About from './pages/page/About/About';
 import ProfileUp from './pages/page/Profileupdate-New/profileUp';
 import { Deleteaccount } from './pages/page/deleteaccoutn/deleteaccount';
 import  Order  from './pages/page/order/order';
@@ -64,6 +65,7 @@ const App = () => {
               <Route path='profile' element={<ProfileUp />} />
               <Route path='delete' element={<Deleteaccount />} />
               <Route path='sell' element={<Order />} />
+              <Route path='about' element={<About />} />
             </Routes>
           </Router>
         </div>

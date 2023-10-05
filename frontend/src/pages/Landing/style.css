@@ -313,6 +313,13 @@ button {
     order: 2;
 }
 
+.toggle_icon img {
+    width: 40px;
+    position: relative;
+    top: -45px;
+    left:60px;
+}
+
 .header_box {
     order: 2;
     display: flex;

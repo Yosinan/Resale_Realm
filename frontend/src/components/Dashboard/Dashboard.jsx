@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import dash from './P.module.css'
 import Nav from '../../pages/Landing/nav';
+import Footer from '../../components/Footer/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSignOut,
@@ -41,8 +42,8 @@ function Dashboard() {
   const [sortOrder, setSortOrder] = useState("");
   const [filterOption, setFilterOption] = useState([]);
   const [items, setItems] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
   const [data, setData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -524,6 +525,8 @@ function Dashboard() {
                   <p className="price">ETB: {selectedProduct.unitPrice}</p>
                   <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
                   <p className="created-at">Posted By: {selectedProduct.addedByUsername}</p>
+                  <p >City : {selectedProduct.city}</p>
+                  <p>Negotiable : {selectedProduct.negotiable}</p>
 
                   {/* {currentUser && currentUser.__id === selectedProduct.addedBy ? (
                     <button className="delete-button" onClick={closeProductDetails}>
@@ -541,6 +544,7 @@ function Dashboard() {
         </div>
         {handlePageChange()}
       </div>
+      <Footer />
     </>
   );
 }

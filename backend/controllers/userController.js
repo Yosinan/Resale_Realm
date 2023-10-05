@@ -200,6 +200,7 @@ const getUserById = async (req, res) => {
 // update user password
 const updateUserPassword = async (req, res) => {
   try {
+    console.log(req.body.password)
     const oldPass = req.body.password;
     const newPass = req.body.newPassword;
 

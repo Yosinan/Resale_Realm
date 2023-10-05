@@ -16,7 +16,8 @@ const {
     sortProductsByPrice,
     sortProductsByAlphabet,
     sortProductsByDate,
-    sortProductsByCategory
+    sortProductsByCategory,
+    getItemByUserId
 
 } = require("../controllers/productController");
 
@@ -26,6 +27,7 @@ router.post("/api/products/add", auth, addItem);
 router.put("/api/products/edit/:id", auth, editItem);
 router.delete("/api/products/delete/:id", auth, deleteItem);
 router.get("/api/products/", getItems);
+router.get("/api/products/owner/:id", getItemByUserId);
 // router.get("/api/products/:id", getItemById);
 router.get("/api/products/search/", searchAll);
 router.get("/api/products/search/:name", searchProducts);

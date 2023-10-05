@@ -73,7 +73,7 @@ function MainLogin({ onLogin }) {
                 const data = await response.json();
                 localStorage.setItem('Token', data.token);
                 console.log("Token from local storage is: " + localStorage.getItem('Token'));
-
+                // onLogin(data);
                 console.log(data);
                 window.location.href = '/dashboard';
 

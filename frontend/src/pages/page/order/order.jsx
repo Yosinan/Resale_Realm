@@ -54,13 +54,28 @@ const Order = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
+  const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
   const [file, setfile] = useState([]);
   const [category, setCategory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [deliverable, setDeliverable] = useState("false");
+  const [negotiable, setNegotiable] = useState("false");
 
   const authenticated = useAuth();
+
+  const handleDeliverableChange = (event) => {
+    setDeliverable(event.target.value);
+  };
+
+  const handleNegotiableChange = (event) => {
+    setNegotiable(event.target.value);
+  };
+
+  const handleCityChange = (event) => {
+    setCity(event.target.value);
+  };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -80,6 +95,10 @@ const Order = () => {
     setfile(filesArray);
   };
 
+  const handlePhoneNoChange = (event) => {
+    setPhoneNo(event.target.value);
+  };
+
   const handleCategoryChange = (category) => {
     console.log(category);
     setCategory(category);
@@ -91,7 +110,8 @@ const Order = () => {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => { 
+    console.log(city,deliverable, negotiable, phoneNo)
     event.preventDefault();
     const postData = new FormData();
     postData.append("name", name);
@@ -102,6 +122,11 @@ const Order = () => {
       postData.append("images", file[i]);
     }
     postData.append("category", category);
+    postData.append("delivery", deliverable);
+    postData.append("negotiable", negotiable);
+    postData.append("phone", phoneNo);
+    postData.append("city", city);
+
 
     const token = localStorage.getItem('Token');
 
@@ -187,6 +212,7 @@ const Order = () => {
               <h4></h4>
               {currentStep === 0 && (
                 <section>
+                  <span class="required-indicator">*</span>
                   <div class="form-row">
                     <input
                       required
@@ -195,9 +221,8 @@ const Order = () => {
                       placeholder="Item Name"
                       value={name}
                       onChange={handleNameChange} />
-                    <span class="required-indicator">*</span>
-
                   </div>
+                  <span class="required-indicator">*</span>
                   <div class="form-row">
                     <input
                       required
@@ -208,9 +233,8 @@ const Order = () => {
                       onKeyDown={handleKeyPress}
                       onChange={handlePriceChange}
                       placeholder="price" />
-                    <span class="required-indicator">*</span>
-
                   </div>
+                  <span class="required-indicator">*</span>
                   <div class="form-row">
                     <input required
                       type="file"
@@ -219,8 +243,6 @@ const Order = () => {
                       multiple={true}
                       placeholder="Add Photo"
                     />
-                    <span class="required-indicator">*</span>
-
                   </div>
                   <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
                 </section>
@@ -228,24 +250,19 @@ const Order = () => {
               <h4></h4>
               {currentStep === 1 && (
                 <section>
+                  <span class="required-indicator">*</span>
                   <div class="form-row">
                     <input
-                      // required
+                      required
                       type="tel"
-                      // value={phoneNo}
+                      value={phoneNo}
                       class="form-control-lg"
+                      onChange={handlePhoneNoChange}
                       placeholder="phone number" />
-                    <span class="required-indicator">*</span>
-
                   </div>
+                  <span class="required-indicator">*</span>
                   <div class="form-row">
-                    {/* <input
-                      // required
-                      type="text"
-                      class="form-control-lg"
-                      placeholder="city" /> */}
-
-                    <select class="form-control-lg" required>
+                    <select class="form-control-lg" required value={city} onChange={handleCityChange}>
                       <option value="" disabled selected>City</option>
                       <option value="Addis Ababa">Addis Ababa</option>
                       <option value="Adama">Adama</option>
@@ -257,15 +274,47 @@ const Order = () => {
                       <option value="Jijiga">Jijiga</option>
                       <option value="Mekelle">Mekelle</option>
                     </select>
-                    <span class="required-indicator">*</span>
-
                   </div>
-                  <div class="form-row">
+                  <div className="form-group">
+                    <label htmlFor="deliverable" className="font-weight-bold">
+                      Deliverable?
+                    </label>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="deliverable"
+                        value="true"
+                        checked={deliverable === "true"}
+                        id="yes-radio-input"
+                        onChange={handleDeliverableChange}
+                        required
+                      />
+                      <label className="form-check-label" htmlFor="yes-radio-input">
+                        Yes
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="deliverable"
+                        value="false"
+                        checked={deliverable === "false"}
+                        id="no-radio-input"
+                        onChange={handleDeliverableChange}
+                      />
+                      <label className="form-check-label" htmlFor="no-radio-input">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                  {/* <div class="form-row">
                     <input
                       type="text"
                       class="form-control-lg"
                       placeholder="subcity" />
-                  </div>
+                  </div> */}
                   <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
                   <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
                 </section>
@@ -280,11 +329,12 @@ const Order = () => {
                       category={category}
                       handleCategoryChange={handleCategoryChange}
                     />
-                    
+
                   </div>
                   <br />
                   <br />
                   <div class="form-row" style={{ marginBottom: "18px" }}>
+                    <span class="required-indicator">*</span>
                     <textarea
                       class="form-control-lg"
                       placeholder="Discription"
@@ -292,19 +342,41 @@ const Order = () => {
                       onChange={handleDescriptionChange}
                       style={{ Height: "108px" }}>
                     </textarea>
-                    <span class="required-indicator">*</span>
-
                   </div>
-                  <div class="form-check">
-                    <input
-                      // required 
-                      class="form-check-input-"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault" />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Negotiable
+                  <div className="form-group">
+                    <label htmlFor="negotiable" className="font-weight-bold">
+                      Negotiable?
                     </label>
+                    <span class="required-indicator">*</span>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="negotiable"
+                        value="true"
+                        id="yes-radio-input"
+                        onChange={handleNegotiableChange}
+                        required
+                        checked={negotiable === "true"}
+                      />
+                      <label className="form-check-label" htmlFor="yes-radio-input">
+                        Yes
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="negotiable"
+                        value="false"
+                        checked={negotiable === "false"}
+                        id="no-radio-input"
+                        onChange={handleNegotiableChange}
+                      />
+                      <label className="form-check-label" htmlFor="no-radio-input">
+                        No
+                      </label>
+                    </div>
                   </div>
                   <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
                   <button className='btn btn-primary' onClick={handleNextClick}>Next</button>

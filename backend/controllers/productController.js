@@ -66,6 +66,10 @@ const addItem = (req, res) => {
         category: req.body.category,
         addedBy: req.user._id,
         addedByUsername: req.user.name,
+        city: req.body.city,
+        phone: req.body.phone,
+        negotiable: req.body.negotiable,
+        delivery: req.body.delivery
       })
 
 
@@ -88,57 +92,86 @@ const addItem = (req, res) => {
 // GET all products
 const getItems = async (req, res, next) => {
   try {
-    const products = await Product.find().populate({ path: 'addedBy', select: 'name'}).select('-__v');
+    const products = await Product.find().populate({ path: 'addedBy', select: 'name' }).select('-__v');
     res.status(200).json(products);
+
     // console.log(products);
     // for (let i = 0; i < products.length; i++) {
     //   console.log(products[i].addedBy.name);
     // }
 
     // send email to admin
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      secure: false,
-      auth: {
-        user: 'yoszewdu@gmail.com',
-        pass: '"wemakeourownrules"-maxine!',
-      },
-      host: 'smtp.gmail.com',
-      
+    // const transporter = nodemailer.createTransport({
+    //   service: 'gmail',
+    //   secure: false,
+    //   auth: {
+    //     user: 'yoszewdu@gmail.com',
+    //     pass: '"wemakeourownrules"-maxine!',
+    //   },
+    //   host: 'smtp.gmail.com',
 
 
-    });
+
+    // });
 
     // console.log(transporter);
-    const mailOptions = {
-      from: 'yoszewdu@gmail.com',
-      to: 'ymymym4634@example.com',
-      subject: 'New product added',
-      text: 'A new product has been added:',
-    };
+    // const mailOptions = {
+    //   from: 'y@gmail.com',
+    //   to: 'ym@example.com',
+    //   subject: 'New product added',
+    //   text: 'A new product has been added:',
+    // };
 
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.log('error' + err.message);
-      } else {
-        console.log(`Email sent successfully: ${info.response}`);
+    // transporter.sendMail(mailOptions, (err, info) => {
+    //   if (err) {
+    //     console.log('error' + err.message);
+    //   } else {
+    //     console.log(`Email sent successfully: ${info.response}`);
+    //   }
+    // }
+    // );
+  } catch (err) {
+    next(err);
+  }
+
+};
+
+const getItemByUserId = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const products = await Product.find().populate({ path: 'addedBy', select: 'name' }).select('-__v');
+
+    const filteredProducts = products.filter((product) => {
+      if (product.addedBy._id.toString() === userId) {
+        return product;
       }
     }
     );
+
+    const newProducts = filteredProducts.map((product) => {
+      return {
+        name: product.name,
+        unitPrice: product.unitPrice,
+        description: product.description,
+        images: product.images,
+        category: product.category,
+        addedBy: product.addedBy.name,
+        city: product.city,
+        phone: product.phone,
+        negotiable: product.negotiable,
+        delivery: product.delivery,
+        dateAdded: product.dateAdded,
+        id: product._id
+      }
+    }
+    );
+    res.status(200).json(newProducts);
+
   } catch (err) {
     next(err);
   }
-  
 };
 
-const getImageUrl = async (req, res, next) => {
-  try {
-    const imageUrl = `../uploads/img/${req.files[0].filename}`;
-    res.status(200).send(imageUrl);
-  } catch (err) {
-    next(err);
-  }
-};
 
 // GET a product by ID
 // const getItemById = async (req, res, next) => {
@@ -155,9 +188,7 @@ const deleteItem = async (req, res, next) => {
   try {
     const productId = req.params.id;
     const userId = req.user._id;
-
-    const product = await Product.findOne({ _id: productId, addedBy: userId });
-
+    const product = await Product.findOne({ _id: productId});
     if (!product) {
       return res.status(404).send("Product not found or unauthorized to delete.");
     }
@@ -175,7 +206,7 @@ const editItem = async (req, res, next) => {
     const productId = req.params.id;
     const userId = req.user._id;
 
-    const product = await Product.findOne({ _id: productId, addedBy: userId });
+    const product = await Product.findOne({ _id: productId });
 
     if (!product) {
       return res.status(404).send("Product not found or unauthorized to edit.");
@@ -319,6 +350,7 @@ const sortProductsByCategory = async (req, res, next) => {
 module.exports = {
   getItems,
   // getItemById,
+  getItemByUserId,
   deleteItem,
   addItem,
   editItem,

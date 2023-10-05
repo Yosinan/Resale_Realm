@@ -49,14 +49,14 @@ const ProfileUp = () => {
     const [enable, setEnable] = useState(true);
     const [currentUser, setCurrentUser] = useState('');
 
- 
+
     useEffect(() => {
-        if (newPassword.length < 6 ||  confirmPass.length < 6) {
+        if (newPassword.length < 6 || confirmPass.length < 6) {
             setEnable(false);
         } else {
             setEnable(true);
         }
-    }, [ newPassword, confirmPass]);
+    }, [newPassword, confirmPass]);
 
     useEffect(() => {
         // Fetch the current user information
@@ -113,14 +113,27 @@ const ProfileUp = () => {
         }
 
         try {
+
             const token = localStorage.getItem('Token');
             const id = currentUser.__id;
-            const response = await fetch(`http://localhost:5000/api/users/change/${id}`, {
+
+            const data = {
+                password,
+                newPassword
+            }
+            const respon = await fetch(`http://localhost:5000/api/users/change/${id}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({newPassword, password}),
+            });
+
+            const response = await axios.put(`http://localhost:5000/api/users/change/${id}`,data, {
+
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+
             });
 
             if (response.ok) {
@@ -137,7 +150,7 @@ const ProfileUp = () => {
             // setResponseMessage(error.message);
             handleError(error.message);
         }
-     
+
 
     }
 

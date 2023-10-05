@@ -8,7 +8,7 @@ const imgSchema = new mongoose.Schema({
   },
   mimetype: {
     type: String,
-  },  
+  },
 });
 
 
@@ -27,22 +27,43 @@ const productSchema = new mongoose.Schema({
   },
   images: {
     type: [imgSchema],
-    required: true,
+    // required: true,
   },
 
   category: {
-    type:String,
+    type: String,
     required: true,
   },
+
+  phone: {
+    type: Number,
+    required: true,
+  },
+
+  city: {
+    type: String,
+    // required: true,
+  },
+
+  negotiable: {
+    type: Boolean,
+    // required: true,
+  },
+
+  delivery: {
+    type: Boolean,
+    // required: true,
+  },
+
   addedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+
   },
   addedByUsername: {
     type: String,
-    required: true,
+    // required: true,
   },
   dateAdded: {
     // type: Date,

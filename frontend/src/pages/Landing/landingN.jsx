@@ -93,7 +93,7 @@ const LandingNew = () => {
         const fetchitems = async () => {
             try {
 
-                // const token = getToken();
+                const token = localStorage.getItem('Token');
                 const url = `http://localhost:5000/api/products/`;
                 const response = await axios.get(url, {
                     headers: {
@@ -149,7 +149,7 @@ const LandingNew = () => {
                                 <div class="containt_main">
                                     <div id="mySidenav" style={{ width: `${navWidth}px`, height: '300px' }} className="sidenav">
                                         <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
-                                        <a href="settings">Profile</a>
+                                        {/* <a href="settings">Profile</a> */}
                                         <a href="post"> Your Post</a>
                                         <a href="profile">Profile Update</a>
                                         <a href="ClosedPost">Closed Post</a>

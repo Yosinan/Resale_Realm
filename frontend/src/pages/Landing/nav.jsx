@@ -22,7 +22,7 @@ const Nav = () => {
                         <ul>
                            <li><a href="/">HOME</a></li>
                            {/* <li><a href="#">Gift Ideas</a></li> */}
-                           <li><a href="#">ABOUT</a></li>
+                           <li><a href="/about">ABOUT</a></li>
                            <li><a href="#">Contact</a></li>
                            {authenticated ? (
                               <li>
