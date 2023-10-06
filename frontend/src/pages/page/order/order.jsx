@@ -5,7 +5,10 @@ import Sidenav from '../../Landing/sidenav';
 import useAuth from '../../../components/hooks/useAuth';
 import Status from '../../../components/Status/Status';
 import axios from 'axios';
+import { Form, Button } from "react-bootstrap";
 import CustomSelect from './CustomSelect';
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Order = () => {
   // useEffect(() => {
@@ -62,8 +65,16 @@ const Order = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [deliverable, setDeliverable] = useState("false");
   const [negotiable, setNegotiable] = useState("false");
+  const [validated, setValidated] = useState(false);
 
   const authenticated = useAuth();
+
+
+  useEffect(() => {
+    if (name && price && phoneNo && city && description && file && category) {
+      setValidated(true);
+    }
+  }, [name, price, phoneNo, city, description, file, category]);
 
   const handleDeliverableChange = (event) => {
     setDeliverable(event.target.value);
@@ -100,7 +111,6 @@ const Order = () => {
   };
 
   const handleCategoryChange = (category) => {
-    console.log(category);
     setCategory(category);
   };
 
@@ -110,9 +120,10 @@ const Order = () => {
     }
   };
 
-  const handleSubmit = async (event) => { 
-    console.log(city,deliverable, negotiable, phoneNo)
+  const handleSubmit = async (event) => {
+
     event.preventDefault();
+
     const postData = new FormData();
     postData.append("name", name);
     postData.append("unitPrice", price);
@@ -150,6 +161,8 @@ const Order = () => {
       console.error("Error posting item:", error.message);
       handleError();
     }
+
+    setValidated(true);
   };
 
   const handleSuccess = () => {
@@ -159,19 +172,24 @@ const Order = () => {
     }, 3000);
   };
 
-  const handleError = () => {
-    setErrorMessage('Something went wrong. Please try again.');
+  const handleError = (text = 'Something went wrong. Please try again.') => {
+    setErrorMessage(text);
     setTimeout(() => {
       setErrorMessage('');
     }, 3000);
   };
 
   const handleNextClick = () => {
+
+
     const updatedStepStatuses = [...stepStatuses];
     updatedStepStatuses[currentStep] = true;
     setStepStatuses(updatedStepStatuses);
 
     setCurrentStep(currentStep + 1);
+
+
+
   };
 
   const handlePreviousClick = () => {
@@ -198,8 +216,9 @@ const Order = () => {
       <Sidenav />
       <div>
         <div class="wrapper ">
-          <form onSubmit={handleSubmit}>
-            <div className="ordershadow" id="wizard">
+          <Form noValidate validated={validated} id="order-form" onSubmit={handleSubmit}>
+            {/* <div className="ordershadow" id="wizard"> */}
+            <Form.Group className="ordershadow" id="wizard" controlId="formName">
               <h3>Post Item</h3>
               <ul className="steps">
                 {["", "", "", ""].map((step, index) => (
@@ -212,6 +231,9 @@ const Order = () => {
               <h4></h4>
               {currentStep === 0 && (
                 <section>
+                  {validated && (
+                    <p className="error-message">Please fill in all required fields.</p>
+                  )}
                   <span class="required-indicator">*</span>
                   <div class="form-row">
                     <input
@@ -244,12 +266,15 @@ const Order = () => {
                       placeholder="Add Photo"
                     />
                   </div>
-                  <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
+                  <button className='btn btn-primary' onClick={handleNextClick}><FontAwesomeIcon   icon={faArrowRight} /></button>
                 </section>
               )}
               <h4></h4>
               {currentStep === 1 && (
                 <section>
+                  {validated && (
+                    <p className="error-message">Please fill in all required fields.</p>
+                  )}
                   <span class="required-indicator">*</span>
                   <div class="form-row">
                     <input
@@ -315,14 +340,17 @@ const Order = () => {
                       class="form-control-lg"
                       placeholder="subcity" />
                   </div> */}
-                  <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
-                  <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
+                  <button className='btn btn-light' onClick={handlePreviousClick}> <FontAwesomeIcon icon={faArrowLeft} /> </button>
+                  <button className='btn btn-primary' onClick={handleNextClick}><FontAwesomeIcon icon={faArrowRight} /></button>
                 </section>
 
               )}
               <h4></h4>
               {currentStep === 2 && (
                 <section>
+                  {validated && (
+                    <p className="error-message">Please fill in all required fields.</p>
+                  )}
                   <div class='form-control-l'>
                     <span class="required-indicator">*</span>
                     <CustomSelect
@@ -378,25 +406,36 @@ const Order = () => {
                       </label>
                     </div>
                   </div>
-                  <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button>
-                  <button className='btn btn-primary' onClick={handleNextClick}>Next</button>
+                  <button className='btn btn-light' onClick={handlePreviousClick}> <FontAwesomeIcon  icon={faArrowLeft} /> </button>
+                  <button className='btn btn-primary' onClick={handleNextClick}><FontAwesomeIcon   icon={faArrowRight} /></button>
                 </section>
               )}
 
               <h4></h4>
               {currentStep === 3 && (
-                <section className='svg'>
-                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                    <circle class="path circle" fill="none" stroke="#73AF55" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                    <polyline class="path check" fill="none" stroke="#73AF55" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
-                  </svg>
-                  <p>Ready to Post </p>
-                  <button type="submit" className='btn-lg btn-success'>Post</button>
-                  {/* <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button> */}
-                </section>
+                <>
+                  {validated ? (
+                    <section className='svg'>
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <circle class="path circle" fill="none" stroke="#73AF55" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                        <polyline class="path check" fill="none" stroke="#73AF55" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                      </svg>
+                      <p>Ready to Post </p>
+                      <button type="submit" className='btn-lg btn-success'>Post</button>
+                      {/* <button className='btn btn-primary' onClick={handlePreviousClick}>Previous</button> */}
+                    </section>
+                  ) : (
+                    <section>
+                      <p className="error-message">Please fill in all required fields.</p>
+                      <button className='btn btn-outline-danger' onClick={handlePreviousClick}>Go Back</button>
+                    </section>
+                  )}
+
+                </>
               )}
-            </div>
-          </form>
+              {/* </div> */}
+            </Form.Group>
+          </Form>
         </div>
       </div>
 

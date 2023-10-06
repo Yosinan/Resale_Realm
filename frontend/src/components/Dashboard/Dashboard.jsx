@@ -5,7 +5,7 @@ import dash from './P.module.css'
 import Nav from '../../pages/Landing/nav';
 import Footer from '../../components/Footer/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import {
   faSignOut,
   faTimes,
@@ -43,8 +43,8 @@ function Dashboard() {
   const [sortOrder, setSortOrder] = useState("");
   const [filterOption, setFilterOption] = useState([]);
   const [items, setItems] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
   const [data, setData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -481,7 +481,7 @@ function Dashboard() {
                 </div>
                 <div >
                 </div>
-                <h3>{item.name}</h3>
+                <h2>{item.name}</h2>
                 <b>ETB: {item.unitPrice}</b>
 
                 {/* {console.log('added by : ' + item.addedByUsername + ' User: ' + currentUser.__id)} */}
@@ -502,7 +502,7 @@ function Dashboard() {
             ))}
 
             {selectedProduct && (
-             
+
               <div className={dash.productDetailsModal}>
                 <div className={dash.productDetails}>
                   <button className={dash.closeButton} onClick={closeProductDetails}>
@@ -516,14 +516,14 @@ function Dashboard() {
                   )}
                   <div className={dash.productImages}>
                     <button
-                      class='btn btn-primary'
+                      class='btn-sm  btn-outline-grey'
                       // className={dash.prev_button}
                       onClick={handlePrevImage}>
-                      <FontAwesomeIcon icon={faChevronLeft} />
+                      <FontAwesomeIcon  icon={faChevronLeft} />
                     </button>
                     <img src={`../uploads/img/${selectedProduct.images[currentImageIndex].filename}`} alt={selectedProduct.name} />
                     <button
-                      class='btn btn-primary'
+                      class='btn-sm btn-outline-grey'
                       // className={dash.next_button}
                       onClick={handleNextImage}>
                       <FontAwesomeIcon icon={faChevronRight} />
@@ -544,7 +544,7 @@ function Dashboard() {
                   {/* <p className="price">ETB: {selectedProduct.unitPrice}</p> */}
                   <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
                   <p className="created-at">Contact: 0{selectedProduct.phone}</p>
-                  <p >Location: {selectedProduct.city }</p>
+                  <p >Location: {selectedProduct.city}</p>
                   {/* <p>Negotiable: {selectedProduct.deliverable}</p> */}
 
                   {/* {currentUser && currentUser.__id === selectedProduct.addedBy ? (

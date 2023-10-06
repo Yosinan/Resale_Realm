@@ -157,9 +157,9 @@ p {
 
 }
 
-.content h3 {
-    font-size: 18px;
-    color: rgb(202, 43, 43);
+.content h2 {
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.775);
     text-align: center;
 
 }
@@ -492,7 +492,12 @@ input[type=number] {
     right: 20px;
 }
 
-
+.content b {
+    font-size: 18px;
+    margin-left: 5px;
+    text-align: left;
+    color: rgb(17, 0, 255);
+}
 
 /* CSS for Pagination Container */
 .pagination_container {
