@@ -1,6 +1,7 @@
 .about-background {
     height: 50vh;
     background-attachment: fixed;
+    width: 100%;
 }
 
 .about-landing-overlay {

@@ -10,7 +10,7 @@ const About = () => {
                 style={{ backgroundImage: " url('https://th.bing.com/th/id/R.a3ceb6dc2c8105e3d2455f72c613c2c6?rik=oEphWqFqWyoy%2fg&pid=ImgRaw&r=0')" }}>
                 <div className='about-landing-overlay'>
                     <h1 class="text-4xl text-white font-bold mb-6">Start exploring ELY Resale-Realm today</h1>
-                    <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Shop Now</a>
+                    <a href="/dashboard" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Shop Now</a>
                 </div>
             </section>
             <section class="bg-gray-100 py-12">
