@@ -25,9 +25,14 @@ const Nav = () => {
                            <li><a href="/about">ABOUT</a></li>
                            {/* <li><a href="#">Contact</a></li> */}
                            {authenticated ? (
+                              <>
                               <li>
                                  <a href='sell'>SELL</a>
                               </li>
+                              <li>
+                                 <a href='/dashboard'>BUY</a>
+                              </li>
+                              </>
                            ) : (
                               <li>
                                  <a href='/login'>Sign In</a>

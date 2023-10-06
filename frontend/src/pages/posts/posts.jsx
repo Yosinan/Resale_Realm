@@ -114,7 +114,7 @@ export const Product = () => {
       const token = localStorage.getItem("Token");
       const url = `http://localhost:5000/api/products/edit/${selectedItem.id}`;
       const updatedItem = {
-        name: newName,
+        name: newName.toUpperCase(),
         description: newDescription,
         unitPrice: newPrice,
         phone: newPhone,

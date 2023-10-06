@@ -543,6 +543,7 @@ function Dashboard() {
                   <p className="created-at">Category: {selectedProduct.category}</p>
                   {/* <p className="price">ETB: {selectedProduct.unitPrice}</p> */}
                   <p className="created-at">Posted at: {moment(selectedProduct.dateAdded).format("DD/MM/YYYY")}</p>
+                  <p className="created-at">Contact: 0{selectedProduct.phone}</p>
                   <p >Location: {selectedProduct.city }</p>
                   {/* <p>Negotiable: {selectedProduct.deliverable}</p> */}
 
